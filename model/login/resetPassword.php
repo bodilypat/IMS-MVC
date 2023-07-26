@@ -1,6 +1,6 @@
 <?php
-	require_once('../../inc/config/constants.php');
-	require_once('../../inc/config/db.php');
+	require_once('../../include/config/constants.php');
+	require_once('../../include/config/db.php');
 	
 	$resetPasswordUsername = '';
 	$resetPasswordPassword1 = '';
