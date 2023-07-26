@@ -7,9 +7,9 @@
 		exit();
 	}
 	
-	require_once('inc/config/constants.php');
-	require_once('inc/config/db.php');
-	require_once('inc/header.html');
+	require_once('include/config/constants.php');
+	require_once('include/config/db.php');
+	require_once('include/header.html');
 ?>
   <body>
 
@@ -58,7 +58,7 @@ $action = '';
 			  </div>
 			</div>
 <?php
-			require 'inc/footer.php';
+			require 'include/footer.php';
 			echo '</body></html>';
 			exit();
 		} elseif($action == 'resetPassword'){
@@ -96,7 +96,7 @@ $action = '';
 			  </div>
 			</div>
 <?php
-			require 'inc/footer.php';
+			require 'include/footer.php';
 			echo '</body></html>';
 			exit();
 		}
