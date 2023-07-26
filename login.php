@@ -132,7 +132,7 @@ $action = '';
       </div>
     </div>
 <?php
-	require 'inc/footer.php';
+	require 'include/footer.php';
 ?>
   </body>
 </html>
