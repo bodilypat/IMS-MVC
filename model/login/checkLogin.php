@@ -1,7 +1,7 @@
 <?php
 	session_start();
-	require_once('../../inc/config/constants.php');
-	require_once('../../inc/config/db.php');
+	require_once('../../include/config/constants.php');
+	require_once('../../include/config/db.php');
 	
 	$loginUsername = '';
 	$loginPassword = '';
@@ -32,8 +32,8 @@
 			$hashedPassword = md5($loginPassword);
 			
 			// Check the given credentials
-			$checkUserSql = 'SELECT * FROM user WHERE username = :username AND password = :password';
-			$checkUserStatement = $conn->prepare($checkUserSql);
+			$checkUser = 'SELECT * FROM user WHERE username = :username AND password = :password';
+			$checkUserStatement = $conn->prepare($checkUser);
 			$checkUserStatement->execute(['username' => $loginUsername, 'password' => $hashedPassword]);
 			
 			// Check if user exists or not
