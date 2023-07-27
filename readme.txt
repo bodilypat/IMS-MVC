@@ -2,7 +2,7 @@
 
 2."TEXT EDITOR" NOTEPAD++ OR SUBLIME TEXT 3 / ETC.
 
-3"inventory-management-system"
+3"inventory-system"
 
 4. Download the zip file/ download winrar
 
