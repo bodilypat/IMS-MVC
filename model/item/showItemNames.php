@@ -2,27 +2,27 @@
 	require_once('../../include/config/constants.php');
 	require_once('../../include/config/db.php');
 	
-	// Check if the POST request is received and if so, execute the script
+	/* Check POST received , execute the script */
 	if(isset($_POST['textBoxValue'])){
 		$output = '';
 		$itemNameString = '%' . htmlentities($_POST['textBoxValue']) . '%';
 		
-		// Construct the SQL query to get the item name
-		$query = 'SELECT itemName FROM item WHERE itemName LIKE ?';
-		$statement = $conn->prepare($sql);
-		$statement->execute([$itemNameString]);
+		/* get the item name */
+		$qIName = 'SELECT itemName FROM item WHERE itemName LIKE ?';
+		$itemStatement = $conn->prepare($qIname);
+		$itemStatement->execute([$itemNameString]);
 		
-		// If we receive any results from the above query, then display them in a list
-		if($statement->rowCount() > 0){
+		/* If  receive any results from the above query, then display them in a list */
+		if($itemStatement->rowCount() > 0){
 			$output = '<ul class="list-unstyled suggestionsList" id="itemDetailsItemNamesSuggestionsList">';
-			while($row = $statement->fetch(PDO::FETCH_ASSOC)){
-				$output .= '<li>' . $row['itemName'] . '</li>';
+			while($resultset = $itemStatement->fetch(PDO::FETCH_ASSOC)){
+				$output .= '<li>' . $resultset['itemName'] . '</li>';
 			}
 			echo '</ul>';
 		} else {
 			$output = '';
 		}
-		$statement->closeCursor();
+		$itemStatement->closeCursor();
 		echo $output;
 	}
 ?>
