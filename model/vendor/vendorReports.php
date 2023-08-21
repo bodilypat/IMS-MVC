@@ -2,11 +2,11 @@
 	require_once('../../include/config/constants.php');
 	require_once('../../include/config/db.php');
 	
-	$venQuery = 'SELECT * FROM vendor';
-	$venStatement = $conn->prepare($venQuery);
-	$venStatement->execute();
+	$qVendor = 'SELECT * FROM vendor';
+	$vendorStatement = $conn->prepare($qVendor);
+	$vendorStatement->execute();
 
-	$output = '<table id="vendorReportsTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
+	$output = '<table id="vendorDetailsTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
 				<thead>
 					<tr>
 						<th>Vendor ID</th>
@@ -23,23 +23,23 @@
 				</thead>
 				<tbody>';
 	
-	// Create table rows from the selected data
-	while($row = $venStatement->fetch(PDO::FETCH_ASSOC)){
+	/* Create table rows from the selected data */
+	while($resultset = $vendorStatement->fetch(PDO::FETCH_ASSOC)){
 		$output .= '<tr>' .
-						'<td>' . $row['vendorID'] . '</td>' .
-						'<td>' . $row['fullName'] . '</td>' .
-						'<td>' . $row['email'] . '</td>' .
-						'<td>' . $row['mobile'] . '</td>' .
-						'<td>' . $row['phone2'] . '</td>' .
-						'<td>' . $row['address'] . '</td>' .
-						'<td>' . $row['address2'] . '</td>' .
-						'<td>' . $row['city'] . '</td>' .
-						'<td>' . $row['district'] . '</td>' .
-						'<td>' . $row['status'] . '</td>' .
+						'<td>' . $resultset['vendorID'] . '</td>' .
+						'<td>' . $resultset['fullName'] . '</td>' .
+						'<td>' . $resultset['email'] . '</td>' .
+						'<td>' . $resultset['mobile'] . '</td>' .
+						'<td>' . $resultset['phone2'] . '</td>' .
+						'<td>' . $resultset['address'] . '</td>' .
+						'<td>' . $resultset['address2'] . '</td>' .
+						'<td>' . $resultset['city'] . '</td>' .
+						'<td>' . $resultset['district'] . '</td>' .
+						'<td>' . $resultset['status'] . '</td>' .
 					'</tr>';
 	}
 	
-	$venStatement->closeCursor();
+	$vendorStatement->closeCursor();
 	
 	$output .= '</tbody>
 					<tfoot>
@@ -59,4 +59,3 @@
 				</table>';
 	echo $output;
 ?>
-
