@@ -1,13 +1,12 @@
 <?php
-	$venQuery = 'SELECT * FROM vendor';
-	$venStatement = $conn->prepare($venQuery);
-	$venStatement->execute();
+	$qVendor = 'SELECT * FROM vendor';
+	$vendorStatement = $conn->prepare($qVendor);
+	$vendorStatement->execute();
 	
-	if($venStatement->rowCount() > 0) {
-		while($row = $venStatement->fetch(PDO::FETCH_ASSOC)) {
-			echo '<option value="' .$row['fullName'] . '">' . $row['fullName'] . '</option>';
+	if($vendorStatement->rowCount() > 0) {
+		while($result = $vendorStatement->fetch(PDO::FETCH_ASSOC)) {
+			echo '<option value="' .$resultset['fullName'] . '">' . $resultset['fullName'] . '</option>';
 		}
 	}
-	$venStatement->closeCursor();
+	$vendorStatement->closeCursor();
 ?>
-
