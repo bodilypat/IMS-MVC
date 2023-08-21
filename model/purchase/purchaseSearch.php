@@ -6,8 +6,8 @@
 	$quantity = 0;
 	$totalPrice = 0;
 	
-	$queryPurchase = 'SELECT * FROM purchase';
-	$purchaseStatement = $conn->prepare($queryPurchase);
+	$qPurchase = 'SELECT * FROM purchase';
+	$purchaseStatement = $conn->prepare($qPurchase);
 	$purchaseStatement->execute();
 
 	$output = '<table id="purchaseDetailsTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
@@ -26,27 +26,24 @@
 				</thead>
 				<tbody>';
 	
-	// Create table rows from the selected data
-	while($row = $purchaseStatement->fetch(PDO::FETCH_ASSOC)){
+	/* Create table rows from the selected data */
+	while($resultset = $purchaseStatement->fetch(PDO::FETCH_ASSOC)){
 		$unitPrice = $row['unitPrice'];
 		$quantity = $row['quantity'];
-		$totalPrice = $unitPrice * $qty;
-		
+		$totalPrice = $unitPrice * $quantity;
 		$output .= '<tr>' .
-						'<td>' . $row['purchaseID'] . '</td>' .
-						'<td>' . $row['itemNumber'] . '</td>' .
-						'<td>' . $row['purchaseDate'] . '</td>' .
-						'<td>' . $row['itemName'] . '</td>' .
-						'<td>' . $row['unitPrice'] . '</td>' .
-						'<td>' . $row['quantity'] . '</td>' .
-						'<td>' . $row['vendorName'] . '</td>' .
-						'<td>' . $row['vendorID'] . '</td>' .
+						'<td>' . $resutlset['purchaseID'] . '</td>' .
+						'<td>' . $resultset['itemNumber'] . '</td>' .
+						'<td>' . $resultset['purchaseDate'] . '</td>' .
+						'<td>' . $resultset['itemName'] . '</td>' .
+						'<td>' . $resultset['unitPrice'] . '</td>' .
+						'<td>' . $resultset['quantity'] . '</td>' .
+						'<td>' . $resulteset['vendorName'] . '</td>' .
+						'<td>' . $resultset['vendorID'] . '</td>' .
 						'<td>' . $totalPrice . '</td>' .
 					'</tr>';
 	}
-	
 	$purchaseStatement->closeCursor();
-	
 	$output .= '</tbody>
 					<tfoot>
 						<tr>
@@ -64,4 +61,5 @@
 				</table>';
 	echo $output;
 ?>
+
 
