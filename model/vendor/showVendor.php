@@ -2,30 +2,29 @@
 	require_once('../../include/config/constants.php');
 	require_once('../../include/config/db.php');
 	
-	// Check if the POST request is received and if so, execute the script
+	/* Check if the POST request is received , execute the script */
 	if(isset($_POST['textBoxValue'])){
 		$output = '';
 		$venIDString = '%' . htmlentities($_POST['textBoxValue']) . '%';
 		
-		// Construct the SQL query to get the vendor ID
-		$query = 'SELECT vendorID FROM vendor WHERE vendorID LIKE ?';
-		$statement = $conn->prepare($query);
-		$statement->execute([$venIDString]);
+		/*  SQL query to get the vendor ID */
+		$qVendor = 'SELECT vendorID FROM vendor WHERE vendorID LIKE ?';
+		$vendorStatement = $conn->prepare($qVendor);
+		$vendorStatement->execute([$venIDString]);
 		
-		// If we receive any results from the above query, then display them in a list
-		if($statement->rowCount() > 0){
+		/* If we receive any results from the above query, then display them in a list */
+		if($vendorStatement->rowCount() > 0){
 			
-			// Given vendor ID is available in DB. Hence create the dropdown list
+			/*  vendor ID is available in DB. create dropdown list */
 			$output = '<ul class="list-unstyled suggestionsList" id="vendorDetailsVendorIDSuggestionsList">';
-			while($row = $statement->fetch(PDO::FETCH_ASSOC)){
-				$output .= '<li>' . $row['vendorID'] . '</li>';
+			while($resultset = $vendorStatement->fetch(PDO::FETCH_ASSOC)){
+				$output .= '<li>' . $resultset['vendorID'] . '</li>';
 			}
 			echo '</ul>';
 		} else {
 			$output = '';
 		}
-		$statement->closeCursor();
+		$vendorStatement->closeCursor();
 		echo $output;
 	}
 ?>
-    
