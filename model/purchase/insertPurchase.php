@@ -3,7 +3,6 @@
 	require_once('../../include/config/db.php');
 	
 	if(isset($_POST['purchaseItemNumber'])){
-
 		$purchaseItemNumber = htmlentities($_POST['purchaseItemNumber']);
 		$purchaseDate = htmlentities($_POST['purchaseDate']);
 		$purchaseItemName = htmlentities($_POST['purchaseItemName']);
