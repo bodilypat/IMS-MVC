@@ -4,29 +4,27 @@
 	
 	if(isset($_POST['id'])){
 		
-		$productID = htmlentities($_POST['id']);
-		
-			
+		$productID = htmlentities($_POST['id']);			
 		$defaultImgFolder = 'data/item_images/';
 		
-		// Get all item details
-		$query = 'SELECT * FROM item WHERE productID = :productID';
-		$statementt = $conn->prepare($query);
-		$statement->execute(['productID' => $productID]);
+		/* Get all item details */
+		$qItem = 'SELECT * FROM item WHERE productID = :productID';
+		$itemStatementt = $conn->prepare($qItem);
+		$itemStatement->execute(['productID' => $productID]);
 		
-		while($row = $statement->fetch(PDO::FETCH_ASSOC)){
+		while($resultset = $itemStatement->fetch(PDO::FETCH_ASSOC)){
 			$output = '<p><img src="';
 		
-			if($row['imageURL'] === '' || $row['imageURL'] === 'imageNotAvailable.jpg'){
+			if($resultset['imageURL'] === '' || $resultset['imageURL'] === 'imageNotAvailable.jpg'){
 				$output .= 'data/item_images/imageNotAvailable.jpg" class="img-fluid"></p>';
 			} else {
-				$output .= 'data/item_images/' . $row['itemNumber'] . '/' . $row['imageURL'] . '" class="img-fluid"></p>';
+				$output .= 'data/item_images/' . $resultset['itemNumber'] . '/' . $resultset['imageURL'] . '" class="img-fluid"></p>';
 			}
 						
-			$output .= '<span><strong>Name:</strong> ' . $row['itemName'] . '</span><br>';
-			$output .= '<span><strong>Price:</strong> ' . $row['unitPrice'] . '</span><br>';
-			$output .= '<span><strong>Discount:</strong> ' . $row['discount'] . ' %</span><br>';
-			$output .= '<span><strong>Stock:</strong> ' . $row['stock'] . '</span><br>';
+			$output .= '<span><strong>Name:</strong> ' . $resultset['itemName'] . '</span><br>';
+			$output .= '<span><strong>Price:</strong> ' . $resultset['unitPrice'] . '</span><br>';
+			$output .= '<span><strong>Discount:</strong> ' . $resultset['discount'] . ' %</span><br>';
+			$output .= '<span><strong>Stock:</strong> ' . $resultsest['stock'] . '</span><br>';
 		}
 		
 		echo $output;
