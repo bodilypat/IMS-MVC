@@ -10,10 +10,9 @@
 		$startDate = htmlentities($_POST['startDate']);
 		$endDate = htmlentities($_POST['endDate']);
 		
-		$purFilterQuery = 'SELECT * FROM purchase WHERE purchaseDate BETWEEN :startDate AND :endDate';
-		$purchaseFilterStatement = $conn->prepare($purFilterQuery);
-		$purchaseFilterStatement->execute(['startDate' => $startDate, 'endDate' => $endDate]);
-
+		$qPurchase = 'SELECT * FROM purchase WHERE purchaseDate BETWEEN :startDate AND :endDate';
+		$purchaseStatement = $conn->prepare($pPurchase);
+		$purchaseStatement->execute(['startDate' => $startDate, 'endDate' => $endDate]);
 		$output = '<table id="purchaseFilteredReportsTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
 					<thead>
 						<tr>
@@ -30,27 +29,25 @@
 					</thead>
 					<tbody>';
 		
-		// Create table rows from the selected data
-		while($row = $purchaseFilterStatement->fetch(PDO::FETCH_ASSOC)){
+		/*  Create table from the selected data */
+		while($resultset = $purchaseStatement->fetch(PDO::FETCH_ASSOC)){
 			$unitPrice = $row['unitPrice'];
 			$quantity = $row['quantity'];
 			$totalPrice = $unitPrice * $quantity;
-		
 			$output .= '<tr>' .
-							'<td>' . $row['purchaseID'] . '</td>' .
-							'<td>' . $row['itemNumber'] . '</td>' .
-							'<td>' . $row['purchaseDate'] . '</td>' .
-							'<td>' . $row['itemName'] . '</td>' .
-							'<td>' . $row['vendorName'] . '</td>' .
-							'<td>' . $row['vendorID'] . '</td>' .
-							'<td>' . $row['quantity'] . '</td>' .
-							'<td>' . $row['unitPrice'] . '</td>' .
+							'<td>' . $resultset['purchaseID'] . '</td>' .
+							'<td>' . $resultset['itemNumber'] . '</td>' .
+							'<td>' . $resultset['purchaseDate'] . '</td>' .
+							'<td>' . $resultset['itemName'] . '</td>' .
+							'<td>' . $resultset['vendorName'] . '</td>' .
+							'<td>' . $resultset['vendorID'] . '</td>' .
+							'<td>' . $resultset['quantity'] . '</td>' .
+							'<td>' . $resultset['unitPrice'] . '</td>' .
 							'<td>' . $totalPrice . '</td>' .
 						'</tr>';
 		}
 		
-		$purchaseFilterStatement->closeCursor();
-		
+		$purchaseStatement->closeCursor();
 		$output .= '</tbody>
 						<tfoot>
 							<tr>
