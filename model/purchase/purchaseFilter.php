@@ -31,8 +31,8 @@
 		
 		/*  Create table from the selected data */
 		while($resultset = $purchaseStatement->fetch(PDO::FETCH_ASSOC)){
-			$unitPrice = $row['unitPrice'];
-			$quantity = $row['quantity'];
+			$unitPrice = $result['unitPrice'];
+			$quantity = $result['quantity'];
 			$totalPrice = $unitPrice * $quantity;
 			$output .= '<tr>' .
 							'<td>' . $resultset['purchaseID'] . '</td>' .
