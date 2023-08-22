@@ -54,8 +54,8 @@
 				/*  Check  vendorID is in the DB */
 
 				$qVendor = 'SELECT vendorID FROM vendor WHERE vendorID = :vendorID';
-				$vendorStatement = $conn->prepare($qVendor);
-				$vendorStatement->execute(['vendorID' => $vendorID]);
+				$getVendorStatement = $conn->prepare($qVendor);
+				$getVenvendorStatement->execute(['vendorID' => $vendorID]);
 				
 				if($vendorStatement->rowCount() > 0) {
 					
