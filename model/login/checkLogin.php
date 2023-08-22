@@ -13,36 +13,36 @@
 		
 		if(!empty($loginUsername) && !empty($loginUsername)){
 			
-			// Sanitize username
+			/* Sanitize username */
 			$loginUsername = filter_var($loginUsername, FILTER_SANITIZE_STRING);
 			
-			// Check if username is empty
+			/* Check if username is empty */
 			if($loginUsername == ''){
 				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter Username</div>';
 				exit();
 			}
 			
-			// Check if password is empty
+			/*  Check if password is empty */
 			if($loginPassword == ''){
 				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter Password</div>';
 				exit();
 			}
 			
-			// Encrypt the password
+			/* Encrypt the password */
 			$hashedPassword = md5($loginPassword);
 			
-			// Check the given credentials
-			$checkUser = 'SELECT * FROM user WHERE username = :username AND password = :password';
-			$checkUserStatement = $conn->prepare($checkUser);
+			/* Check the given credentials */
+			$qUser = 'SELECT * FROM user WHERE username = :username AND password = :password';
+			$checkUserStatement = $conn->prepare($qUser);
 			$checkUserStatement->execute(['username' => $loginUsername, 'password' => $hashedPassword]);
 			
-			// Check if user exists or not
+			/*  Check if user exists or not */
 			if($checkUserStatement->rowCount() > 0){
-				// Valid credentials. Hence, start the session
-				$row = $checkUserStatement->fetch(PDO::FETCH_ASSOC);
+				/*  Valid credentials. Hence, start the session */
+				$result = $checkUserStatement->fetch(PDO::FETCH_ASSOC);
 
 				$_SESSION['loggedIn'] = '1';
-				$_SESSION['fullName'] = $row['fullName'];
+				$_SESSION['fullName'] = $result['fullName'];
 				
 				echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Login success! Redirecting you to home page...</div>';
 				exit();
