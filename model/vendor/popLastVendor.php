@@ -3,10 +3,10 @@
 	require_once('../../include/config/db.php');
 	
 	$qVendor = "SELECT MAX(vendorID) FROM vendor";
-	$vendorStatement = $conn->prepare($query);
-	$vendorStatement->execute();
+	$getVendorStatement = $conn->prepare($query);
+	$getVendorStatement->execute();
 	$result = $vendorStatement->fetch(PDO::FETCH_ASSOC);
 	
-	echo $row['MAX(vendorID)'];
+	echo $result['MAX(vendorID)'];
 	$vendorStatement->closeCursor();
 ?>
