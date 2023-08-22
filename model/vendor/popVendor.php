@@ -8,11 +8,11 @@
 		$vendorID = htmlentities($_POST['venID']);
 		
 		$qVendor = 'SELECT * FROM vendor WHERE vendorID = :vendorID';
-		$vendorStatement = $conn->prepare($qVendor);
-		$vendorStatement->execute(['vendorID' => $vendorID]);
+		$getVendorStatement = $conn->prepare($qVendor);
+		$getVendorStatement->execute(['vendorID' => $vendorID]);
 		
 		/* If data is found for the given vendorID, return it as a json object */
-		if($vendorStatement->rowCount() > 0) {
+		if($getVendorStatement->rowCount() > 0) {
 			$result = $vendorStatement->fetch(PDO::FETCH_ASSOC);
 			echo json_encode($result);
 		}
