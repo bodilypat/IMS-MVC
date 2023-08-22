@@ -28,8 +28,8 @@
 	
 	/* Create table rows from the selected data */
 	while($resultset = $purchaseStatement->fetch(PDO::FETCH_ASSOC)){
-		$unitPrice = $row['unitPrice'];
-		$quantity = $row['quantity'];
+		$unitPrice = $resultset['unitPrice'];
+		$quantity = $resultset['quantity'];
 		$totalPrice = $unitPrice * $quantity;
 		$output .= '<tr>' .
 						'<td>' . $resutlset['purchaseID'] . '</td>' .
