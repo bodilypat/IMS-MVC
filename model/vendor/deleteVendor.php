@@ -12,14 +12,14 @@
 			/*  Sanitize vendorID */
 			$vendorID = filter_var($vendorID, FILTER_SANITIZE_STRING);
 
-			/*  Check if the Vendor is in the database */
+			/*  get VendorID is in the database */
 			$qVendor = 'SELECT vendorID FROM vendor WHERE vendorID=:vendorID';
-			$vendorStatement = $conn->prepare($qVendor);
-			$vendorStatement->execute(['vendorID' => $vendorID]);
+			$getVendorStatement = $conn->prepare($qVendor);
+			$getVendorStatement->execute(['vendorID' => $vendorID]);
 			
-			if($vendorStatement->rowCount() > 0){
+			if($getVendorStatement->rowCount() > 0){
 				
-				/*  Vendor exists in DB. Hence start the DELETE process */
+				/*  Vendor exists in DB. start the DELETE process */
 				$delVendor = 'DELETE FROM vendor WHERE vendorID=:vendorID';
 				$delVendorStatement = $conn->prepare($delVendor);
 				$delVendorStatement->execute(['vendorID' => $vendorID]);
