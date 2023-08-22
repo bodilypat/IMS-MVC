@@ -1,10 +1,10 @@
 <?php
 	$qVendor = 'SELECT * FROM vendor';
-	$vendorStatement = $conn->prepare($qVendor);
-	$vendorStatement->execute();
+	$getVendorStatement = $conn->prepare($qVendor);
+	$getVendorStatement->execute();
 	
-	if($vendorStatement->rowCount() > 0) {
-		while($result = $vendorStatement->fetch(PDO::FETCH_ASSOC)) {
+	if($getVendorStatement->rowCount() > 0) {
+		while($resultset = $vendorStatement->fetch(PDO::FETCH_ASSOC)) {
 			echo '<option value="' .$resultset['fullName'] . '">' . $resultset['fullName'] . '</option>';
 		}
 	}
