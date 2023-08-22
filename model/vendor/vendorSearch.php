@@ -3,10 +3,10 @@
 	require_once('../../include/config/db.php');
 	
 	$qVendor = 'SELECT * FROM vendor';
-	$vendorStatement = $conn->prepare($qVendor);
-	$vendorStatement->execute();
+	$getVendorStatement = $conn->prepare($qVendor);
+	$getVendorStatement->execute();
 
-	$output = '<table id="vendorReportsTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
+	$output = '<table id="vendorDetailsTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
 				<thead>
 					<tr>
 						<th>Vendor ID</th>
@@ -23,8 +23,8 @@
 				</thead>
 				<tbody>';
 	
-	/* Create table from the selected data */
-	while($resultset = $vendorStatement->fetch(PDO::FETCH_ASSOC)){
+	// Create table rows from the selected data
+	while($resultset = $getVendorStatement->fetch(PDO::FETCH_ASSOC)){
 		$output .= '<tr>' .
 						'<td>' . $resultset['vendorID'] . '</td>' .
 						'<td>' . $resultset['fullName'] . '</td>' .
