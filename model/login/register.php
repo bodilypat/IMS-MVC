@@ -1,6 +1,6 @@
 <?php
-	require_once('../../include/config/constants.php');
-	require_once('../../include/config/db.php');
+	require_once('../../inc/config/constants.php');
+	require_once('../../inc/config/db.php');
 	
 	$registerFullName = '';
 	$registerUsername = '';
@@ -16,44 +16,44 @@
 		
 		if(!empty($registerFullName) && !empty($registerUsername) && !empty($registerPassword1) && !empty($registerPassword2)){
 			
-			// Sanitize name
+			/*  Sanitize name */
 			$registerFullName = filter_var($registerFullName, FILTER_SANITIZE_STRING);
 			
-			// Check if name is empty
+			/*  Check if name is empty */
 			if($registerFullName == ''){
 				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter your name.</div>';
 				exit();
 			}
 			
-			// Check if username is empty
+			/* Check if username is empty */
 			if($registerUsername == ''){
 				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter your username.</div>';
 				exit();
 			}
 			
-			// Check if both passwords are empty
+			/* Check if both passwords are empty */
 			if($registerPassword1 == '' || $registerPassword2 == ''){
 				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter both passwords.</div>';
 				exit();
 			}
 			
-			// Check if username is available
-			$usernameCheckingSql = 'SELECT * FROM user WHERE username = :username';
-			$usernameCheckingStatement = $conn->prepare($usernameCheckingSql);
-			$usernameCheckingStatement->execute(['username' => $registerUsername]);
+			/* Check if username is available */
+			$qUser = 'SELECT * FROM user WHERE username = :username';
+			$usernameCheckStatement = $conn->prepare($qUser);
+			$usernameCheckStatement->execute(['username' => $registerUsername]);
 			
-			if($usernameCheckingStatement->rowCount() > 0){
-				// Username already exists. Hence can't create a new user
+			if($usernameCheckStatement->rowCount() > 0){
+				/*  Username already exists. Hence can't create a new user */
 				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Username not available. Please select a different username.</div>';
 				exit();
 			} else {
-				// Check if passwords are equal
+				/*  Check if passwords are equal */
 				if($registerPassword1 !== $registerPassword2){
 					echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Passwords do not match.</div>';
 					exit();
 				} else {
-					// Start inserting user to DB
-					// Encrypt the password
+					/* Start inserting user to DB */
+					/* Encrypt the password */
 					$hashedPassword = md5($registerPassword1);
 					$insertUserSql = 'INSERT INTO user(fullName, username, password) VALUES(:fullName, :username, :password)';
 					$insertUserStatement = $conn->prepare($insertUserSql);
@@ -64,7 +64,7 @@
 				}
 			}
 		} else {
-			// One or more mandatory fields are empty. Therefore, display a the error message
+			/*  One or more mandatory fields are empty. display a the error message */
 			echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter all fields marked with a (*)</div>';
 			exit();
 		}
