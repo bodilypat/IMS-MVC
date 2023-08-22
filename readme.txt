@@ -16,4 +16,4 @@
 
 6. Import inventory.sql file(given inside the zip package in SQL file folder)
 
-7.Run the script http://localhost/BEinventory/
+7.Run the script http://localhost/inventory/
