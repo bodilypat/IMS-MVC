@@ -1,12 +1,12 @@
 <?php
 	require_once('../../include/config/constants.php');
-	require_once('../../include/config/db.php');
+	require_once('../../include/config/dbconnect.php');
 	
 	$qCust = "SELECT MAX(customerID) FROM customer";
-	$custStatementt = $conn->prepare($qCust);
-	$cuustStatement->execute();
-	$row = $custStatement->fetch(PDO::FETCH_ASSOC);
+	$custStatementt = $dbcon->prepare($qCust);
+	$custStatement->execute();
+	$result = $custStatement->fetch(PDO::FETCH_ASSOC);
 	
-	echo $row['MAX(customerID)'];
+	echo $result['MAX(customerID)'];
 	$custStatement->closeCursor();
 ?>
