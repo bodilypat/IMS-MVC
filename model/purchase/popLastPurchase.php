@@ -3,7 +3,7 @@
 	require_once('../../include/config/dbconnect.php');
 	
 	$qPurch = "SELECT MAX(purchaseID) FROM purchase";
-	$purchStatement = $conn->prepare($qPurch);
+	$purchStatement = $dbcon->prepare($qPurch);
 	$purchStatement->execute();
 	$result = $purchStatement->fetch(PDO::FETCH_ASSOC);
 	
