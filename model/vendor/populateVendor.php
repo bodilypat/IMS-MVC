@@ -3,18 +3,18 @@
 	require_once('../../include/config/dbconnect.php');
 
 	/* Execute the script if the POST request is submitted */
-	if(isset($_POST['venID'])){
+	if(isset($_POST['vendorID'])){
 		
-		$vendorID = htmlentities($_POST['venID']);
+		$venID = htmlentities($_POST['vendorID']);
 		
-		$qVen = 'SELECT * FROM vendor WHERE vendorID = :vendorID';
-		$venStatement = $dbcon->prepare($qVendor);
-		$venStatement->execute(['vendorID' => $vendorID]);
+		$qVen = 'SELECT * FROM vendor WHERE vendorID = :venID';
+		$venStatement = $dbcon->prepare($qVen);
+		$venStatement->execute(['vendorID' => $venID]);
 		
 		/* If data is found for the given vendorID, return it as a json object */
 		if($venStatement->rowCount() > 0) {
-			$result = $venStatement->fetch(PDO::FETCH_ASSOC);
-			echo json_encode($result);
+			$recordVen = $venStatement->fetch(PDO::FETCH_ASSOC);
+			echo json_encode($recordVen);
 		}
 		$venStatement->closeCursor();
 	}
