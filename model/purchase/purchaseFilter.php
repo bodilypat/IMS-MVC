@@ -1,6 +1,6 @@
 <?php
 	require_once('../../include/config/constants.php');
-	require_once('../../include/config/db.php');
+	require_once('../../include/config/dbconnect.php');
 	
 	$unitPrice = 0;
 	$quantity = 0;
@@ -10,9 +10,9 @@
 		$startDate = htmlentities($_POST['startDate']);
 		$endDate = htmlentities($_POST['endDate']);
 		
-		$qPurchase = 'SELECT * FROM purchase WHERE purchaseDate BETWEEN :startDate AND :endDate';
-		$purchaseStatement = $conn->prepare($pPurchase);
-		$purchaseStatement->execute(['startDate' => $startDate, 'endDate' => $endDate]);
+		$qPurch = 'SELECT * FROM purchase WHERE purchaseDate BETWEEN :startDate AND :endDate';
+		$purchStatement = $dbcon->prepare($pPurch);
+		$purchStatement->execute(['startDate' => $startDate, 'endDate' => $endDate]);
 		$output = '<table id="purchaseFilteredReportsTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
 					<thead>
 						<tr>
@@ -30,7 +30,7 @@
 					<tbody>';
 		
 		/*  Create table from the selected data */
-		while($resultset = $purchaseStatement->fetch(PDO::FETCH_ASSOC)){
+		while($resultset = $purchStatement->fetch(PDO::FETCH_ASSOC)){
 			$unitPrice = $resultset['unitPrice'];
 			$quantity = $resultset['quantity'];
 			$totalPrice = $unitPrice * $quantity;
@@ -47,22 +47,22 @@
 						'</tr>';
 		}
 		
-		$purchaseStatement->closeCursor();
+		$purchStatement->closeCursor();
 		$output .= '</tbody>
-						<tfoot>
-							<tr>
-								<th>Total</th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-							</tr>
-						</tfoot>
-					</table>';
+					<tfoot>
+						<tr>
+							<th>Purchase ID</th>
+							<th>Item Number</th>
+							<th>Purchase Date</th>
+							<th>Item Name</th>
+							<th>Vendor Name</th>
+							<th>Vendor ID</th>
+							<th>Quantity</th>
+							<th>Unit Price</th>
+							<th>Total Price</th>
+                                                </tr>
+					</tfoot>
+				</table>';
 		echo $output;
 	}
 ?>
