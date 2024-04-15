@@ -1,20 +1,20 @@
 <?php
 	require_once('../../include/config/constants.php');
-	require_once('../../include/config/db.php');
+	require_once('../../include/config/dbconnect.php');
 
 	/*  Execute  POST request is submitted */
 	if(isset($_POST['itemNumber'])){
 		
-		$itemNumber = htmlentities($_POST['itemNumber']);
+		$itemNum = htmlentities($_POST['itemNumber']);
 		
-		$qItem = 'SELECT * FROM item WHERE itemNumber = :itemNumber';
-		$itemStatement = $conn->prepare($qItem);
-		$itemStatement->execute(['itemNumber' => $itemNumber]);
+		$qItem = 'SELECT * FROM item WHERE itemNumber = :itemNum';
+		$itemStatement = $dbcon->prepare($qItem);
+		$itemStatement->execute(['itemNumber' => $itemNum]);
 		
 		/*  If data is found for the given item number, return it as a json object */
 		if($itemStatement->rowCount() > 0) {
-			$result = $itemStatement->fetch(PDO::FETCH_ASSOC);
-			echo json_encode($result);
+			$recordItem = $itemStatement->fetch(PDO::FETCH_ASSOC);
+			echo json_encode($recordItem);
 		}
 		$itemStatement->closeCursor();
 	}
