@@ -1,167 +1,207 @@
 <?php
 
 	require_once('../../include/config/constants.php');
-	require_once('../../include/config/db.php');
+	require_once('../../include/config/dbconnect.php');
 	
 	if(isset($_POST['purchaseDetailsPurchaseID'])){
 
-		$purchaseItemNumber = htmlentities($_POST['purItemNumber']);
-		$purchaseDate = htmlentities($_POST['purchaseDate']);
-		$purchaseItemName = htmlentities($_POST['purchaseItemName']);
-		$purchaseQuantity = htmlentities($_POST['purchaseQuantity']);
-		$purchaseUnitPrice = htmlentities($_POST['purchaseUnitPrice']);
-		$purchasePurchaseID = htmlentities($_POST['purchaseID']);
-		$purchaseVendorName = htmlentities($_POST['purchaseVendorName']);
+		$purchItemNumber = htmlentities($_POST['purchaseItemNumber']);
+		$purchDate = htmlentities($_POST['purchaseDate']);
+		$purchItemName = htmlentities($_POST['purchaseItemName']);
+		$purchQuantity = htmlentities($_POST['purchaseQuantity']);
+		$purchUnitPrice = htmlentities($_POST['purchaseUnitPrice']);
+		$purchID = htmlentities($_POST['purchaseID']);
+		$purchVendorName = htmlentities($_POST['purchaseVendorName']);
 		
-		$quantityOldOrder = 0;
-		$quantityNewOrder = 0;
-		$oldStockInItem = 0;
+		$previousOrderQuantity = 0;
+		$orderQuantity = 0;
+		$balanceStock = 0;
 		$newStock = 0;
 		$orderItemNumber = '';
 		
 		/*  Check if mandatory fields are not empty */
-		if(isset($purchaseItemNumber) && isset($purchaseDate) && isset($purchaseQuantity) && isset($purchaseUnitPrice)){
+		if(isset($purchItemNumber) && isset($purchDate) && isset($purchQuantity) && isset($purchUnitPrice)){
 			
 			/* Sanitize item number */
-			$purchaseItemNumber = filter_var($purchaseItemNumber, FILTER_SANITIZE_STRING);
+			$purchItemNumber = filter_var($purchItemNumber, FILTER_SANITIZE_STRING);
 			
 			/*  Validate item quantity. It has to be an integer */
-			if(filter_var($purchaseQuantity, FILTER_VALIDATE_INT) === 0 || filter_var($purchaseQuantity, FILTER_VALIDATE_INT)){				
+			if(filter_var($purchQuantity, FILTER_VALIDATE_INT) === 0 || filter_var($purchQuantity, FILTER_VALIDATE_INT)){				
 			} else {				
 				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a valid number for quantity.</div>';
 				exit();
 			}
 
-			if(filter_var($purchaseUnitPrice, FILTER_VALIDATE_FLOAT) === 0.0 || filter_var($purchaseUnitPrice, FILTER_VALIDATE_FLOAT)){
+			if(filter_var($purchUnitPrice, FILTER_VALIDATE_FLOAT) === 0.0 || filter_var($purchUnitPrice, FILTER_VALIDATE_FLOAT)){
 			} else {	
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a valid number for unit price.</div>';
+				echo '<div class="alert alert-danger">
+				           <button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a valid number for unit price.
+					  </div>';
 				exit();
 			}
 			
-			if($purchaseID == ''){ 
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a Purchase ID.</div>';
+			if($purchID == ''){ 
+				echo '<div class="alert alert-danger">
+				           <button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a Purchase ID.
+					  </div>';
 				exit();
 			}
 			
-			if($purchaseItemNumber == ''){ 
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter Item Number.</div>';
+			if($purchItemNumber == ''){ 
+				echo '<div class="alert alert-danger">
+				           <button type="button" class="close" data-dismiss="alert">&times;</button>Please enter Item Number.
+					  </div>';
 				exit();
 			}
 			
-			if($purchaseQuantity == ''){ 
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter quantity.</div>';
+			if($purchQuantity == ''){ 
+				echo '<div class="alert alert-danger">
+				           <button type="button" class="close" data-dismiss="alert">&times;</button>Please enter quantity.
+					 </div>';
 				exit();
 			}
 			
-			$qPurchase = 'SELECT * FROM purchase WHERE purchaseID = :purchaseID';
-			$purchaseStatement = $conn->prepare($qPurchase);
-			$purchaseStatement->execute(['purchaseID' => $purchaseID]);
+			$qPurch = 'SELECT * FROM purchase WHERE purchaseID = :purchID';
+			$purchStatement = $dbcon->prepare($qPurch);
+			$purchStatement->execute(['purchaseID' => $purchID]);
 			
 			/* Get the vendorId for the given vendorName */
 			
-			$qVendor = 'SELECT * FROM vendor WHERE fullName = :fullName';
-			$vendorStatement = $conn->prepare($qVendor);
-			$vendorStatement->execute(['fullName' => $purchaseVendorName]);
+			$qVen = 'SELECT * FROM vendor WHERE fullName = :fullName';
+			$venStatement = $dbcon->prepare($qVen);
+			$venStatement->execute(['fullName' => $purchVendorName]);
 
-			$row = $vendorStatement->fetch(PDO::FETCH_ASSOC);
-			$vendorID = $row['vendorID'];
+			$resultVen = $venStatement->fetch(PDO::FETCH_ASSOC);
+			$vendorID = $resultVen['vendorID'];
 			
-			if($purchaseStatement->rowCount() > 0){
+			if($purchStatement->rowCount() > 0){
 				
 				/* Purchase details exist in DB. Hence proceed to calculate the stock */
-				$resultPurch = $purchaseStatement->fetch(PDO::FETCH_ASSOC);
-				$quantityOrder = $resultPurch['quantity'];
-				$orderItemNumber = $resultPurch['itemNumber'];
+				$resultPur = $purchStatement->fetch(PDO::FETCH_ASSOC);
+				$orderQuantity = $resultPur['quantity'];
+				$orderItemNumber = $resultPur['itemNumber'];
 
 				/* 	Check if the original itemNumber is the same as the new itemNumber */
-				if($orderItemNumber !== $purchaseItemNumber) {
+				if($orderItemNumber !== $purchItemNumber) {
 
-					$qItem = 'SELECT * FROM item WHERE itemNumber = :itemNumber';
-					$itemStatement = $conn->prepare($qItem);
-					$itemStatement->execute(['itemNumber' => $purchaseItemNumber]);
+					$qItem = 'SELECT * FROM item WHERE itemNumber = :purchItemNumber';
+					$itemStatement = $dbcon->prepare($qItem);
+					$itemStatement->execute(['itemNumber' => $purchItemNumber]);
 					
 					if($itemStatement->rowCount() < 1){
 						
-						echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Item Number does not exist in DB. If you want to update this item, please add it to DB first.</div>';
+						echo '<div class="alert alert-danger">
+						          <button type="button" class="close" data-dismiss="alert">&times;</button>Item Number does not exist in DB. If you want to update this item, please add it to DB first.
+							  </div>';
 						exit();
 					}
 					
 					/* Calculate the new stock value for new item using the existing stock in item table */	
 					$resultItem = $itemStatement->fetch(PDO::FETCH_ASSOC);
-					$quantityStockItem = $resultItem['stock'];
-					$quantityOrder = $purchaseQuantity;
-					$newStockItem = $quantityStockItem + $quantityOrder;
+					$balanceStock = $resultItem['stock'];
+					$orderQuantity = $purchQuantity;
+					$newStock = $balanceStock + $orderQuatity;
 					
 					/*  Edit the stock for new item in item table */
 					
-					$editStock = 'UPDATE item SET stock = :stock WHERE itemNumber = :itemNumber';
-					$updateStockItemStatement = $conn->prepare($editStock);
-					$updateStockItemStatement->execute(['stock' => $newStockItem, 'itemNumber' => $purchaseItemNumber]);
+					$editItem = 'UPDATE item SET stock = :stock WHERE itemNumber = :purchItemNumber';
+					$itemStatement = $dbcon->prepare($editItem);
+					$itemStatement->execute(['stock' => $newStock, 'itemNumber' => $purchItemNumber]);
 					
 					/* Get the current stock of the previous item */
 					
-					$qItem = 'SELECT * FROM item WHERE itemNumber=:itemNumber';
-					$itemStatement = $conn->prepare($qItem);
-					$itemStatement->execute(['itemNumber' => $OrderItemNumber]);
+					$qItem = 'SELECT * FROM item WHERE itemNumber=:purchItemNumber';
+					$itemStatement = $dbcon->prepare($qItem);
+					$itemStatement->execute(['itemNumber' => $purchItemNumber]);
 					
 					/* Calculate the new stock value for the previous item using the existing stock in item table */
 					
-					$itemInfo = $itemStatement->fetch(PDO::FETCH_ASSOC);
-					$currentStockItem = $itemInfo['stock'];
-					$newStockItem = $currentStockItem - $quantityOrder;
+					$resultItem = $itemStatement->fetch(PDO::FETCH_ASSOC);
+					$balanceStock = $resultItem['stock'];
+					$newStock = $balanceStock - $orderQuantity;
 					
 					/* EDIT the stock for previous item in item table */
 					
-					$editStock = 'UPDATE item SET stock = :stock WHERE itemNumber = :itemNumber';
-					$updateStockItemStatement = $conn->prepare($editStock);
-					$updateStockItemStatement->execute(['stock' => $newStockItem, 'itemNumber' => $OrderItemNumber]);
+					$editItem = 'UPDATE item SET stock = :stock WHERE itemNumber = :purchItemNumber';
+					$itemStatement = $conn->prepare($editStock);
+					$itemStatement->execute(['stock' => $newStock, 'itemNumber' => $purchItemNumber]);
 					
 					/*  Finally UPDATE the purchase table for new item */
 					
-					$updatePurchase = 'UPDATE purchase SET itemNumber = :itemNumber, purchaseDate = :purchaseDate, itemName = :itemName, unitPrice = :unitPrice, quantity = :quantity, vendorName = :vendorName, vendorID = :vendorID WHERE purchaseID = :purchaseID';
-					$updatePurchaseStatement = $conn->prepare($updatePurchase);
-					$updatePurchaseStatement->execute(['itemNumber' => $purchaseItemNumber, 'purchaseDate' => $purchaseDate, 'itemName' => $purchaseItemName, 'unitPrice' => $purchaseUnitPrice, 'quantity' => $purchaseQuantity, 'vendorName' => $purchaseVendorName, 'vendorID' => $vendorID, 'purchaseID' => $purchaseID]);
+					$editPur = 'UPDATE purchase SET itemNumber = :purchItemNumber, 
+					                                purchaseDate = :purchDate, 
+													itemName = :purchItemName, 
+													unitPrice = :purchUnitPrice, 
+													quantity = :purchQuantity, 
+													vendorName = :purchVendorName, 
+													vendorID = :purchsVendorID 
+												WHERE purchaseID = :purchID';
+					$purchStatement = $dbcon->prepare($editPur);
+					$purchStatement->execute(['itemNumber' => $purchItemNumber, 
+					                          'purchaseDate' => $purchDate, 
+											  'itemName' => $purchItemName, 
+											  'unitPrice' => $purchUnitPrice, 
+											  'quantity' => $purchQuantity, 
+											  'vendorName' => $purchVendorName, 
+											  'vendorID' => $purchVendorID, 
+											  'purchaseID' => $purchID]);
 					
-					echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Purchase details added to database and stock values updated.</div>';
+					echo '<div class="alert alert-success">
+					            <button type="button" class="close" data-dismiss="alert">&times;</button>Purchase details added to database and stock values updated.
+						  </div>';
 					exit();
 					
 				} else {
 					
 					/* Get the quantity (stock) in item table */
 					
-					$qItem = 'SELECT * FROM item WHERE itemNumber=:itemNumber';
-					$itemStatement = $conn->prepare($qItem);
-					$itemStatement->execute(['itemNumber' => $purchaseItemNumber]);
+					$qItem = 'SELECT * FROM item WHERE itemNumber=:purchItemNumber';
+					$itemStatement = $dbcon->prepare($qItem);
+					$itemStatement->execute(['itemNumber' => $purchItemNumber]);
 					
 					if($itemStatement->rowCount() > 0){
 						/* Item exists in the item table, therefore, start inserting data to purchase table */
 						
 					/* 	Calculate the new stock value using the existing stock in item table */
 						
-						$row = $itemStatement->fetch(PDO::FETCH_ASSOC);
-						$quantityNewOrder = $purchaseQuantity;
-						$stockItem = $row['stock'];
-						$newStock = $stockItem + ($quantityNewOrder - $quantityOrder);
+						$resultItem = $itemStatement->fetch(PDO::FETCH_ASSOC);
+						$orderQuantity = $purchQuantity;
+						$balanceStock = $resultItem['stock'];
+						$newStock = $balanceStock + ($orderQuantity - $previousOrderQuantity);
 						
 						/*  Edit the new stock value in item table. */
 						
-						$editStock = 'UPDATE item SET stock = :stock WHERE itemNumber = :itemNumber';
-						$updatStockItemStatement = $conn->prepare($editStock);
-						$updateStockItemStatement->execute(['stock' => $newStock, 'itemNumber' => $purchaseItemNumber]);
+						$editItem = 'UPDATE item SET stock = :stock WHERE itemNumber = :purchItemNumber';
+						$itemStatement = $dbcon->prepare($editItem);
+						$itemStatement->execute(['stock' => $newStock, 'itemNumber' => $purchItemNumber]);
 						
 						/* update the purchase table */
 						
-						$updatePurchase = 'UPDATE purchase SET purchaseDate = :purchaseDate, unitPrice = :unitPrice, quantity = :quantity, vendorName = :vendorName, vendorID = :vendorID WHERE purchaseID = :purchaseID';
-						$updatePurchaseStatement = $conn->prepare($updatePurchase);
-						$updatePurchaseStatement->execute(['purchaseDate' => $purchaseDate, 'unitPrice' => $purchaseUnitPrice, 'quantity' => $purchaseQuantity, 'vendorName' => $purchaseVendorName, 'vendorID' => $vendorID, 'purchaseID' => $purchaseID]);
+						$editPur = 'UPDATE purchase SET purchaseDate = :purchaseDate, 
+						                                unitPrice = :purchUnitPrice, 
+														quantity = :purchQuantity, 
+														vendorName = :purchVendorName, 
+														vendorID = :purchVendorID 
+													WHERE purchaseID = :purcID';
+						$purchStatement = $dbcon->prepare($editPur);
+						$purchStatement->execute(['purchaseDate' => $purchDate, 
+						                          'unitPrice' => $purchUnitPrice, 
+												  'quantity' => $purchQuantity, 
+												  'vendorName' => $purchVendorName, 
+												  'vendorID' => $purchvendorID, 
+												  'purchaseID' => $purchID]);
 						
-						echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Purchase details added to database and stock values updated.</div>';
+						echo '<div class="alert alert-success">
+						           <button type="button" class="close" data-dismiss="alert">&times;</button>Purchase details added to database and stock values updated.
+							  </div>';
 						exit();
 						
 					} else {
 						/* Item does not exist in item table, therefore, you can't update */ 
 						/*  purchase details for it */ 
-						echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Item does not exist in DB. Therefore, first enter this item to DB using the <strong>Item</strong> tab.</div>';
+						echo '<div class="alert alert-danger">
+						          <button type="button" class="close" data-dismiss="alert">&times;</button>Item does not exist in DB. Therefore, first enter this item to DB using the <strong>Item</strong> tab.
+							 </div>';
 						exit();
 					}	
 					
@@ -170,14 +210,18 @@
 			} else {
 				
 				/*  PurchaseID does not exist in purchase table,you can't update it */ 
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Purchase details does not exist in DB for the given Purchase ID. Therefore, can\'t update.</div>';
+				echo '<div class="alert alert-danger">
+				           <button type="button" class="close" data-dismiss="alert">&times;</button>Purchase details does not exist in DB for the given Purchase ID. Therefore, can\'t update.
+					  </div>';
 				exit();
 				
 			}
 
 		} else {
 			// One or more mandatory fields are empty. Therefore, display the error message
-			echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter all fields marked with a (*)</div>';
+			echo '<div class="alert alert-danger">
+			          <button type="button" class="close" data-dismiss="alert">&times;</button>Please enter all fields marked with a (*)
+				  </div>';
 			exit();
 		}
 	}
