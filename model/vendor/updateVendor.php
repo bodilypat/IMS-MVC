@@ -1,20 +1,20 @@
-<?php
+?php
 	require_once('../../include/config/constants.php');
-	require_once('../../include/config/db.php');
+	require_once('../../include/config/dbconnect.php');
 	
 	/* Check  POST query is received */
-	if(isset($_POST['vendorVendorID'])) {
+	if(isset($_POST['vendorID'])) {
 		
-		$vendorID = htmlentities($_POST['venID']);
-		$vendorFullName = htmlentities($_POST['venFullName']);
-		$vendorMobile = htmlentities($_POST['venMobile']);
-		$vendorPhone2 = htmlentities($_POST['venPhone2']);
-		$vendorEmail = htmlentities($_POST['venEmail']);
-		$vendorAddress = htmlentities($_POST['venAddress']);
-		$vendorAddress2 = htmlentities($_POST['venAddress2']);
-		$vendorCity = htmlentities($_POST['venVendorCity']);
-		$vendorDistrict = htmlentities($_POST['venDistrict']);
-		$vendorStatus = htmlentities($_POST['venStatus']);
+		$vendorID = htmlentities($_POST['vendorID']);
+		$vendorFullName = htmlentities($_POST['vendorFullName']);
+		$vendorMobile = htmlentities($_POST['vendorMobile']);
+		$vendorPhone = htmlentities($_POST['vendorPhone']);
+		$vendorEmail = htmlentities($_POST['vendorEmail']);
+		$vendorAddress = htmlentities($_POST['vendorAddress']);
+		$vendorAddress2 = htmlentities($_POST['vendorAddress2']);
+		$vendorCity = htmlentities($_POST['VendorCity']);
+		$vendorDistrict = htmlentities($_POST['vendorDistrict']);
+		$vendorStatus = htmlentities($_POST['vendorStatus']);
 		
 			
 		if(!empty($vendorID)){
@@ -35,7 +35,7 @@
 					exit();
 				}
 								
-				if(isset($vendorPhone2)){
+				if(isset($vendorPhone)){
 					if(filter_var($vendorPhone2, FILTER_VALIDATE_INT) === 0 || filter_var($vendorPhone2, FILTER_VALIDATE_INT)) {
 					} else {
 						echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a valid number for phone number 2.</div>';
@@ -53,40 +53,64 @@
 
 				/*  Check  vendorID is in the DB */
 
-				$qVendor = 'SELECT vendorID FROM vendor WHERE vendorID = :vendorID';
-				$getVendorStatement = $conn->prepare($qVendor);
-				$getVenvendorStatement->execute(['vendorID' => $vendorID]);
+				$qVen = 'SELECT vendorID FROM vendor WHERE vendorID = :vendorID';
+				$venStatement = $dbcon->prepare($qVen);
+				$venStatement->execute(['vendorID' => $vendorID]);
 				
-				if($vendorStatement->rowCount() > 0) {
+				if($venStatement->rowCount() > 0) {
 					
 					/* vendorID is available in DB.,  UPDATE its details */				
 					/* EDIT the purchase details vendor name in the purchase table */
 
-					$editVname = 'UPDATE purchase SET vendorName = :vendorName WHERE vendorID = :vendorID';
-					$updatePurchaseStatement = $conn->prepare($editVname);
-					$updatePurchaseStatement->execute(['vendorName' => $vendorFullName, 'vendorID' => $vendorID]);
+					$editPur = 'UPDATE purchase SET vendorName = :vendorName WHERE vendorID = :vendorID';
+					$purchStatement = $dbcon->prepare($editPur);
+					$purChStatement->execute(['vendorName' => $vendorFullName, 'vendorID' => $vendorID]);
 					
 					/* UPDATE vendor table */
-					$updateVendor = 'UPDATE vendor SET fullName = :fullName, email = :email, mobile = :mobile, phone2 = :phone2, address = :address, address2 = :address2, city = :city, district = :district, status = :status WHERE vendorID = :vendorID';
-					$updateVendorStatement = $conn->prepare($updateVendor);
-					$updateVendorStatement->execute(['fullName' => $vendorFullName, 'email' => $vendorEmail, 'mobile' => $vendorMobile, 'phone2' => $vendorPhone2, 'address' => $vendorAddress, 'address2' => $vendorAddress2, 'city' => $vendorCity, 'district' => $vendorDistrict, 'vendorID' => $vendorID, 'status' => $vendorStatus]);
+					$editVen = 'UPDATE vendor SET fullName = :vendorFullName, 
+					                              email = :vendorEmail, 
+												  mobile = :vendorMobile, 
+												  phone = :vendorPhone, 
+												  address = :vendorAddress, 
+												  address2 = :vendorAddress2, 
+												  city = :vendorCity, 
+												  district = :vendorDistrict, 
+												  status = :vendorStatus 
+											WHERE vendorID = :vendorID';
+					$venStatement = $conn->prepare($editVen);
+					$venStatement->execute(['fullName' => $vendorFullName, 
+					                         'email' => $vendorEmail, 
+											 'mobile' => $vendorMobile, 
+											 'phone2' => $vendorPhone2, 
+											 'address' => $vendorAddress, 
+											 'address2' => $vendorAddress2, 
+											 'city' => $vendorCity, 
+											 'district' => $vendorDistrict, 
+											 'vendorID' => $vendorID, 
+											 'status' => $vendorStatus]);
 					
 					/* Edit vendor name in purchase table too */
-					$editVname = 'UPDATE purchase SET vendorName = :vendorName WHERE vendorID = :vendorID';
-					$updatePurchaseStatement = $conn->prepare($editVname);
-					$updatePurchaseStatement->execute(['vendorName' => $vendorFullName, 'vendorID' => $vendorID]);
+					$editPur = 'UPDATE purchase SET vendorName = :vendorName WHERE vendorID = :vendorID';
+					$purchStatement = $dbcon->prepare($editPur);
+					$purchStatement->execute(['vendorName' => $vendorFullName, 'vendorID' => $vendorID]);
 					
-					echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Vendor details updated.</div>';
+					echo '<div class="alert alert-success">
+					           <button type="button" class="close" data-dismiss="alert">&times;</button>Vendor details updated.
+					      </div>';
 					exit();
 				} else {
 					/* vendorID is not in DB., stop the update and quit */
-					echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Vendor ID does not exist in DB. Therefore, update not possible.</div>';
+					echo '<div class="alert alert-danger">
+					           <button type="button" class="close" data-dismiss="alert">&times;</button>Vendor ID does not exist in DB. Therefore, update not possible.
+						 </div>';
 					exit();
 				}
 				
 			} else {
 				/* One or more mandatory fields are empty.display the error message */
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter all fields marked with a (*)</div>';
+				echo '<div class="alert alert-danger">
+				           <button type="button" class="close" data-dismiss="alert">&times;</button>Please enter all fields marked with a (*)
+					  </div>';
 				exit();
 			}
 		} else {
