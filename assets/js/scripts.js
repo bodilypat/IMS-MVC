@@ -1,68 +1,68 @@
 // File that creates the purchase details search table
-purchaseDetailsSearchTableCreatorFile = 'model/purchase/purchaseDetailsSearchTableCreator.php';
+purchaseSearchTableCreatorFile = 'model/purchase/purchaseSearchTableCreator.php';
 
 // File that creates the customer details search table
-customerDetailsSearchTableCreatorFile = 'model/customer/customerDetailsSearchTableCreator.php';
+customerSearchTableCreatorFile = 'model/customer/customerSearchTableCreator.php';
 
 // File that creates the item details search table
-itemDetailsSearchTableCreatorFile = 'model/item/itemDetailsSearchTableCreator.php';
+itemSearchTableCreatorFile = 'model/item/itemSearchTableCreator.php';
 
 // File that creates the vendor details search table
-vendorDetailsSearchTableCreatorFile = 'model/vendor/vendorDetailsSearchTableCreator.php';
+vendorSearchTableCreatorFile = 'model/vendor/vendorSearchTableCreator.php';
 
 // File that creates the sale details search table
-saleDetailsSearchTableCreatorFile = 'model/sale/saleDetailsSearchTableCreator.php';
+saleSearchTableCreatorFile = 'model/sale/saleSearchTableCreator.php';
 
 
 
 // File that creates the purchase reports search table
-purchaseReportsSearchTableCreatorFile = 'model/purchase/purchaseReportsSearchTableCreator.php';
+purchaseReportsTableCreatorFile = 'model/purchase/purchaseReportTableCreator.php';
 
 // File that creates the customer reports search table
-customerReportsSearchTableCreatorFile = 'model/customer/customerReportsSearchTableCreator.php';
+customerReportTableCreatorFile = 'model/customer/customerReportTableCreator.php';
 
 // File that creates the item reports search table
-itemReportsSearchTableCreatorFile = 'model/item/itemReportsSearchTableCreator.php';
+itemReportTableCreatorFile = 'model/item/itemReportTableCreator.php';
 
 // File that creates the vendor reports search table
-vendorReportsSearchTableCreatorFile = 'model/vendor/vendorReportsSearchTableCreator.php';
+vendorReportTableCreatorFile = 'model/vendor/vendorReportTableCreator.php';
 
 // File that creates the sale reports search table
-saleReportsSearchTableCreatorFile = 'model/sale/saleReportsSearchTableCreator.php';
+saleReportTableCreatorFile = 'model/sale/saleReportTableCreator.php';
 
 
 
 // File that returns the last inserted vendorID
-vendorLastInsertedIDFile = 'model/vendor/populateLastVendorID.php';
+vendorLastInsertedFile = 'model/vendor/popLastVendorID.php';
 
 // File that returns the last inserted customerID
-customerLastInsertedIDFile = 'model/customer/populateLastCustomerID.php';
+customerLastInsertedFile = 'model/customer/popLastCustomerID.php';
 
 // File that returns the last inserted purchaseID
-purchaseLastInsertedIDFile = 'model/purchase/populateLastPurchaseIDForPurchaseTab.php';
+purchaseLastInsertedFile = 'model/purchase/popLastPurchase.php';
 
 // File that returns the last inserted saleID
-saleLastInsertedIDFile = 'model/sale/populateLastSaleIDForSaleTab.php';
+saleLastInsertedIDFile = 'model/sale/popLastSale.php';
 
 // File that returns the last inserted productID for item details tab
-itemLastInsertedIDFile = 'model/item/populateLastProductID.php';
+itemLastInsertedIDFile = 'model/item/popLastProduct.php';
 
 
 
 // File that returns purchaseIDs
-showPurchaseIDSuggestionsFile = 'model/purchase/showPurchaseIDs.php';
+showPurchaseIDAviseFile = 'model/purchase/showPurchaseIDs.php';
 
 // File that returns saleIDs
-showSaleIDSuggestionsFile = 'model/sale/showSaleIDs.php';
+showSaleIDAdviseFile = 'model/sale/showSaleIDs.php';
 
 // File that returns vendorIDs
-showVendorIDSuggestionsFile = 'model/vendor/showVendorIDs.php';
+showVendorIDAdviseFile = 'model/vendor/showVendorIDs.php';
 
 // File that returns customerIDs
-showCustomerIDSuggestionsFile = 'model/customer/showCustomerIDs.php';
+showCustomerIDAdviseFile = 'model/customer/showCustomerIDs.php';
 
 // File that returns customerIDs for sale tab
-showCustomerIDSuggestionsForSaleTabFile = 'model/customer/showCustomerIDsForSaleTab.php';
+showCustomerIDAdviseSaleFile = 'model/customer/showCustomerIDsForSaleTab.php';
 
 
 
