@@ -1,6 +1,6 @@
 <?php
 	require_once('../../include/config/constants.php');
-	require_once('../../include/config/db.php');
+	require_once('../../include/config/dbconnect.php');
 	
 	if(isset($_POST['id'])){
 		
@@ -9,7 +9,7 @@
 		
 		/* Get all item details */
 		$qItem = 'SELECT * FROM item WHERE productID = :productID';
-		$itemStatementt = $conn->prepare($qItem);
+		$itemStatementt = $dbcon->prepare($qItem);
 		$itemStatement->execute(['productID' => $productID]);
 		
 		while($resultset = $itemStatement->fetch(PDO::FETCH_ASSOC)){
