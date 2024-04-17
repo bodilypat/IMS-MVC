@@ -1,6 +1,6 @@
 <?php
 	require_once('../../include/config/constants.php');
-	require_once('../../include/config/db.php');
+	require_once('../../include/config/dbconnect.php');
 	
 	$qPurch = "SELECT MAX(purchaseID) FROM purchase";
 	$purchStatement = $dbcon->prepare($qPurch);
