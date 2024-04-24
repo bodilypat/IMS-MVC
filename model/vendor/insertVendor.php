@@ -1,13 +1,13 @@
 <?php
-	require_once('../../include/config/constants.php');
-	require_once('../../include/config/db.php');
+	require_once('../../define/config/constants.php');
+	require_once('../../define/config/db.php');
 	
 	if(isset($_POST['vendorStatus'])){
 		
 		$venFullName = htmlentities($_POST['venFullName']);
 		$venEmail = htmlentities($_POST['venEmail']);
 		$venMobile = htmlentities($_POST['venMobile']);
-		$venphone = htmlentities($_POST['venPhone']);
+		$venPhone = htmlentities($_POST['venPhone']);
 		$venAddress = htmlentities($_POST['venAddress']);
 		$venAddress2 = htmlentities($_POST['venAddress2']);
 		$venCity = htmlentities($_POST['venCity']);
@@ -34,7 +34,7 @@
 				exit();
 			}
 				
-			if(!empty($venPphone)){
+			if(!empty($venPhone)){
 				if(filter_var($venPhone, FILTER_VALIDATE_INT) === false) {			
 					echo '<div class="alert alert-danger">
 					           <button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a valid mobile number 2.
