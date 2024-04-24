@@ -1,28 +1,28 @@
 <?php
-	require_once('../../include/config/constants.php');
-	require_once('../../include/config/dbconnect.php');
+	require_once('../../define/config/constants.php');
+	require_once('../../define/config/dbconnect.php');
 	
 	if(isset($_POST['venID'])){
 		
-		$venID = htmlentities($_POST['vendorID']);
+		$venderID = htmlentities($_POST['vendorID']);
 		
 		/*  Check if mandatory fields are not empty */
-		if(!empty($venID)){
+		if(!empty($venderID)){
 			
 			/*  Sanitize vendorID */
-			$venID = filter_var($venID, FILTER_SANITIZE_STRING);
+			$venderID = filter_var($venID, FILTER_SANITIZE_STRING);
 
 			/*  get VendorID is in the database */
-			$qVen = 'SELECT vendorID FROM vendor WHERE vendorID=:venID';
+			$qVen = 'SELECT vendorID FROM vendor WHERE vendorID=:venderID';
 			$venStatement = $dbcon->prepare($qVen);
 			$venStatement->execute(['vendorID' => $venID]);
 			
 			if($venStatement->rowCount() > 0){
 				
 				/*  Vendor exists in DB. start the DELETE process */
-				$delVen = 'DELETE FROM vendor WHERE vendorID=:venID';
-				$venStatement = $dbcon->prepare($delVen);
-				$venStatement->execute(['vendorID' => $venID]);
+				$delVen = 'DELETE FROM vendor WHERE vendorID=:venderID';
+				$delStatement = $dbcon->prepare($delVen);
+				$delStatement->execute(['vendorID' => $vendorID]);
 
 				echo '<div class="alert alert-success">
                                            <button type="button" class="close" data-dismiss="alert">&times;</button>Vendor deleted.
