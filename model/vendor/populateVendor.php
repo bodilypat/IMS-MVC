@@ -1,6 +1,6 @@
 <?php
-	require_once('../../include/config/constants.php');
-	require_once('../../include/config/db.php');
+	require_once('../../define/config/constants.php');
+	require_once('../../define/config/db.php');
 
 	// Execute the script if the POST request is submitted
 	if(isset($_POST['vendorID'])){
