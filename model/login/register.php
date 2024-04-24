@@ -1,6 +1,6 @@
 <?php
-     require_once('../assign/config/constants.php');
-     require_once('../assign/config/dbconnect.php');
+     require_once('../define/config/constants.php');
+     require_once('../define/config/dbconnect.php');
 
      $FullName = '';
      $Username = '';
