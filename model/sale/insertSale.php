@@ -1,6 +1,6 @@
 <?php
-	require_once('../../include/config/constants.php');
-	require_once('../../include/config/dbconnect.php');
+	require_once('../../define/config/constants.php');
+	require_once('../../define/config/dbconnect.php');
 	
 	if(isset($_POST['saleItemNumber'])){
 		
@@ -9,21 +9,21 @@
 		$saleDiscount = htmlentities($_POST['saleDiscount']);
 		$saleQuantity = htmlentities($_POST['saleQuantity']);
 		$saleUnitPrice = htmlentities($_POST['saleUnitPrice']);
-		$saleCustomerID = htmlentities($_POST['saleCustID']);
-		$saleCustomerName = htmlentities($_POST['saleCustName']);
+		$saleCustomerID = htmlentities($_POST['saleCustomerID']);
+		$saleCustomerName = htmlentities($_POST['saleCustomerName']);
 		$saleDate = htmlentities($_POST['saleDate']);
 		
 		$balanceStock = 0;
 		$newStock= 0;
 		
 		/* Check  mandatory fields are not empty */
-		if(!empty($itemNumber) && isset($itemCustomerID) && isset($itemSaleDate) && isset($itemQuantity) && isset($itemUnitPrice)){
+		if(!empty($saleItemNumber) && isset($saleCustomerID) && isset($SaleDate) && isset($saleQuantity) && isset($saleUnitPrice)){
 			
 			/*  Sanitize item number */
-			$itemNumber = filter_var($itemNumber, FILTER_SANITIZE_STRING);
+			$saleItemNumber = filter_var($saleItemNumber, FILTER_SANITIZE_STRING);
 			
 			/* Validate item quantity. It has to be a number */
-			if(filter_var($itemQuantity, FILTER_VALIDATE_INT) === 0 || filter_var($itemQuantity, FILTER_VALIDATE_INT)){
+			if(filter_var($saleQuantity, FILTER_VALIDATE_INT) === 0 || filter_var($saleQuantity, FILTER_VALIDATE_INT)){
 				
 			} else {
 				
@@ -33,14 +33,14 @@
 				exit();
 			}
 			
-			if($itemCustomerID == ''){ 
+			if($saleCustomerID == ''){ 
 				echo '<div class="alert alert-danger">
 				           <button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a Customer ID.
 					  </div>';
 				exit();
 			}
 			
-			if(filter_var($itemCustomerID, FILTER_VALIDATE_INT) === 0 || filter_var($itemCustomerID, FILTER_VALIDATE_INT)){
+			if(filter_var($saleCustomerID, FILTER_VALIDATE_INT) === 0 || filter_var($saleCustomerID, FILTER_VALIDATE_INT)){
 			} else {
 				echo '<div class="alert alert-danger">
 				           <button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a valid Customer ID
@@ -48,7 +48,7 @@
 				exit();
 			}
 			
-			if($itemNumber == ''){ 
+			if($saleItemNumber == ''){ 
 				echo '<div class="alert alert-danger">
 				           <button type="button" class="close" data-dismiss="alert">&times;</button>Please enter Item Number.
 					  </div>';
@@ -62,7 +62,7 @@
 				exit();
 			}
 
-			if(filter_var($itemUnitPrice, FILTER_VALIDATE_FLOAT) === 0.0 || filter_var($itemUnitPrice, FILTER_VALIDATE_FLOAT)){
+			if(filter_var($saleUnitPrice, FILTER_VALIDATE_FLOAT) === 0.0 || filter_var($saleUnitPrice, FILTER_VALIDATE_FLOAT)){
 			} else {
 				echo '<div class="alert alert-danger">
 				           <button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a valid number for unit price
@@ -71,8 +71,8 @@
 			}
 			
 			/* Validate discount  if it's provided */
-			if(!empty($itemDiscount)){
-				if(filter_var($itemDiscount, FILTER_VALIDATE_FLOAT) === false){					
+			if(!empty($saleDiscount)){
+				if(filter_var($saleDiscount, FILTER_VALIDATE_FLOAT) === false){					
 					echo '<div class="alert alert-danger">
 					           <button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a valid discount amount
 						 </div>';
@@ -81,9 +81,9 @@
 			}
 
 			// get stock from item
-			$qItem = 'SELECT stock FROM item WHERE itemNumber = :itemNumber';
+			$qItem = 'SELECT stock FROM item WHERE itemNumber = :SaleitemNumber';
 			$itemStatement = $dbcon->prepare($qItem);
-			$itemStatement->execute(['itemNumber' => $itemNumber]);
+			$itemStatement->execute(['itemNumber' => $saleItemNumber]);
 
 			if($itemStatement->rowCount() > 0){			
 				$resultItem = $itemStatement->fetch(PDO::FETCH_ASSOC);
@@ -102,9 +102,9 @@
 					$newStock = $balanceStock - $saleQuantity;
 					
 					/* Check if the customer is in DB
- */					$qCust = 'SELECT * FROM customer WHERE customerID = :customerID';
+ */					$qCust = 'SELECT * FROM customer WHERE customerID = :SalecustomerID';
 					$custStatement = $dbcon->prepare($qCust);
-					$custStatement->execute(['customerID' => $customerID]);
+					$custStatement->execute(['customerID' => $saleCustomerID]);
 					
 					if($custStatement->rowCount() > 0){
 						/* Customer exits. That means both customer, item, and stocks are available. Hence start INSERT and UPDATE */
@@ -113,21 +113,21 @@
 						
 						/* INSERT data to sale table */
 						$addSale = 'INSERT INTO sale(itemNumber, itemName, discount, quantity, unitPrice, customerID, customerName, saleDate) 
-						            ALUES(:itemNumber, :itemName, :discount, :quantity, :unitPrice, :customerID, :customerName, :saleDate)';
+						            VALUES(:saleItemNumber, :saleItemName, :saleDiscount, :saleQuantity, :saleUnitPrice, :saleCustomerID, :saleCustomerName, :saleDate)';
 						$saleStatement = $dbcon->prepare($addSale);
-						$saleStatement->execute(['itemNumber' => $itemNumber, 
-						                         'itemName' => $itemName, 
-												 'discount' => $discount, 
-												 'quantity' => $quantity, 
-												 'unitPrice' => $unitPrice, 
-												 'customerID' => $customerID, 
-												 'customerName' => $customerName, 
+						$saleStatement->execute(['itemNumber' => $saleItemNumber, 
+						                         'itemName' => $saleItemName, 
+												 'discount' => $saleDiscount, 
+												 'quantity' => $saleQuantity, 
+												 'unitPrice' => $saleUnitPrice, 
+												 'customerID' => $saleCustomerID, 
+												 'customerName' => $saleCustomerName, 
 												 'saleDate' => $saleDate]);
 						
 						/*  UPDATE the stock in item table */
-						$editItem = 'UPDATE item SET stock = :stock WHERE itemNumber = :itemNumber';
+						$editItem = 'UPDATE item SET stock = :stock WHERE itemNumber = :saleItemNumber';
 						$itemStatement = $dbcon->prepare($editItem);
-						$itemStatement->execute(['stock' => $newStock, 'itemNumber' => $itemNumber]);
+						$itemStatement->execute(['stock' => $newStock, 'itemNumber' => $saleItemNumber]);
 						
 						echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Sale details added to DB and stocks updated.</div>';
 						exit();
