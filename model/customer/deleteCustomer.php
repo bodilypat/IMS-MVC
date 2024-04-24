@@ -4,25 +4,25 @@
 	
 	if(isset($_POST['customerID'])){
 		
-		$custID = htmlentities($_POST['customerID']);
+		$customerID = htmlentities($_POST['customerID']);
 		
 		/*  Check if mandatory fields are not empty */
-		if(!empty($custID)){
+		if(!empty($customerID)){
 			
 			/*  Sanitize customerID */
-			$custID = filter_var($custID, FILTER_SANITIZE_STRING);
+			$customerID = filter_var($custID, FILTER_SANITIZE_STRING);
 
 			/*  Check if the customer is in the database */
-			$qCust = 'SELECT customerID FROM customer WHERE customerID=:custID';
+			$qCust = 'SELECT customerID FROM customer WHERE customerID=:customerID';
 			$custStatement = $dbcon->prepare($qCust);
-			$custStatement->execute(['customerID' => $custID]);
+			$custStatement->execute(['customerID' => $customerID]);
 			
 			if($custStatement->rowCount() > 0){
 				
 				/* Customer exists in DB. Hence start the DELETE process */
-				$delCust = 'DELETE FROM customer WHERE customerID=:custID';
-				$custStatement = $dbcon->prepare($delCust);
-				$custStatement->execute(['customerID' => $custID]);
+				$delCust = 'DELETE FROM customer WHERE customerID=:customerID';
+				$delStatement = $dbcon->prepare($delCust);
+				$delStatement->execute(['customerID' => $customerID]);
 
 				echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Customer deleted.</div>';
 				exit();
