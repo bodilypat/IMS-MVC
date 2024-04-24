@@ -14,14 +14,14 @@
 	<script src="enclose/js/sumsum.js" type="text/javascript" charset="utf8"></script>
 	
 	<!-- Chosen files for select boxes -->
-	<script src="enclose/js/chosen.jquery.min.js"></script>
-	<link href="enclose/css/chosen.css" rel="stylesheet" />
+	<script src="assign/js/chosen.jquery.min.js"></script>
+	<link href="assign/css/chosen.css" rel="stylesheet" />
 	
 	<!-- Datepicker JS -->
 	<script src="enclose/js/bootstrap-datepicker.min.js"></script>
 	
 	<!-- Bootbox JS -->
-	<script src="vendor/js/bootbox.min.js"></script>
+	<script src="enclose/js/bootbox.min.js"></script>
 	
 	<!-- Custom scripts -->
 	<script src="assign/js/scripts.js"></script>
