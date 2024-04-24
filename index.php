@@ -5,9 +5,9 @@
         header('Location: login.php');
         exit();
      }
-     require_once('assign/config/constant.php');
-     require_once('assign/config/dbconnect.php');
-     require_once('assign/header.html');
+     require_once('define/config/constant.php');
+     require_once('define/config/dbconnect.php');
+     require_once('define/header.html');
 ?>
 <body>
     <?php
