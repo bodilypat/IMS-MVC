@@ -11,11 +11,11 @@
 	
 	<!-- Datatables script -->
 	<script src="enclose/js/datatables.js" type="text/javascript" charset="utf8" ></script>
-	<script src="enclose/js/sumsum.js" type="text/javascript" charset="utf8"></script>
+	<script src="assign/js/sumsum.js" type="text/javascript" charset="utf8"></script>
 	
 	<!-- Chosen files for select boxes -->
-	<script src="assign/js/chosen.jquery.min.js"></script>
-	<link href="assign/css/chosen.css" rel="stylesheet" />
+	<script src="enclose/js/chosen.jquery.min.js"></script>
+	<link href="enclose/css/chosen.css" rel="stylesheet" />
 	
 	<!-- Datepicker JS -->
 	<script src="enclose/js/bootstrap-datepicker.min.js"></script>
