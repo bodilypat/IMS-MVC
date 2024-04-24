@@ -2,7 +2,7 @@
 	require_once('../../define/config/constants.php');
 	require_once('../../define/config/dbconnect.php');
 	
-	if(isset($_POST['venID'])){
+	if(isset($_POST['vendorID'])){
 		
 		$venderID = htmlentities($_POST['vendorID']);
 		
@@ -15,7 +15,7 @@
 			/*  get VendorID is in the database */
 			$qVen = 'SELECT vendorID FROM vendor WHERE vendorID=:venderID';
 			$venStatement = $dbcon->prepare($qVen);
-			$venStatement->execute(['vendorID' => $venID]);
+			$venStatement->execute(['vendorID' => $vendorID]);
 			
 			if($venStatement->rowCount() > 0){
 				
