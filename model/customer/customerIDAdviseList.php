@@ -1,6 +1,6 @@
 <?php
-	require_once('../../include/config/constants.php');
-	require_once('../../include/config/dbconnect.php');
+	require_once('../../define/config/constants.php');
+	require_once('../../define/config/dbconnect.php');
 	
 	/* Check if the POST request is received and if so, execute the script */
 	if(isset($_POST['textBoxValue'])){
