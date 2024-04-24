@@ -1,27 +1,27 @@
 <?php
-	require_once('../../include/config/constants.php');
-	require_once('../../include/config/dbconnect.php');
+	require_once('../../define/config/constants.php');
+	require_once('../../define/config/dbconnect.php');
 	
-	$itemNum = htmlentities($_POST['itemNumber']);
+	$itemNumber = htmlentities($_POST['itemNumber']);
 	
-	if(isset($_POST['itemNum'])){
+	if(isset($_POST['itemNumber'])){
 		
 		/*  Check if mandatory fields are not empty */
-		if(!empty($itemNum)){
+		if(!empty($itemNumber)){
 						
-			$itemNum = filter_var($itemNum, FILTER_SANITIZE_STRING);
+			$itemNumber = filter_var($itemNumber, FILTER_SANITIZE_STRING);
 
 			/*  Check if the item is in the database */
-			$qItem = 'SELECT itemNumber FROM item WHERE itemNumber=:itemNum';
-			$itemStatement = $conn->prepare($qItem);
-			$itemStatement->execute(['itemNumber' => $itemNum]);
+			$qItem = 'SELECT itemNumber FROM item WHERE itemNumber=:itemNumber';
+			$itemStatement = $dbcon->prepare($qItem);
+			$itemStatement->execute(['itemNumber' => $itemNumber]);
 			
 			if($itemStatement->rowCount() > 0){
 				
 				/* Item exists in DB. Hence start the DELETE process */
-				$delItem = 'DELETE FROM item WHERE itemNumber=:itemNum';
-				$itemStatement = $dbcon->prepare($delItem);
-				$itemStatement->execute(['itemNumber' => $itemNum]);
+				$delItem = 'DELETE FROM item WHERE itemNumber=:itemNumber';
+				$delStatement = $dbcon->prepare($delItem);
+				$delStatement->execute(['itemNumber' => $itemNumber]);
 
 				echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Item deleted.</div>';
 				exit();
