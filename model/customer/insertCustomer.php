@@ -7,7 +7,7 @@
 		$custFullName = htmlentities($_POST['custFullName']);
 		$custEmail = htmlentities($_POST['custEmail']);
 		$custMobile = htmlentities($_POST['custMobile']);
-		$custPhone = htmlentities($_POST['custPhone2']);
+		$custPhone = htmlentities($_POST['custPhone']);
 		$custAddress = htmlentities($_POST['custAddress']);
 		$custAddress2 = htmlentities($_POST['custAddress2']);
 		$custCity = htmlentities($_POST['custCity']);
@@ -71,11 +71,11 @@
 
 			$addCust = 'INSERT INTO customer(fullName, email, mobile, phone2, address, address2, city, district, status) 
 			            VALUES(:custFullName, :custEmail, :custMobile, :custPhone, :custAddress, :custAddress2, :custCity, :custDistrict, :custStatus)';
-			$custStatement = $conn->prepare($addCust);
+			$custStatement = $dbcon->prepare($addCust);
 			$custStatement->execute(['fullName' => $custFullName, 
 			                         'email' => $custEmail, 
 									 'mobile' => $custMobile, 
-									 'phone2' => $custPhone2, 
+									 'phone' => $custPhone, 
 									 'address' => $custAddress, 
 									 'address2' => $custAddress2, 
 									 'city' => $custCity, 
