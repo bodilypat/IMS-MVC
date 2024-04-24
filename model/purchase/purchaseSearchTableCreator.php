@@ -1,6 +1,6 @@
 <?php
-	require_once('../../include/config/constants.php');
-	require_once('../../include/config/dbconnect.php');
+	require_once('../../define/config/constants.php');
+	require_once('../../define/config/dbconnect.php');
 	
 	$unitPrice = 0;
 	$quantity = 0;
@@ -51,17 +51,17 @@
 	$output .= '</tbody>
 					<tfoot>
 						<tr>
-							<th>Purchase ID</th>
-							<th>Item Number</th>
-							<th>Purchase Date</th>
-							<th>Item Name</th>
-							<th>Unit Price</th>
-							<th>Quantity</th>
-							<th>Vendor Name</th>
-							<th>Vendor ID</th>
-							<th>Total Price</th>
+							<th>Total</th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
 						</tr>
 					</tfoot>
 				</table>';
-	echo $output;
+	echo $output;	
 ?>
