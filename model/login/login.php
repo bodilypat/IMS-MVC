@@ -1,7 +1,7 @@
 <?php
      session_start();
-     require_once('../../assign/config/constants.php');
-     require_once('../../assign/config/dbconnect.php');
+     require_once('../../define/config/constants.php');
+     require_once('../../define/config/dbconnect.php');
 
      $Username = '';
      $Password = '';
@@ -29,14 +29,14 @@
 
             /* Encrypt password */
             /* check credentials  */
-            $qUser = 'SELECT * FROM user WHERE username = :username AND password = :Password';
+            $qUser = 'SELECT * FROM user WHERE username = :Username AND password = :Password';
             $userStatement = $dbcon->prepare($qUser);
             $userStatement->execute(['username' => $Username, 'password' => $hashedPass]);
 
             /* check user exit */
             if($userStatement->rowCount() > 0){
                 /* valid , start the session */
-                $result = $UserStatement->fetch(PDO:FETCH_ASSOC);
+                $result = $userStatement->fetch(PDO:FETCH_ASSOC);
 
                 $_SESSION['loggedIn'] = '1';
                 $_SESSION['fullName'] = $result['fullName'];
