@@ -320,7 +320,6 @@ $(document).ready(function(){
 	$(document).on('click', function(){
 		$('.adviseList').fadeOut();
 	});
-
 	
 	/* load file search table */
 	searchTableCreator('itemSearchTableDiv', itemSearchTableCreatorFile, 'itemSearchTable');
@@ -335,7 +334,6 @@ $(document).ready(function(){
 	reportTableCreator('customerReportTableDiv', customerReportTableCreatorFile, 'customerReportTable');
 	reportSaleTableCreator('saleReportTableDiv', saleReportTableCreatorFile, 'saleReportTable');
 	reportTableCreator('vendorReportTableDiv', vendorReportTableCreatorFile, 'vendorReportTable');
-	
 	
 	/* initiate popover */
 	$(document).on('mouseover', '.itemDetailsHover', function(){
@@ -376,7 +374,6 @@ $(document).ready(function(){
 	});
 });
 
-
 /* function fetch data for show popover*/
 function fetchData(){
 	var fetch_data = '';
@@ -394,7 +391,6 @@ function fetchData(){
 	});
 	return fetch_data;
 }
-
 
 /* function call scriptPath  image */
 function processImage(imageFormID, scriptPath, messageDivID){
@@ -441,7 +437,6 @@ function reportsTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 		});
 	});
 }
-
 
 function reportsPurchaseTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 	var tableContainerDivID = '#' + tableContainerDiv;
@@ -492,7 +487,7 @@ function reportsPurchaseTableCreator(tableContainerDiv, tableCreatorFileUrl, tab
 						return intVal(a) + intVal(b);
 					}, 0 );
 				
-				// Unit price for current page
+				/* Unit price for current page */
 				unitPriceFilteredTotal = api
 					.column( 7, { page: 'current'} )
 					.data()
@@ -500,7 +495,7 @@ function reportsPurchaseTableCreator(tableContainerDiv, tableCreatorFileUrl, tab
 						return intVal(a) + intVal(b);
 					}, 0 );
 					
-				// Full price total over all pages
+				/* Full price total over all pages */
 				fullPriceTotal = api
 					.column( 8 )
 					.data()
@@ -508,15 +503,15 @@ function reportsPurchaseTableCreator(tableContainerDiv, tableCreatorFileUrl, tab
 						return intVal(a) + intVal(b);
 					}, 0 );
 				
-				// Full price for current page
+				/* Full price for current page */
 				fullPriceFilteredTotal = api
 					.column( 8, { page: 'current'} )
 					.data()
 					.reduce( function (a, b) {
 						return intVal(a) + intVal(b);
 					}, 0 );
-	 
-				// Update footer columns
+	 			
+				/* Update footer columns */
 				$( api.column( 6 ).footer() ).html(quantityFilteredTotal +' ('+ quantityTotal +' total)');
 				$( api.column( 7 ).footer() ).html(unitPriceFilteredTotal +' ('+ unitPriceTotal +' total)');
 				$( api.column( 8 ).footer() ).html(fullPriceFilteredTotal +' ('+ fullPriceTotal +' total)');
@@ -525,13 +520,13 @@ function reportsPurchaseTableCreator(tableContainerDiv, tableCreatorFileUrl, tab
 	});
 }
 
-
-// Function to create reports datatables for sale
+/* Function to create reports datatables for sale */
 function reportsSaleTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 	var tableContainerDivID = '#' + tableContainerDiv;
 	var tableID = '#' + table;
 	$(tableContainerDivID).load(tableCreatorFileUrl, function(){
-		// Initiate the Datatable plugin once the table is added to the DOM
+		
+		/* Initiate the Datatable plugin once the table is added to the DOM */
 		$(tableID).DataTable({
 			dom: 'lBfrtip',
 			buttons: [
@@ -544,31 +539,31 @@ function reportsSaleTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 			"footerCallback": function ( row, data, start, end, display ) {
 				var api = this.api(), data;
 	 
-				// Remove the formatting to get integer data for summation
+				/* Remove the formatting to get integer data for summation */
 				var intVal = function ( i ) {
 					return typeof i === 'string' ?
 						i.replace(/[\$,]/g, '')*1 :
 						typeof i === 'number' ?
 							i : 0;
 				};
-	 
-				// Quantity Total over all pages
+	
+				/* Quantity Total over all pages */
 				quantityTotal = api
 					.column( 7 )
 					.data()
 					.reduce( function (a, b) {
 						return intVal(a) + intVal(b);
 					}, 0 );
-	 
-				// Quantity Total over this page
+	 				
+				/* Quantity Total over this page */
 				quantityFilteredTotal = api
 					.column( 7, { page: 'current'} )
 					.data()
 					.reduce( function (a, b) {
 						return intVal(a) + intVal(b);
 					}, 0 );
-				
-				// Unit price Total over all pages
+			
+				/* Unit price Total over all pages*/
 				unitPriceTotal = api
 					.column( 8 )
 					.data()
@@ -576,23 +571,22 @@ function reportsSaleTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 						return intVal(a) + intVal(b);
 					}, 0 );
 				
-				// Unit price total over current page
+				/* Unit price total over current page */
 				unitPriceFilteredTotal = api
 					.column( 8, { page: 'current'} )
 					.data()
 					.reduce( function (a, b) {
 						return intVal(a) + intVal(b);
 					}, 0 );
-					
-				// Full price Total over all pages
+
+				/* Full price Total over all pages*/
 				fullPriceTotal = api
 					.column( 9 )
 					.data()
 					.reduce( function (a, b) {
 						return intVal(a) + intVal(b);
 					}, 0 );
-				
-				// Full price total over current page
+				/* Full price total over current page */
 				fullPriceFilteredTotal = api
 					.column( 9, { page: 'current'} )
 					.data()
@@ -600,7 +594,7 @@ function reportsSaleTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 						return intVal(a) + intVal(b);
 					}, 0 );
 	 
-				// Update footer columns
+				/* Update footer columns*/
 				$( api.column( 7 ).footer() ).html(quantityFilteredTotal +' ('+ quantityTotal +' total)');
 				$( api.column( 8 ).footer() ).html(unitPriceFilteredTotal +' ('+ unitPriceTotal +' total)');
 				$( api.column( 9 ).footer() ).html(fullPriceFilteredTotal +' ('+ fullPriceTotal +' total)');
@@ -609,8 +603,7 @@ function reportsSaleTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 	});
 }
 
-
-// Function to create filtered datatable for sale details with total values
+/* Function to create filtered datatable for sale details with total values */
 function filteredSaleReportTableCreator(startDate, endDate, scriptPath, tableDIV, tableID){
 	var startDate = $('#' + startDate).val();
 	var endDate = $('#' + endDate).val();
@@ -627,7 +620,7 @@ function filteredSaleReportTableCreator(startDate, endDate, scriptPath, tableDIV
 			$('#' + tableDIV).html(data);
 		},
 		complete: function(){
-			// Initiate the Datatable plugin once the table is added to the DOM
+			/* Initiate the Datatable plugin once the table is added to the DOM */
 			$('#' + tableID).DataTable({
 				dom: 'lBfrtip',
 				buttons: [
@@ -640,7 +633,7 @@ function filteredSaleReportTableCreator(startDate, endDate, scriptPath, tableDIV
 				"footerCallback": function ( row, data, start, end, display ) {
 					var api = this.api(), data;
 		 
-					// Remove the formatting to get integer data for summation
+					/* Remove the formatting to get integer data for summation */
 					var intVal = function ( i ) {
 						return typeof i === 'string' ?
 							i.replace(/[\$,]/g, '')*1 :
@@ -648,7 +641,7 @@ function filteredSaleReportTableCreator(startDate, endDate, scriptPath, tableDIV
 								i : 0;
 					};
 		 
-					// Total over all pages
+					/* Total over all pages */
 					quantityTotal = api
 						.column( 7 )
 						.data()
@@ -656,7 +649,7 @@ function filteredSaleReportTableCreator(startDate, endDate, scriptPath, tableDIV
 							return intVal(a) + intVal(b);
 						}, 0 );
 		 
-					// Total over this page
+					/* Total over this page */
 					quantityFilteredTotal = api
 						.column( 7, { page: 'current'} )
 						.data()
@@ -664,7 +657,7 @@ function filteredSaleReportTableCreator(startDate, endDate, scriptPath, tableDIV
 							return intVal(a) + intVal(b);
 						}, 0 );
 					
-					// Total over all pages
+					/* Total over all pages */
 					unitPriceTotal = api
 						.column( 8 )
 						.data()
@@ -672,7 +665,7 @@ function filteredSaleReportTableCreator(startDate, endDate, scriptPath, tableDIV
 							return intVal(a) + intVal(b);
 						}, 0 );
 					
-					// Quantity total
+					/* Quantity total */
 					unitPriceFilteredTotal = api
 						.column( 8, { page: 'current'} )
 						.data()
@@ -680,7 +673,7 @@ function filteredSaleReportTableCreator(startDate, endDate, scriptPath, tableDIV
 							return intVal(a) + intVal(b);
 						}, 0 );
 						
-					// Full total over all pages
+					/* Full total over all pages */
 					fullPriceTotal = api
 						.column( 9 )
 						.data()
@@ -688,7 +681,7 @@ function filteredSaleReportTableCreator(startDate, endDate, scriptPath, tableDIV
 							return intVal(a) + intVal(b);
 						}, 0 );
 					
-					// Full total over current page
+					/* Full total over current page */
 					fullPriceFilteredTotal = api
 						.column( 9, { page: 'current'} )
 						.data()
@@ -696,7 +689,7 @@ function filteredSaleReportTableCreator(startDate, endDate, scriptPath, tableDIV
 							return intVal(a) + intVal(b);
 						}, 0 );
 		 
-					// Update footer columns
+					/* Update footer columns */
 					$( api.column( 7 ).footer() ).html(quantityFilteredTotal +' ('+ quantityTotal +' total)');
 					$( api.column( 8 ).footer() ).html(unitPriceFilteredTotal +' ('+ unitPriceTotal +' total)');
 					$( api.column( 9 ).footer() ).html(fullPriceFilteredTotal +' ('+ fullPriceTotal +' total)');
@@ -706,8 +699,7 @@ function filteredSaleReportTableCreator(startDate, endDate, scriptPath, tableDIV
 	});
 }
 
-
-// Function to create filtered datatable for purchase details with total values
+/* Function to create filtered datatable for purchase details with total values */
 function filteredPurchaseReportTableCreator(startDate, endDate, scriptPath, tableDIV, tableID){
 	var startDate = $('#' + startDate).val();
 	var endDate = $('#' + endDate).val();
@@ -724,7 +716,7 @@ function filteredPurchaseReportTableCreator(startDate, endDate, scriptPath, tabl
 			$('#' + tableDIV).html(data);
 		},
 		complete: function(){
-			// Initiate the Datatable plugin once the table is added to the DOM
+			/* Initiate the Datatable plugin once the table is added to the DOM */
 			$('#' + tableID).DataTable({
 				dom: 'lBfrtip',
 				buttons: [
@@ -737,7 +729,7 @@ function filteredPurchaseReportTableCreator(startDate, endDate, scriptPath, tabl
 				"footerCallback": function ( row, data, start, end, display ) {
 					var api = this.api(), data;
 		 
-					// Remove the formatting to get integer data for summation
+					/* Remove the formatting to get integer data for summation */
 					var intVal = function ( i ) {
 						return typeof i === 'string' ?
 							i.replace(/[\$,]/g, '')*1 :
@@ -745,15 +737,15 @@ function filteredPurchaseReportTableCreator(startDate, endDate, scriptPath, tabl
 								i : 0;
 					};
 		 
-					// Quantity total over all pages
+					/* Quantity total over all pages */
 					quantityTotal = api
 						.column( 6 )
 						.data()
 						.reduce( function (a, b) {
 							return intVal(a) + intVal(b);
 						}, 0 );
-		 
-					// Quantity for current page
+		 					
+					/* Quantity for current page */
 					quantityFilteredTotal = api
 						.column( 6, { page: 'current'} )
 						.data()
@@ -761,7 +753,7 @@ function filteredPurchaseReportTableCreator(startDate, endDate, scriptPath, tabl
 							return intVal(a) + intVal(b);
 						}, 0 );
 					
-					// Unit price total over all pages
+					/* Unit price total over all pages */
 					unitPriceTotal = api
 						.column( 7 )
 						.data()
@@ -769,7 +761,7 @@ function filteredPurchaseReportTableCreator(startDate, endDate, scriptPath, tabl
 							return intVal(a) + intVal(b);
 						}, 0 );
 					
-					// Unit price for current page
+					/* Unit price for current page */
 					unitPriceFilteredTotal = api
 						.column( 7, { page: 'current'} )
 						.data()
@@ -777,7 +769,7 @@ function filteredPurchaseReportTableCreator(startDate, endDate, scriptPath, tabl
 							return intVal(a) + intVal(b);
 						}, 0 );
 					
-					// Full price total over all pages
+					/* Full price total over all pages */
 					fullPriceTotal = api
 						.column( 8 )
 						.data()
@@ -785,7 +777,7 @@ function filteredPurchaseReportTableCreator(startDate, endDate, scriptPath, tabl
 							return intVal(a) + intVal(b);
 						}, 0 );
 					
-					// Full price for current page
+					/* Full price for current page */
 					fullPriceFilteredTotal = api
 						.column( 8, { page: 'current'} )
 						.data()
@@ -793,7 +785,7 @@ function filteredPurchaseReportTableCreator(startDate, endDate, scriptPath, tabl
 							return intVal(a) + intVal(b);
 						}, 0 );
 		 
-					// Update footer columns
+					/*Update footer columns  */
 					$( api.column( 6 ).footer() ).html(quantityFilteredTotal +' ('+ quantityTotal +' total)');
 					$( api.column( 7 ).footer() ).html(unitPriceFilteredTotal +' ('+ unitPriceTotal +' total)');
 					$( api.column( 8 ).footer() ).html(fullPriceFilteredTotal +' ('+ fullPriceTotal +' total)');
@@ -803,15 +795,14 @@ function filteredPurchaseReportTableCreator(startDate, endDate, scriptPath, tabl
 	});
 }
 
-// Calculate Total Purchase value in purchase details tab
+/* Calculate Total Purchase value in purchase details tab */
 function calculatePurchaseTotal(){
 	var purQuantity = $('#purchaseQuantity').val();
 	var purUnitPrice = $('#purchaseUnitPrice').val();
 	$('#purchaseTotal').val(Number(purQuantity) * Number(purUnitPrice));
 }
 
-
-// Calculate Total sale value in sale details tab
+/* Calculate Total sale value in sale details tab */
 function calculateSaleTotal(){
 	var saleQuantity = $('#saleQuantity').val();
 	var saleUnitPrice = $('#saleUnitPrice').val();
@@ -819,8 +810,7 @@ function calculateSaleTotal(){
 	$('#saleTotal').val(Number(saleUnitPrice) * ((100 - Number(saleDiscount)) / 100) * Number(saleQuantity));
 }
 
-
-// Function to call the insertCustomer.php script to insert customer data to db
+/* call insertCustomer insert customer data into Database */
 function addCustomer() {
 	var custFullName = $('#customerFullName').val();
 	var custEmail = $('#customerEmail').val();
