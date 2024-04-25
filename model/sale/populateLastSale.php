@@ -5,8 +5,8 @@
 	$qSale = "SELECT MAX(saleID) FROM sale";
 	$saleStatement = $dbcon->prepare($qSale);
 	$saleStatement->execute();
-	$result = $saleStatement->fetch(PDO::FETCH_ASSOC);
+	/* get saleID form database */
+	$result= $saleStatement->fetch(PDO::FETCH_ASSOC);
 	
-	echo $row['MAX(saleID)'];
+	echo $result['MAX(saleID)'];
 ?>
-
