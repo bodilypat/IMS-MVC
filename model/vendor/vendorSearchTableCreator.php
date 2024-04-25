@@ -13,7 +13,7 @@
 						<th>Full Name</th>
 						<th>Email</th>
 						<th>Mobile</th>
-						<th>Phone 2</th>
+						<th>Phone </th>
 						<th>Address</th>
 						<th>Address 2</th>
 						<th>City</th>
@@ -30,7 +30,7 @@
 						'<td>' . $resultset['fullName'] . '</td>' .
 						'<td>' . $resultset['email'] . '</td>' .
 						'<td>' . $resultset['mobile'] . '</td>' .
-						'<td>' . $resultset['phone2'] . '</td>' .
+						'<td>' . $resultset['phone'] . '</td>' .
 						'<td>' . $resultset['address'] . '</td>' .
 						'<td>' . $resultset['address2'] . '</td>' .
 						'<td>' . $resultset['city'] . '</td>' .
@@ -48,7 +48,7 @@
 							<th>Full Name</th>
 							<th>Email</th>
 							<th>Mobile</th>
-							<th>Phone 2</th>
+							<th>Phone </th>
 							<th>Address</th>
 							<th>Address 2</th>
 							<th>City</th>
