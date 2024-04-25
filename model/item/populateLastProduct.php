@@ -6,7 +6,7 @@
 	$itemStatement = $dbcon->prepare($qItem);
 	$itemStatementt->execute();
 	$result = $itemStatement->fetch(PDO::FETCH_ASSOC);
-	
+	/* get result productID */
 	echo $result['MAX(productID)'];
 	$itemStatement->closeCursor();
 ?>
