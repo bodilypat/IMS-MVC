@@ -4,44 +4,47 @@
 	
 	if(isset($_POST['vendorID'])){
 		
-		$venderID = htmlentities($_POST['vendorID']);
-		
-		/*  Check if mandatory fields are not empty */
-		if(!empty($venderID)){
+		$vendorID = htmlentities($_POST['vendorID']);
+		/* check madatory fields */
+		if(!empty($vendorID)){
 			
-			/*  Sanitize vendorID */
-			$venderID = filter_var($venID, FILTER_SANITIZE_STRING);
+			/* Sanitize VendorID */
+			$vendorID = filter_var($vendorID, FILTER_SANITIZE_STRING);
 
-			/*  get VendorID is in the database */
-			$qVen = 'SELECT vendorID FROM vendor WHERE vendorID=:venderID';
+			/* get vendor object from DB */
+			$qVen = "SELECT vendorID FROM vendor WHERE vendorID='$vendorID'";
 			$venStatement = $dbcon->prepare($qVen);
 			$venStatement->execute(['vendorID' => $vendorID]);
 			
 			if($venStatement->rowCount() > 0){
 				
-				/*  Vendor exists in DB. start the DELETE process */
-				$delVen = 'DELETE FROM vendor WHERE vendorID=:venderID';
-				$delStatement = $dbcon->prepare($delVen);
-				$delStatement->execute(['vendorID' => $vendorID]);
+				/* Vendor exists in database, start delete process */
+				$delVen = "DELETE FROM vendor WHERE vendorID='$vendorID'";
+				$delVenStatement = $dbcon->prepare($delVen);
+				$delVenStatement->execute(['vendorID' => $vendorID]);
 
 				echo '<div class="alert alert-success">
-                                           <button type="button" class="close" data-dismiss="alert">&times;</button>Vendor deleted.
-				      </div>';
+				           <button type="button" class="close" data-dismiss="alert">&times;</button>
+					       Vendor deleted.
+					 </div>';
 				exit();
 				
 			} else {
-				/*  Vendor does not exist, therefore, tell the user that he can't delete that vendor */ 
+				
+				/* vendor does not exist */
 				echo '<div class="alert alert-danger">
-                                           <button type="button" class="close" data-dismiss="alert">&times;</button>Vendor does not exist in DB. Therefore, can\'t delete.
-                                      </div>';
+				           <button type="button" class="close" data-dismiss="alert">&times;</button>
+						   Vendor does not exist in DB. Therefore, can\'t delete.
+					  </div>';
 				exit();
 			}
 			
 		} else {
-			/* vendorDI is empty. Therefore, display the error message */
+			/* vendorID empty */
 			echo '<div class="alert alert-danger">
-                                   <button type="button" class="close" data-dismiss="alert">&times;</button>Please enter the Vendor ID
-			      </div>';
+			           <button type="button" class="close" data-dismiss="alert">&times;</button>
+					   Please enter the Vendor ID
+				  </div>';
 			exit();
 		}
 	}
