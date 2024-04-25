@@ -20,17 +20,19 @@
 		$balanceStock = 0;
 		$newStock = 0;
 		
-		// Check if mandatory fields are not empty
+		/* check mandatory fields does not empty */
 		if(isset($saleItemNumber) && isset($saleDate) && isset($saleQuantity) && isset($saleUnitPrice) && isset($saleCustomerID)){
-			
-			// Sanitize item number
+		
+			/* Sanitize itemNumber */
 			$saleItemNumber = filter_var($saleItemNumber, FILTER_SANITIZE_STRING);
 			
-			// Validate item quantity. It has to be an integer
+			/* validate itemQuantity */
 			if(filter_var($saleQuantity, FILTER_VALIDATE_INT) === 0 || filter_var($saleQuantity, FILTER_VALIDATE_INT)){
-				// Quantity is valid
+		
+				/* quantity is valie */
 			} else {
-				// Quantity is not a valid number
+			
+				/* quantity invalie */
 				echo '<div class="alert alert-danger">
 				           <button type="button" class="close" data-dismiss="alert">&times;</button>
 					        Please enter a valid number for Quantity.
@@ -38,11 +40,13 @@
 				exit();
 			}
 			
-			// Validate unit price. It has to be an integer or floating point value
+			/* validate unitPrice  */
 			if(filter_var($saleUnitPrice, FILTER_VALIDATE_FLOAT) === 0.0 || filter_var($saleUnitPrice, FILTER_VALIDATE_FLOAT)){
-				// Valid unit price
+			
+				/* valid unitPrice */
 			} else {
-				// Unit price is not a valid number
+				
+				/* unitPrice invalid */
 				echo '<div class="alert alert-danger">
 				           <button type="button" class="close" data-dismiss="alert">&times;</button>
 						   Please enter a valid number for Unit Price.
@@ -50,12 +54,14 @@
 				exit();
 			}
 			
-			// Validate discount
+			/* validate discount */
 			if($saleDiscount !== ''){
 				if(filter_var($saleDiscount, FILTER_VALIDATE_FLOAT) === 0.0 || filter_var($saleDiscount, FILTER_VALIDATE_FLOAT)){
-				// Valid discount
+			
+				/* discount valid */
 				} else {
-					// Discount is not a valid number
+	
+					/* discount invalid */
 					echo '<div class="alert alert-danger">
 							   <button type="button" class="close" data-dismiss="alert">&times;</button>
 							   Please enter a valid number for Discount.
@@ -64,7 +70,7 @@
 				}
 			}
 			
-			// Check if saleID is empty
+			/* check saleID empty */
 			if($saleID == ''){ 
 				echo '<div class="alert alert-danger">
 				           <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -73,7 +79,7 @@
 				exit();
 			}
 			
-			// Check if customerID is empty
+			/* check customerID empty */
 			if($saleCustomerID == ''){ 
 				echo '<div class="alert alert-danger">
 				          <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -82,7 +88,7 @@
 				exit();
 			}
 			
-			// Check if itemNumber is empty
+			/* check itemNumber is empty */
 			if($saleItemNumber == ''){ 
 				echo '<div class="alert alert-danger">
 				           <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -91,7 +97,7 @@
 				exit();
 			}
 			
-			// Check if quantity is empty
+			/* check quantity is empty */
 			if($saleQuantity == ''){ 
 				echo '<div class="alert alert-danger">
 				           <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -100,7 +106,7 @@
 				exit();
 			}
 			
-			// Check if unit price is empty
+			/* check unitPrice empty */
 			if($saleUnitPrice == ''){ 
 				echo '<div class="alert alert-danger">
 				           <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -109,19 +115,18 @@
 				exit();
 			}
 			
-			
-			/* query sale record  */
-			$qSale = 'SELECT * FROM sale WHERE saleID = :saleID';
+			/* query sale object from DB  */
+			$qSale = " SELECT * FROM sale WHERE saleID = '$saleID'";
 			$saleStatement = $dbcon->prepare($qSale);
 			$saleStatement->execute(['saleID' => $saleID]);
 			
-			/* query customer record  */
-			$qCust = 'SELECT * FROM customer WHERE customerID = :customerID';
+			/* query customer object from DB */
+			$qCust = " SELECT * FROM customer WHERE customerID = '$customerID'";
 			$custStatement = $dbcon->prepare($qCust);
 			$custStatement->execute(['customerID' => $saleCustomerID]);
 			
 			if($custStatement->rowCount() < 1){
-				// Customer id is wrong
+				/* customerID is invalid */
 				echo '<div class="alert alert-danger">
 				           <button type="button" class="close" data-dismiss="alert">&times;</button>
 						    Customer ID does not exist in DB. Please enter a valid Customer ID.
@@ -135,7 +140,7 @@
 			
 			if($saleStatement->rowCount() > 0){
 				
-				// sale record
+				/* get quantity , itemNuber from sale object */
 				$resultSale = $saleStatement->fetch(PDO::FETCH_ASSOC);
 				$orderQuantity = $resultSale['quantity'];
 				$orderItemNumber = $resultSale['itemNumber'];
@@ -143,13 +148,13 @@
 				/* compare itemNumber in DB with saleItemNumber */
 				if($orderItemNumber !== $saleItemNumber) {
 					
-					$qItem = 'SELECT * FROM item WHERE itemNumber = :itemNumber';
+					$qItem = "SELECT * FROM item WHERE itemNumber = '$saleItemNumber'";
 					$itemStatement = $dbcon->prepare($qItem);
 					$itemStatement->execute(['itemNumber' => $saleItemNumber]);
 					
 					if($itemStatement->rowCount() < 1){
 
-						/* item number is not in DB  */
+						/* itemNumaber does not exist in DB  */
 						echo '<div class="alert alert-danger">
 						           <button type="button" class="close" data-dismiss="alert">&times;</button>
 								   Item Number does not exist in DB. If you want to update this item, please add it to DB first.
@@ -160,7 +165,7 @@
 					/* calculate new stock  */
 					$resultItem = $itemStatement->fetch(PDO::FETCH_ASSOC);
 					$orderQuantity = $resultItem['stock'];
-					$newOrderQuantity = $saleQuantity;
+					$newOrderQuantity = $saleQuantity; /* olderOrder - newOrder */
 					$newStock = $orderQuantity - $newOrderQuantity;
 					
 					/* update item table */
@@ -169,25 +174,41 @@
 					$updateItemStatement->execute(['stock' => $newStock, 'itemNumber' => $saleItemNumber]);
 					
 					
-					/* query current stock */
-					$qItem = 'SELECT * FROM item WHERE itemNumber=:itemNumber';
+					/* query current stock form item object */
+					$qItem = "SELECT * FROM item WHERE itemNumber='$orderItemNumber'";
 					$itemStatement = $dbcon->prepare($qItem);
 					$itemStatement->execute(['itemNumber' => $orderItemNumber]);
 					
 					/* calculate new stock */
 					$resultItem = $itemStatement->fetch(PDO::FETCH_ASSOC);
 					$balanceStock = $resultItem['stock'];
-					$currentStock = $balanceStock + $newOrderQuantity;
+					$newStock = $balanceStock + $orderQuantity;
 					
 					/* update item table */
-					$editItemStock = 'UPDATE item SET stock = :stock WHERE itemNumber = :itemNumber';
+					$editItemStock = "UPDATE item SET stock = '$newStock WHERE itemNumber = '$orderItemNumber'";
 					$updateItemStatement = $dbcon->prepare($editItemStock);
-					$updateItemStatement->execute(['stock' => $currentStock, 'itemNumber' => $orderItemNumber]);
+					$updateItemStatement->execute(['stock' => $newStock, 'itemNumber' => $orderItemNumber]);
 					
 					/* update sale table */
-					$editSale = 'UPDATE sale SET itemNumber = :itemNumber, saleDate = :saleDate, itemName = :itemName, unitPrice = :unitPrice, discount = :discount, quantity = :quantity, customerName = :customerName, customerID = :customerID WHERE saleID = :saleID';
+					$editSale = "UPDATE sale SET itemNumber = '$saleItemNumber', 
+					                             saleDate = '$saleDate', 
+												 itemName = '$saleItemName', 
+												 unitPrice = '$saleUnitPrice', 
+												 discount = '$saleDiscount', 
+												 quantity = '$saleQuantity', 
+												 customerName = '$saleCustomerName', 
+												 customerID = '$saleCustomerID'
+											WHERE saleID = '$saleID' ";
 					$updateSaleStatement = $dbcon->prepare($editSale);
-					$updateSaleStatement->execute(['itemNumber' => $saleItemNumber, 'saleDate' => $saleDate, 'itemName' => $saleItemName, 'unitPrice' => $saleUnitPrice, 'discount' => $saleDiscount, 'quantity' => $saleQuantity, 'customerName' => $saleCustomerName, 'customerID' => $customerID, 'saleID' => $saleID]);
+					$updateSaleStatement->execute(['itemNumber' => $saleItemNumber, 
+					                               'saleDate' => $saleDate, 
+												   'itemName' => $saleItemName, 
+												   'unitPrice' => $saleUnitPrice, 
+												   'discount' => $saleDiscount, 
+												   'quantity' => $saleQuantity, 
+												   'customerName' => $saleCustomerName, 
+												   'customerID' => $customerID, 
+												   'saleID' => $saleID]);
 					
 					echo '<div class="alert alert-success">
 					           <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -196,31 +217,47 @@
 					exit();
 					
 				} else {
-					// Item numbers are equal. That means item number is valid
 					
-					// Get the quantity (stock) in item table
-					$qItem = 'SELECT * FROM item WHERE itemNumber=:itemNumber';
+					/* itemNumber equal, itemNumber is valie */
+					/* get quantity from item object */
+					$qItem = " SELECT * FROM item WHERE itemNumber='$saleItemNumber'";
 					$itemStatement = $dbcon->prepare($qItem);
 					$itemStatement->execute(['itemNumber' => $saleItemNumber]);
 					
 					if($itemStatement->rowCount() > 0){
-						// Item exists in the item table, therefore, start updating data in sale table
-						
-						// Calculate the new stock value using the existing stock in item table
+
+						/* itemNumber exists in database, start update in sale */
+						/* calculate newStock using stock in DB */
 						$resultItem = $itemStatement->fetch(PDO::FETCH_ASSOC);
 						$newOrderQuantity = $saleQuantity;
 						$balanceStock = $resultItem['stock'];
 						$newStock = $balanceStock - ($newOrderQuantity - $orderQuantity);
 						
-						// Update the new stock value in item table.
-						$editItem = 'UPDATE item SET stock = :stock WHERE itemNumber = :itemNumber';
-						$updateItemStatement = $dbconn->prepare($editItem);
+						/* update newStock into database */
+						$editItem = " UPDATE item SET stock = :stock WHERE itemNumber = '$saleItemNumber'";
+						$updateItemStatement = $dbcon->prepare($editItem);
 						$updateItemStatement->execute(['stock' => $newStock, 'itemNumber' => $saleItemNumber]);
-						
-						// Next, update the sale table
-						$editSale = 'UPDATE sale SET itemNumber = :itemNumber, saleDate = :saleDate, itemName = :itemName, unitPrice = :unitPrice, discount = :discount, quantity = :quantity, customerName = :customerName, customerID = :customerID WHERE saleID = :saleID';
+					
+						/* update sale */
+						$editSale = "UPDATE sale SET itemNumber = '$saleItemNumber', 
+						                             saleDate = '$saleDate', 
+													 itemName = '$saleItemName', 
+													 unitPrice = '$saleUnitPrice', 
+													 discount = '$saleDiscount', 
+													 quantity = '$saleQuantity', 
+													 customerName = '$saleCustomerName', 
+													 customerID = '$saleCustomerID' 
+												WHERE saleID = '$saleID' ";
 						$updateSaleStatement = $dbcon->prepare($editSale);
-						$updateSaleStatement->execute(['itemNumber' => $saleItemNumber, 'saleDate' => $saleDate, 'itemName' => $saleItemName, 'unitPrice' => $saleUnitPrice, 'discount' => $saleDiscount, 'quantity' => $saleQuantity, 'customerName' => $saleCustomerName, 'customerID' => $customerID, 'saleID' => $saleID]);
+						$updateSaleStatement->execute(['itemNumber' => $saleItemNumber, 
+						                               'saleDate' => $saleDate, 
+													   'itemName' => $saleItemName, 
+													   'unitPrice' => $saleUnitPrice, 
+													   'discount' => $saleDiscount, 
+													   'quantity' => $saleQuantity, 
+													   'customerName' => $saleCustomerName, 
+													   'customerID' => $customerID, 
+													   'saleID' => $saleID]);
 						
 						echo '<div class="alert alert-success">
 						          <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -229,8 +266,8 @@
 						exit();
 						
 					} else {
-						// Item does not exist in item table, therefore, you can't update 
-						// sale details for it 
+						
+						/* itemNumber does not exits in item , cannot update */
 						echo '<div class="alert alert-danger">
 						          <button type="button" class="close" data-dismiss="alert">&times;</button>
 								  Item does not exist in DB. Therefore, first enter this item to DB using the 
@@ -243,7 +280,7 @@
 	
 			} else {
 				
-				// SaleID does not exist in purchase table, therefore, you can't update it 
+				/* saleID does not exist in purchase , cannot upt */
 				echo '<div class="alert alert-danger">
 				           <button type="button" class="close" data-dismiss="alert">&times;</button>
 						   Sale details does not exist in DB for the given Sale ID. Therefore, can\'t update.
@@ -253,7 +290,7 @@
 			}
 
 		} else {
-			// One or more mandatory fields are empty. Therefore, display the error message
+			/* mandarory fields empty , display error message */
 			echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter all fields marked with a (*)</div>';
 			exit();
 		}
