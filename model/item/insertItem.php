@@ -59,10 +59,11 @@
 				/*  Folder does not exist, create it */
 				mkdir($itemImageFolder);
 			}			
-			/*  Calculate the stock values */
+			/*  get record item form database */
 			$qItem = 'SELECT stock FROM item WHERE itemNumber=:itemNumber';
 			$itemStatement = $dbcon->prepare($qItem);
 			$itemStatement->execute(['itemNumber' => $itemNumber]);
+			
 			if($itemStatement->rowCount() > 0){				
 				echo '<div class="alert alert-danger">
 				           <button type="button" class="close" data-dismiss="alert">&times;</button>Item already exists in DB. Please click the <strong>Update</strong> button to update the details. Or use a different Item Number.
