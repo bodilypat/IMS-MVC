@@ -9,7 +9,7 @@
 		
 		$qItem = 'SELECT * FROM item WHERE itemNumber = :itemNumber';
 		$itemStatement = $dbcon->prepare($qItem);
-		$itemStatement->execute(['itemNumber' => $itemNum]);
+		$itemStatement->execute(['itemNumber' => $itemNumber]);
 		
 		/* If data is found for the given item number, return it as a json object */
 		if($itemStatement->rowCount() > 0) {
