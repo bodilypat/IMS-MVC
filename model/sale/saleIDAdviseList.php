@@ -1,6 +1,6 @@
 <?php
-	require_once('../../include/config/constants.php');
-	require_once('../../include/config/dbconnect.php');
+	require_once('../../define/config/constants.php');
+	require_once('../../define/config/dbconnect.php');
 	
 	/* Check  POST  execute the script */
 	if(isset($_POST['textBoxValue'])){
@@ -9,7 +9,7 @@
 		
 		/* get the saleID */
 		$qSale = 'SELECT saleID FROM sale WHERE saleID LIKE ?';
-		$saleStatement = $conn->prepare($qSale);
+		$saleStatement = $dbcon->prepare($qSale);
 		$saleStatement->execute([$saleIDString]);
 		
 		/* // If we receive any results from the above query, then display them in a list*/
