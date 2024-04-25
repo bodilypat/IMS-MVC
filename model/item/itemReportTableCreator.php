@@ -5,7 +5,7 @@
 	$qItem = 'SELECT * FROM item';
 	$itemStatement = $dbconn->prepare($qItem);
 	$itemStatement->execute();
-
+	/* get item object from database */
 	$output = '<table id="itemReportTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
 				<thead>
 					<tr>
