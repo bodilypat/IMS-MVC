@@ -6,7 +6,7 @@
 	$custStatementt = $dbcon->prepare($qCust);
 	$custStatement->execute();
 	$result = $custStatement->fetch(PDO::FETCH_ASSOC);
-	
+	/* get result customerID */
 	echo $result['MAX(customerID)'];
 	$custStatement->closeCursor();
 ?>
