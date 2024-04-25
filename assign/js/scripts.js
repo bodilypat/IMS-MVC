@@ -840,7 +840,7 @@ function addCustomer() {
 			custEmail:custEmail,
 			custMobile:custMobile,
 			custPhone:custPhone,
-			custAddress:custAddress,
+			custAddress:customerAddress,
 			custAddress2:custAddress2,
 			custCity:custCity,
 			custDistrict:custDistrict,
@@ -851,7 +851,7 @@ function addCustomer() {
 			$('#customerMessage').html(data);
 		},
 		complete: function(data){
-			populateLastInsertedID(customerLastInsertedIDFile, 'customerID');
+			populateLastInserted(customerLastInsertedFile,'customerID');
 			searchTableCreator('customerSearchTableDiv', customerSearchTableCreatorFile, 'customerSearchTable');
 			reportsTableCreator('customerReportTableDiv', customerReportTableCreatorFile, 'customerReportTable');
 		}
@@ -859,7 +859,7 @@ function addCustomer() {
 }
 
 
-// Function to call the insertVendor.php script to insert vendor data to db
+/* call function add vendor */
 function addVendor() {
 	var venFullName = $('#vendorFullName').val();
 	var venEmail = $('#vendorEmail').val();
@@ -890,7 +890,7 @@ function addVendor() {
 			$('#vendorMessage').html(data);
 		},
 		complete: function(data){
-			populateLastInsertedID(vendorLastInsertedFile, 'vendorID');
+			populateLastInserted(vendorLastInsertedFile, 'vendorID');
 			searchTableCreator('vendorSearchTableDiv', vendorSearchTableCreatorFile, 'vendorSearchTable');
 			reportsTableCreator('vendorReportsTableDiv', vendorReportTableCreatorFile, 'vendorReportTable');
 			$('#purchaseVendorName').load('model/vendor/getVendorNames.php');
@@ -899,7 +899,7 @@ function addVendor() {
 }
 
 
-// Function to call the insertItem.php script to insert item data to db
+/* call insert item , get item and show data */
 function addItem() {
 	var itemNumber = $('#itemNumber').val();
 	var itemName = $('#itemName').val();
@@ -927,7 +927,7 @@ function addItem() {
 		},
 		complete: function(){
 			populateLastInserted(itemLastInsertedFile, 'itemProductID');
-			getItemStockToPopulate('itemDetailsItemNumber', getItemStockFile, itemTotalStock);
+			getItemStockToPopulate('itemNumber', getItemStockFile, itemTotalStock);
 			searchTableCreator('itemSearchTableDiv', itemSearchTableCreatorFile, 'itemSearchTable');
 			reportTableCreator('itemReportTableDiv', itemReportTableCreatorFile, 'itemReportTable');
 		}
@@ -935,7 +935,7 @@ function addItem() {
 }
 
 
-// Function to call the insertPurchase.php script to insert purchase data to db
+/* call insert purchase , get and show data */
 function addPurchase() {
 	var purchItemNumber = $('#purchaseItemNumber').val();
 	var purchDate = $('#purchaseDate').val();
@@ -960,7 +960,7 @@ function addPurchase() {
 			$('#purchaseMessage').html(data);
 		},
 		complete: function(){
-			getPopulateItemStock('purchaseItemNumber', getItemStockFile, 'purchaseCurrentStock');
+			getPopulateItemStock('purchaseItemNumber',getItemStockFile, 'purchaseCurrentStock');
 			populateLastInserted(purchaseLastInsertedFile, 'purchaseID');
 			searchTableCreator('purchaseSearchTableDiv', purchaseSearchTableCreatorFile, 'purchaseSearchTable');
 			reportsPurchaseTableCreator('purchasReportTableDiv', purchaseReportTableCreatorFile, 'purchaseReportsTable');
@@ -971,7 +971,7 @@ function addPurchase() {
 }
 
 
-// Function to call the insertSale.php script to insert sale data to db
+/* function call insertSale, get and report sale */
 function addSale() {
 	var saleItemNumber = $('#saleItemNumber').val();
 	var saleItemName = $('#saleItemName').val();
@@ -1001,7 +1001,7 @@ function addSale() {
 		},
 		complete: function(){
 			getPopulateItemStock('saleItemNumber', getItemStockFile, 'saleTotalStock');
-			populateLastInsertedID(saleLastInsertedFile, 'saleID');
+			populateLastInserted(saleLastInsertedFile, 'saleID');
 			searchTableCreator('saleSearchTableDiv', saleSearchTableCreatorFile, 'saleSearchTable');
 			reportSaleTableCreator('saleReportTableDiv', saleReportTableCreatorFile, 'saleReportTable');
 			searchTableCreator('itemSearchTableDiv', itemSearchTableCreatorFile, 'itemSearchTable');
@@ -1010,17 +1010,13 @@ function addSale() {
 	});
 }
 
-
-// Function to send itemNumber so that item details can be pulled from db
-// to be displayed on item details tab
 function getPopulateItem(){
 	// Get the itemNumber entered in the text box
 	var itemNumber = $('#itemNumber').val();
 	var defaultImgUrl = 'data/item_images/imageNotAvailable.jpg';
 	var defaultImageData = '<img class="img-fluid" src="data/item_images/imageNotAvailable.jpg">';
 	
-	// Call the populateItemDetails.php script to get item details
-	// relevant to the itemNumber which the user entered
+	/* call populateItem for get item object */
 	$.ajax({
 		url: 'model/item/populateItem.php',
 		method: 'POST',
@@ -1037,7 +1033,7 @@ function getPopulateItem(){
 
 			newImgUrl = 'data/item_images/' + data.itemNumber + '/' + data.imageURL;
 			
-			// Set the item image
+			/* set item image */
 			if(data.imageURL == 'imageNotAvailable.jpg' || data.imageURL == ''){
 				$('#imageContainer').html(defaultImageData);
 			} else {
@@ -1048,16 +1044,14 @@ function getPopulateItem(){
 }
 
 
-// Function to send itemNumber so that item details can be pulled from db
-// to be displayed on sale details tab
+
 function getPopulateItemForSale(){
-	// Get the itemNumber entered in the text box
+	/* get itemNumber from textbox saleItemNumber  */
 	var itemNumber = $('#saleItemNumber').val();
 	var defaultImgUrl = 'data/item_images/imageNotAvailable.jpg';
 	var defaultImageData = '<img class="img-fluid" src="data/item_images/imageNotAvailable.jpg">';
 	
-	// Call the populateItemDetails.php script to get item details
-	// relevant to the itemNumber which the user entered
+	/* get item object for sale  */
 	$.ajax({
 		url: 'model/item/populateItem.php',
 		method: 'POST',
@@ -1071,7 +1065,7 @@ function getPopulateItemForSale(){
 
 			newImgUrl = 'data/item_images/' + data.itemNumber + '/' + data.imageURL;
 			
-			// Set the item image
+			/* set item image */
 			if(data.imageURL == 'imageNotAvailable.jpg' || data.imageURL == ''){
 				$('#saleImageContainer').html(defaultImageData);
 			} else {
@@ -1084,18 +1078,18 @@ function getPopulateItemForSale(){
 	});
 }
 
-
-// Function to send itemNumber so that item name can be pulled from db
 function getItemName(itemNumberTextBoxID, scriptPath, itemNameTextbox){
-	// Get the itemNumber entered in the text box
+
+	/* get itemNumber form textbox  */
 	var itemNumber = $('#' + itemNumberTextBoxID).val();
 
-	// Call the script to get item details
+	/* get item object by scriptPath */
 	$.ajax({
 		url: scriptPath,
 		method: 'POST',
 		data: {itemNumber:itemNumber},
 		dataType: 'json',
+		/* get itemName */
 		success: function(data){
 			$('#' + itemNameTextbox).val(data.itemName);
 		},
@@ -1105,12 +1099,12 @@ function getItemName(itemNumberTextBoxID, scriptPath, itemNameTextbox){
 }
 
 
-// Function to send itemNumber so that item stock can be pulled from db
+
 function getPopulateItemStock(itemNumberTextbox, scriptPath, stockTextbox){
-	// Get the itemNumber entered in the text box
+	/* get itemNumber from text box  */
 	var itemNumber = $('#' + itemNumberTextbox).val();
 	
-	// Call the script to get stock details
+	/* get item object  by itemNumber */
 	$.ajax({
 		url: scriptPath,
 		method: 'POST',
@@ -1125,8 +1119,6 @@ function getPopulateItemStock(itemNumberTextbox, scriptPath, stockTextbox){
 	});
 }
 
-
-// Function to populate last inserted ID
 function populateLastInserted(scriptPath, textBoxID){
 	$.ajax({
 		url: scriptPath,
@@ -1138,35 +1130,28 @@ function populateLastInserted(scriptPath, textBoxID){
 	});
 }
 
-
-// Function to show suggestions
-function showSuggestions(textBoxID, scriptPath, suggestionsDivID){
-	// Get the value entered by the user
+function showAdvise(textBoxID, scriptPath, suggestionsDivID){
+	/* get value from textbox value */
 	var textBoxValue = $('#' + textBoxID).val();
 	
-	// Call the showPurchaseIDs.php script only if there is a value in the
-	// purchase ID textbox
 	if(textBoxValue != ''){
 		$.ajax({
 			url: scriptPath,
 			method: 'POST',
 			data: {textBoxValue:textBoxValue},
 			success: function(data){
-				$('#' + suggestionsDivID).fadeIn();
-				$('#' + suggestionsDivID).html(data);
+				$('#' + adviseDivID).fadeIn();
+				$('#' + adviseDivID).html(data);
 			}
 		});
 	}
 }
 
-
-// Function to delte item from db
 function deleteItem(){
-	// Get the item number entered by the user
+	/* get itemNumber */
 	var itemNumber = $('#itemNumber').val();
 	
-	// Call the deleteItem.php script only if there is a value in the
-	// item number textbox
+	/* call delete item object by itemNumber */
 	if(itemNumber != ''){
 		$.ajax({
 			url: 'model/item/deleteItem.php',
@@ -1184,14 +1169,10 @@ function deleteItem(){
 	}
 }
 
-
-// Function to delete item from db
 function deleteCustomer(){
-	// Get the customerID entered by the user
+	/* get customerID form textbox */
 	var customerDetailsCustomerID = $('#customerID').val();
 	
-	// Call the deleteCustomer.php script only if there is a value in the
-	// item number textbox
 	if(customerID != ''){
 		$.ajax({
 			url: 'model/customer/deleteCustomer.php',
@@ -1209,15 +1190,11 @@ function deleteCustomer(){
 	}
 }
 
-
-// Function to delete vendor from db
 function deleteVendor(){
-	// Get the vendorID entered by the user
+	/* get vendorID from textbox */
 	var vendorID = $('#vendorID').val();
 	
-	// Call the deleteVendor.php script only if there is a value in the
-	// vendor ID textbox
-	if(vendorDetailsVendorID != ''){
+	if(vendorID != ''){
 		$.ajax({
 			url: 'model/vendor/deleteVendor.php',
 			method: 'POST',
@@ -1234,20 +1211,16 @@ function deleteVendor(){
 	}
 }
 
-
-// Function to send customerID so that customer details can be pulled from db
-// to be displayed on customer details tab
 function getPopulateCustomer(){
-	// Get the customerID entered in the text box
+	/* get customerID from textbox */
 	var customerID = $('#customerID').val();
 	
-	// Call the populateItemDetails.php script to get item details
-	// relevant to the itemNumber which the user entered
 	$.ajax({
 		url: 'model/customer/populateCustomer.php',
 		method: 'POST',
 		data: {customerID:customerID},
 		dataType: 'json',
+		/* get customer object */
 		success: function(data){
 			$('#customerFullName').val(data.fullName);
 			$('#customerMobile').val(data.mobile);
@@ -1262,29 +1235,22 @@ function getPopulateCustomer(){
 	});
 }
 
-
-// Function to send customerID so that customer details can be pulled from db
-// to be displayed on sale details tab
 function getPopulateCustomer(){
-	// Get the customerID entered in the text box
+	/* get saleCustomerID from  textbox */
 	var customerID = $('#saleCustomerID').val();
 	
-	// Call the populateCustomerDetails.php script to get customer details
-	// relevant to the customerID which the user entered
 	$.ajax({
 		url: 'model/customer/populateCustomer.php',
 		method: 'POST',
 		data: {customerID:customerID},
 		dataType: 'json',
+		/* get data object from database */
 		success: function(data){
 			$('#saleCustomerName').val(data.fullName);
 		}
 	});
 }
 
-
-// Function to send vendorID so that vendor details can be pulled from db
-// to be displayed on vendor details tab
 function getPopulateVendor(){
 	// Get the vendorID entered in the text box
 	var vendorID = $('#vendorID').val();
