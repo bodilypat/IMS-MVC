@@ -9,8 +9,8 @@
 			
 		$defaultImgFolder = 'data/item_images/';
 		
-		/* Get all item details */
-		$qItem = 'SELECT * FROM item WHERE productID = :productID';
+		/* Get all item object from database */
+		$qItem = "SELECT * FROM item WHERE productID = '$productID'";
 		$itemStatement = $dbcon->prepare($qItem);
 		$itemStatement->execute(['productID' => $productID]);
 		
