@@ -1,6 +1,6 @@
 <?php
-	require_once('../../include/config/constants.php');
-	require_once('../../include/config/dbconnect.php');
+	require_once('../../define/config/constants.php');
+	require_once('../../define/config/dbconnect.php');
 	
 	$unitPrice = 0;
 	$quantity = 0;
@@ -14,7 +14,7 @@
 		$purchStatement = $dbcon->prepare($pPurch);
 		$purchStatement->execute(['startDate' => $startDate, 'endDate' => $endDate]);
 
-		$output = '<table id="purchaseFilteredReportsTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
+		$output = '<table id="purchaseFilteredReportTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
 					<thead>
 						<tr>
 							<th>Purchase ID</th>
