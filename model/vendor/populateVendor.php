@@ -13,8 +13,8 @@
 		
 		// If data is found for the given vendorID, return it as a json object
 		if($venStatement->rowCount() > 0) {
-			$result = $venStatement->fetch(PDO::FETCH_ASSOC);
-			echo json_encode($result);
+			$resultset = $venStatement->fetch(PDO::FETCH_ASSOC);
+			echo json_encode($resultset);
 		}
 		$venStatement->closeCursor();
 	}
