@@ -5,7 +5,7 @@
 	$qItem = 'SELECT * FROM item';
 	$itemStatement = $dbcon->prepare($qItem);
 	$itemStatement->execute();
-	
+	/* get item object form database */
 	$output = '<table id="itemSearchTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
 				<thead>
 					<tr>
