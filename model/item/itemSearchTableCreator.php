@@ -21,7 +21,7 @@
 				</thead>
 				<tbody>';
 	
-	// Create table rows from the selected data
+	/* create customer table from object in database */
 	while($resultset = $itemStatement->fetch(PDO::FETCH_ASSOC)){
 		
 		$output .= '<tr>' .
