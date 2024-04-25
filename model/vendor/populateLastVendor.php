@@ -5,8 +5,8 @@
 		 $qVen = 'SELECT MAX(vendorID) FROM vendor';
 		 $venStatement = $dbcon->prepare($qVen);
 		 $venStatement->execute();
-		 $resultset = $venStatement->fetch(PDO::FETCH_ASSOC);
+		 $result = $venStatement->fetch(PDO::FETCH_ASSOC);
 		 
-		 echo $resultset['MAX(vendorID)'];
+		 echo $result['MAX(vendorID)'];
 		 $venStatement->closeCursor();
 ?>
