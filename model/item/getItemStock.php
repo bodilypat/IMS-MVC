@@ -9,12 +9,12 @@
 		
 		$qItem = 'SELECT * FROM item WHERE itemNumber = :itemNumber';
 		$itemStatement = $dbcon->prepare($qItem);
-		$itemStatement->execute(['itemNumber' => $itemNumber]);
+		$itemStatement->execute(['itemNumber' => $itemNum]);
 		
-		/* If data is found for the given item number, return it as a json object */
+		/* get object item from database , return it as a json object */
 		if($itemStatement->rowCount() > 0) {
-			$result = $itemStatement->fetch(PDO::FETCH_ASSOC);
-			echo json_encode($result);
+			$resultset = $itemStatement->fetch(PDO::FETCH_ASSOC);
+			echo json_encode($resultset);
 		}
 		$itemStatement->closeCursor();
 	}
