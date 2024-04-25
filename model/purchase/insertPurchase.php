@@ -19,21 +19,24 @@
 			
 			if($purchItemNumber == ''){ 
 				echo '<div class="alert alert-danger">
-				           <button type="button" class="close" data-dismiss="alert">&times;</button>Please enter Item Number.
+				           <button type="button" class="close" data-dismiss="alert">&times;</button>
+						   Please enter Item Number.
 					  </div>';
 				exit();
 			}
 						
 			if($purchItemName == ''){ 
 				echo '<div class="alert alert-danger">
-				           <button type="button" class="close" data-dismiss="alert">&times;</button>Please enter Item Name.
+				           <button type="button" class="close" data-dismiss="alert">&times;</button>
+						   Please enter Item Name.
 					  </div>';
 				exit();
 			}
 			
 			if($purchQuantity == ''){ 
 				echo '<div class="alert alert-danger">
-				           <button type="button" class="close" data-dismiss="alert">&times;</button>Please enter Quantity.
+				           <button type="button" class="close" data-dismiss="alert">&times;</button>
+						   Please enter Quantity.
 					  </div>';
 				exit();
 			}
@@ -41,7 +44,8 @@
 			
 			if($purchUnitPrice == ''){ 
 				echo '<div class="alert alert-danger">
-				           <button type="button" class="close" data-dismiss="alert">&times;</button>Please enter Unit Price.
+				           <button type="button" class="close" data-dismiss="alert">&times;</button>
+						   Please enter Unit Price.
 					  </div>';
 				exit();
 			}
@@ -68,16 +72,16 @@
 				exit();
 			}
 						 
-			/* calculate the stock values and update to match the new purchase quantity */
-			$qItem= 'SELECT stock FROM item WHERE itemNumber=:purchItemNumber';
+			/* get object item from database by item number */
+			$qItem= "SELECT stock FROM item WHERE itemNumber= '$purchItemNumber'";
 			$itemStatement = $dbcon->prepare($qItem);
 			$itemStatement->execute(['itemNumber' => $purchItemNumber]);
 
 			if($itemStatement->rowCount() > 0){
 				
-				/* Get vendorId for the given vendorName */
+				/* Get object vendorID from database by vendername*/
 				
-				$qVen = 'SELECT * FROM vendor WHERE fullName = :$purchVendorName';
+				$qVen = "SELECT * FROM vendor WHERE fullName = '$purchVendorName'";
 				$venStatement = $dbcon->prepare($qVen);
 				$venStatement->execute(['fullName' => $purchVendorName]);
 
@@ -85,9 +89,10 @@
 				$vendorID = $resultVen['vendorID'];
 				
 				/*  Item exits in the item table, inserting data to purchase table */
-				$addPur = 'INSERT INTO purchase(itemNumber, purchaseDate, itemName, unitPrice, quantity, vendorName, vendorID) VALUES(:itemNumber, :purchaseDate, :itemName, :unitPrice, :quantity, :vendorName, :vendorID)';
-				$PurStatement = $dbcon->prepare($addPur);
-				$PurStatement->execute(['itemNumber' => $purchItemNumber, 
+				$addPur = "INSERT INTO purchase(itemNumber, purchaseDate, itemName, unitPrice, quantity, vendorName, vendorID) 
+				           VALUES('$purchItemNumber','$purchDate','$purchItemName','$purchUnitPrice','$purchQuantity','$purchVendor','$purchVendor','$purchVendor')";
+				$purStatement = $dbcon->prepare($addPur);
+				$purStatement->execute(['itemNumber' => $purchItemNumber, 
 				                        'purchaseDate' => $purchDate, 
 										'itemName' => $purchItemName, 
 										'unitPrice' => $purchUnitPrice, 
@@ -95,18 +100,19 @@
 										'vendorName' => $purchVendorName, 
 										'vendorID' => $vendorID]);
 				
-				/*  Calculate the new stock value using the existing stock in item table */
+				/*  get object item from database */
 				$resultItem = $itemStatement->fetch(PDO::FETCH_ASSOC);
 				$balanceStock = $resultItem['stock'];
 				$newStock = $balanceStock + $purchQuantity;
 				
-				/* Edit the new stock value in item table */
-				$editItem = 'UPDATE item SET stock = :stock WHERE itemNumber = :purchItemNumber';
+				/* update  the new stock value in item table by ItemNumber */
+				$editItem = "UPDATE item SET stock = :stock WHERE itemNumber = '$purchItemNumber'";
 				$itemStatement = $dbcon->prepare($editItem);
 				$itemStatement->execute(['stock' => $newStock, 'itemNumber' => $purchItemNumber]);
 				
 				echo '<div class="alert alert-success">
-				           <button type="button" class="close" data-dismiss="alert">&times;</button>Purchase details added to database and stock values updated.
+				           <button type="button" class="close" data-dismiss="alert">&times;</button>
+						           Purchase details added to database and stock values updated.
 					  </div>';
 				exit();
 				
@@ -114,7 +120,8 @@
 				/* Item does not exist in item table */ 
 				/*  to add it to DB as a new purchase */
 				echo '<div class="alert alert-danger">
-				           <button type="button" class="close" data-dismiss="alert">&times;</button>Item does not exist in DB. Therefore, first enter this item to DB using the <strong>Item</strong> tab.
+				           <button type="button" class="close" data-dismiss="alert">&times;</button>
+						   Item does not exist in DB. Therefore, first enter this item to DB using the <strong>Item</strong> tab.
 					  </div>';
 				exit();
 			}
@@ -122,7 +129,8 @@
 		} else {
 			/* One or more mandatory fields are empty. display a the error message */
 			echo '<div class="alert alert-danger">
-			           <button type="button" class="close" data-dismiss="alert">&times;</button>Please enter all fields marked with a (*)
+			           <button type="button" class="close" data-dismiss="alert">&times;</button>
+					   Please enter all fields marked with a (*)
 				  </div>';
 			exit();
 		}
