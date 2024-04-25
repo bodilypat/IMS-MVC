@@ -9,7 +9,7 @@
 		
 		/* get the item name */
 		$qItem = 'SELECT itemNumber FROM item WHERE itemNumber LIKE ?';
-		$itemStatement = $conn->prepare($query);
+		$itemStatement = $dbcon->prepare($query);
 		$itemStatement->execute([$itemNumString]);
 		
 		/* display them in a list */
