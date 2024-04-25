@@ -9,7 +9,7 @@
 		
 		$qCust= 'SELECT * FROM customer WHERE customerID = :customerID';
 		$custStatement = $dbcon->prepare($qCust);
-		$custStatement->execute(['customerID' => $custID]);
+		$custStatement->execute(['customerID' => $customerID]);
 		
 		/*  If data is found for the given item number, return it as a json object */
 		if($custStatement->rowCount() > 0) {
