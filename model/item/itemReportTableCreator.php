@@ -1,6 +1,6 @@
 <?php
-	require_once('../../define/config/constants.php');
-	require_once('../../define/config/dbconnect.php');
+	require_once('../../include/config/constants.php');
+	require_once('../../include/config/dbconnect.php');
 	
 	$qItem = 'SELECT * FROM item';
 	$itemStatement = $dbconn->prepare($qItem);
@@ -21,7 +21,7 @@
 				</thead>
 				<tbody>';
 	
-	// Create table rows from the selected data
+	/* create item table from object in database */
 	while($resultset = $itemStatement->fetch(PDO::FETCH_ASSOC)){
 		$output .= '<tr>' .
 						'<td>' . $resultset['productID'] . '</td>' .
