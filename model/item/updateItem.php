@@ -27,7 +27,10 @@
 				/* valid quantity */
 			} else {
 				/* invalid quantity */
-				$errorAlert = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a valid number for quantity</div>';
+				$errorAlert = '<div class="alert alert-danger">
+				                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+									Please enter a valid number for quantity
+								</div>';
 				$data = ['alertMessage' => $errorAlert];
 				echo json_encode($data);
 				exit();
@@ -38,7 +41,10 @@
 				/* valid unitPrice */
 			} else {
 				/* invalid unitPrice */
-				$errorAlert = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a valid number for unit price</div>';
+				$errorAlert = '<div class="alert alert-danger">
+				                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+									Please enter a valid number for unit price
+							   </div>';
 				$data = ['alertMessage' => $errorAlert];
 				echo json_encode($data);
 				exit();
@@ -60,7 +66,7 @@
 			
 			/* get item object by itemNumber */
 			$qItem = 'SELECT stock FROM item WHERE itemNumber = :itemNumber';
-			$itemStatement = $conn->prepare($qItem);
+			$itemStatement = $dbcon->prepare($qItem);
 			$itemStatement->execute(['itemNumber' => $itemNumber]);
 			/* get stock from item object */
 			if($itemStatement->rowCount() > 0) {
