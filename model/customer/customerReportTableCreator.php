@@ -23,7 +23,7 @@
 				</thead>
 				<tbody>';
 	
-	/*  Create table rows from the selected data */
+	/*  Create customer table from customer object select from DB */
 	while($resultset = $custStatement->fetch(PDO::FETCH_ASSOC)){
 		$output .= '<tr>' .
 						'<td>' . $resultset['customerID'] . '</td>' .
