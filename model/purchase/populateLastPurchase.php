@@ -5,6 +5,8 @@
 	$qPurch = "SELECT MAX(purchaseID) FROM purchase";
 	$purchStatement = $dbcon->prepare($qPurch);
 	$purchStatement->execute();
+
+	/* get result purchaseID */
 	$result = $purchStatement->fetch(PDO::FETCH_ASSOC);
 	
 	echo $result['MAX(purchaseID)'];
