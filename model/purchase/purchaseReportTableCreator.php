@@ -10,7 +10,7 @@
 		$startDate = htmlentities($_POST['startDate']);
 		$endDate = htmlentities($_POST['endDate']);
 		
-		$qPurch = 'SELECT * FROM purchase WHERE purchaseDate BETWEEN :startDate AND :endDate';
+		$qPurch = " SELECT * FROM purchase WHERE purchaseDate BETWEEN '$startDate' AND '$endDate'";
 		$purchStatement = $dbcon->prepare($pPurch);
 		$purchStatement->execute(['startDate' => $startDate, 'endDate' => $endDate]);
 
@@ -30,7 +30,7 @@
 					</thead>
 					<tbody>';
 		
-		/*  Create table from the selected data */
+		/*  Create purchase table from  object in database */
 		while($resultset = $purchStatement->fetch(PDO::FETCH_ASSOC)){
 			  $unitPrice = $resultset['unitPrice'];
 		      $quantity = $resultset['quantity'];
