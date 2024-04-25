@@ -1,7 +1,7 @@
 <?php
 
 	require_once('../../include/config/constants.php');
-	require_once('../../include/config/dbconnet.php');
+	require_once('../../include/config/db.php');
 	
 	if(isset($_POST['saleID'])){
 
