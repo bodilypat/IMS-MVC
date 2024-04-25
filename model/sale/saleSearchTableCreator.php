@@ -9,7 +9,7 @@
 	$qSale = 'SELECT * FROM sale';
 	$saleStatement = $dbcon->prepare($qSale);
 	$saleStatement->execute();
-
+	/* get sale object from database */
 	$output = '<table id="saleSearchTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
 				<thead>
 					<tr>
@@ -30,7 +30,7 @@
 	// Create table rows from the selected data
 	while($resultset = $saleStatement->fetch(PDO::FETCH_ASSOC)){
 		  $unitPrice = $resultset['unitPrice'];
-	          $quantity = $resultset['quantity'];
+	      $quantity = $resultset['quantity'];
 		  $discount = $resultset['discount'];
 		  $totalPrice = $unitPrice * $quantity * ((100 - $discount)/100);
 			
