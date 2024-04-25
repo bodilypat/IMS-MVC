@@ -14,7 +14,7 @@
 		/*  If data is found for the given item number, return it as a json object */
 		if($custStatement->rowCount() > 0) {
 			$result = $custStatement->fetch(PDO::FETCH_ASSOC);
-			echo json_encode($result);
+			echo json_encode($resultset);
 		}
 		$custStatement->closeCursor();
 	}
