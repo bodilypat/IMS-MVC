@@ -1,6 +1,6 @@
 <?php
-	require_once('../../define/config/constants.php');
-	require_once('../../define/config/dbconnect.php');
+	require_once('../../include/config/constants.php');
+	require_once('../../include/config/dbconnect.php');
 	
 	$unitPrice = 0;
 	$quantity = 0;
@@ -10,10 +10,11 @@
 		$startDate = htmlentities($_POST['startDate']);
 		$endDate = htmlentities($_POST['endDate']);
 		
-		$qSale = 'SELECT * FROM sale WHERE saleDate BETWEEN :startDate AND :endDate';
+		$qSale = "SELECT * FROM sale WHERE saleDate BETWEEN '$startDate' AND '$endDate'";
 		$saleStatement = $conn->prepare($qSale);
 		$saleStatement->execute(['startDate' => $startDate, 'endDate' => $endDate]);
 
+		/* get sale object from database */
 		$output = '<table id="saleReportTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
 					<thead>
 						<tr>
