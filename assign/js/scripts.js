@@ -74,66 +74,53 @@ purchaseFilteredReportCreatorFile = 'model/purchase/purchaseFilteredReportCreato
 saleFilteredReportCreatorFile = 'model/sale/saleFilteredReportCreator.php';
 
 $(document).ready(function(){
-	// Style the dropdown boxes. You need to explicitly set the width 
-    // in order to fix the dropdown box not visible issue when tab is hidden
 	$('.chosenSelect').chosen({ width: "95%"});
 	
-	// Initiate tooltips
+	/* initiate tooltip */
+	/* call function button click */
 	$('.invTooltip').tooltip(); 
 	
-	// Listen to customer add button
 	$('#addCustomer').on('click', function(){
 		addCustomer();
 	});
 	
-	// Listen to vendor add button
 	$('#addVendor').on('click', function(){
 		addVendor();
 	});
 	
-	// Listen to item add button
 	$('#addItem').on('click', function(){
 		addItem();
 	});
 	
-	// Listen to purchase add button
 	$('#addPurchase').on('click', function(){
 		addPurchase();
 	});
 	
-	// Listen to sale add button
 	$('#addSale').on('click', function(){
 		addSale();
 	});
 	
-	// Listen to update button in item details tab
 	$('#updateItem').on('click', function(){
 		updateItem();
 	});
 	
-	// Listen to update button in customer details tab
 	$('#updateCustomer').on('click', function(){
 		updateCustomer();
 	});
 	
-	// Listen to update button in vendor details tab
 	$('#updateVendor').on('click', function(){
 		updateVendor();
 	});
 	
-	// Listen to update button in purchase details tab
 	$('#updatePurchase').on('click', function(){
 		updatePurchase();
 	});
 	
-	// Listen to update button in sale details tab
 	$('#updateSale').on('click', function(){
 		updateSale();
 	});
 	
-	// Listen to delete button in item details tab
 	$('#deleteItem').on('click', function(){
-		// Confirm before deleting
 		bootbox.confirm('Are you sure you want to delete?', function(result){
 			if(result){
 				deleteItem();
@@ -141,9 +128,8 @@ $(document).ready(function(){
 		});
 	});
 	
-	// Listen to delete button in customer details tab
 	$('#deleteCustomer').on('click', function(){
-		// Confirm before deleting
+		
 		bootbox.confirm('Are you sure you want to delete?', function(result){
 			if(result){
 				deleteCustomer();
@@ -151,9 +137,10 @@ $(document).ready(function(){
 		});
 	});
 	
-	// Listen to delete button in vendor details tab
+
 	$('#deleteVendor').on('click', function(){
-		// Confirm before deleting
+
+		/* alert confirm  before delete */
 		bootbox.confirm('Are you sure you want to delete?', function(result){
 			if(result){
 				deleteVendor();
@@ -161,179 +148,158 @@ $(document).ready(function(){
 		});
 	});
 	
-	// Listen to item name text box in item details tab
+	
 	$('#itemName').keyup(function(){
 		showSuggestions('itemName', showItemNamesFile, 'itemNameAdviseDiv');
 	});
 	
-	// Remove the item names suggestions dropdown in the item details tab
-	// when user selects an item from it
 	$(document).on('click', '#itemNameAdviseList li', function(){
 		$('#itemName').val($(this).text());
 		$('#itemNameAdviseList').fadeOut();
 	});
 	
-	// Listen to item number text box in item details tab
+
 	$('#itemNumber').keyup(function(){
 		showSuggestions('itemNumber', showItemNameAdviseFile, 'itemNumberAdviseDiv');
 	});
 	
-	// Remove the item numbers suggestions dropdown in the item details tab
-	// when user selects an item from it
+
 	$(document).on('click', '#itemNumberAdviseList li', function(){
 		$('#itemNumber').val($(this).text());
 		$('#itemNumberAdviseList').fadeOut();
 		getPopulateItemNumber();
 	});
 	
-
-	// Listen to item number text box in sale details tab
+	/* list item number from sale */
 	$('#saleItemNumber').keyup(function(){
 		showSuggestions('saleItemNumber', showSaleItemNumberFile, 'saleItemNumberAdviseDiv');
 	});
 	
-	// Remove the item numbers suggestions dropdown in the sale details tab
-	// when user selects an item from it
+	/* select item number */
 	$(document).on('click', '#saleItemNumberAdviseList li', function(){
 		$('#saleItemNumber').val($(this).text());
 		$('#saleItemNumberAdviseList').fadeOut();
 		getPopulateSaleItemNumber();
 	});
 	
-	
-	// Listen to item number text box in item image tab
+	/* list item number text box */
 	$('#itemImageNumber').keyup(function(){
 		showSuggestions('itemImageNumber', showItemNumberAdvisebFile, 'itemImageNumberAdviseDiv');
 	});
 	
-	// Remove the item numbers suggestions dropdown in the item image tab
-	// when user selects an item from it
+	/* select item Image number */
 	$(document).on('click', '#itemImageNumberAdviseList li', function(){
 		$('#itemImageNumber').val($(this).text());
 		$('#itemImageNumberAdviseList').fadeOut();
 		getItemName('itemImageNumber', getItemNameFile, 'itemImageName');
 	});
 	
-	// Clear the image from item tab when Clear button is clicked
+	/* clear item */
 	$('#itemClear').on('click', function(){
 		$('#imageContainer').empty();
 	});
 	
-	// Clear the image from sale tab when Clear button is clicked
+	/* clear image form sale */
 	$('#saleClear').on('click', function(){
 		$('#saleImageContainer').empty();
 	});
 	
-	// Refresh the purchase report datatable in the purchase report tab when Clear button is clicked
+	/* refresh purchase report */
 	$('#purchaseFilterClear').on('click', function(){
 		reportsPurchaseTableCreator('purchaseReportTableDiv', purchaseReportCreatorFile, 'purchaseReportTable');
 	});
 	
-	// Refresh the sale report datatable in the sale report tab when Clear button is clicked
+	/* refresh sale report */
 	$('#saleFilterClear').on('click', function(){
 		reportsSaleTableCreator('saleReportTableDiv', saleReportCreatorFile, 'saleReportTable');
 	});
 	
-	
-	// Listen to item number text box in purchase details tab
+	/* list item number form purchase */
 	$('#purchaseItemNumber').keyup(function(){
 		showSuggestions('purchaseItemNumber', showPurchaseItemNumberFile, 'purchaseItemNumberAdviseDiv');
 	});
 	
-	// remove the item numbers suggestions dropdown in the purchase details tab
-	// when user selects an item from it
+	/* remove item nubmer from purchase */
 	$(document).on('click', '#purchaseItemNumberAdviseList li', function(){
 		$('#purchaseItemNumber').val($(this).text());
 		$('#purchaseItemNumberAdviseList').fadeOut();
 		
-		// Display the item name for the selected item number
+		/* display item name */
 		getItemName('purchaseItemNumber', getItemNameFile, 'purchaseItemName');
 		
-		// Display the current stock for the selected item number
+		/* display current stock */
 		getPopulateItemStock('purchaseItemNumber', getItemStockFile, 'purchaseCurrentStock');
 	});
 	
-	// Listen to CustomerID text box in customer details tab
+	/* list customer  */
 	$('#customerID').keyup(function(){
 		showSuggestions('customerID', showCustomerIDAdviseFile, 'customerIDAdviseDiv');
 	});
 	
-	// Remove the CustomerID suggestions dropdown in the customer details tab
-	// when user selects an item from it
+	/* remove customer */
 	$(document).on('click', '#customerIDAdviseList li', function(){
 		$('#customerID').val($(this).text());
 		$('#customerIDAdviseList').fadeOut();
 		getPopulateCustomer();
 	});
 	
-
-	// Listen to CustomerID text box in sale details tab
+	/* list customer from sale */
 	$('#saleCustomerID').keyup(function(){
 		showSuggestions('saleCustomerID', showSaleCustomerIDAdviseFile, 'saleCustomerIDAdviseDiv');
 	});
 	
-	// Remove the CustomerID suggestions dropdown in the sale details tab
-	// when user selects an item from it
+	/* remove customer  */
 	$(document).on('click', '#saleCustomerIDAdviseList li', function(){
-		$('#saleustomerID').val($(this).text());
+		$('#salecustomerID').val($(this).text());
 		$('#saleCustomerIDAdviseList').fadeOut();
 		getPopulateSaleCustomerID();
 	});
 	
-	
-	// Listen to VendorID text box in vendor details tab
+	/* list vendor */
 	$('#vendorID').keyup(function(){
 		showSuggestions('vendorID', showVendorIDAdviseFile, 'vendorIDAdviseDiv');
 	});
 	
-	// Remove the VendorID suggestions dropdown in the vendor details tab
-	// when user selects an item from it
+	/* remove vendor */
 	$(document).on('click', '#vendorIDAdviseList li', function(){
 		$('#vendorID').val($(this).text());
 		$('#vendorIDAdviseList').fadeOut();
 		getPopulateVendor();
 	});
 	
-	
-	// Listen to PurchaseID text box in purchase details tab
+	/* list purchase */
 	$('#purchaseID').keyup(function(){
 		showSuggestions('purchaseID', showPurchaseIDAdviseFile, 'purchaseIDAdviseDiv');
 	});
 	
-	// Remove the PurchaseID suggestions dropdown in the customer details tab
-	// when user selects an item from it
+	/* remove purchase */
 	$(document).on('click', '#purchaseIDAdviseList li', function(){
 		$('#purchaseID').val($(this).text());
 		$('#purchaseIDAdviseList').fadeOut();
 		getPopulatePurchase();
 	});
 	
-	
-	// Listen to saleID text box in sale details tab
+	/* list sale */
 	$('#saleID').keyup(function(){
 		showSuggestions('saleID', showSaleIDAviseFile, 'saleIDAdviseDiv');
 	});
 	
-	// Remove the SaleID suggestions dropdown in the sale details tab
-	// when user selects an item from it
+	/* remove sale */
 	$(document).on('click', '#saleIDAdviseList li', function(){
 		$('#saleID').val($(this).text());
 		$('#saleIDAdviseList').fadeOut();
 		getPopulateSale();
 	});
 
-
-	// Listen to image update button
 	$('#updateImage').on('click', function(){
 		processImage('imageForm', updateImageFile, 'itemImageMessage');
 	});
-	
-	// Listen to image delete button
+
 	$('#deleteImage').on('click', function(){
 		processImage('imageForm', deleteImageFile, 'itemImageMessage');
 	});
 	
-	// Initiate datepickers
+	/* initiate datepickers */
 	$('.datepicker').datepicker({
 		format: 'yyyy-mm-dd',
 		todayHighlight: true,
@@ -341,38 +307,39 @@ $(document).ready(function(){
 		orientation: 'bottom left'
 	});
 	
-	// Calculate Total in purchase tab
+	/* calculate total */
 	$('#purchaseQuantity, #purchaseUnitPrice').change(function(){
 		calculateTotalPurchase();
 	});
 
-	// Calculate Total in sale tab
 	$('#saleDiscount, #saleQuantity, #saleUnitPrice').change(function(){
 		calculateTotalSale();
 	});
 	
-	// Close any suggestions lists from the page when a user clicks on the page
+	/* close any list from page */
 	$(document).on('click', function(){
 		$('.adviseList').fadeOut();
 	});
 
-	// Load searchable datatables for customer, purchase, item, vendor, sale
+	
+	/* load file search table */
 	searchTableCreator('itemSearchTableDiv', itemSearchTableCreatorFile, 'itemSearchTable');
 	searchTableCreator('purchaseDetailsTableDiv', purchaseSearchTableCreatorFile, 'purchaseSearchTable');
 	searchTableCreator('customerDetailsTableDiv', customerSearchTableCreatorFile, 'customerSearchTable');
 	searchTableCreator('saleDetailsTableDiv', saleSearchTableCreatorFile, 'saleSearchTable');
 	searchTableCreator('vendorDetailsTableDiv', vendorSearchTableCreatorFile, 'vendorSearchTable');
 	
-	// Load searchable datatables for customer, purchase, item, vendor, sale reports
+	/* load file report table */
 	reportTableCreator('itemReportTableDiv', itemReportTableCreatorFile, 'itemReportTable');
 	reportPurchaseTableCreator('purchaseReportTableDiv', purchaseReportTableCreatorFile, 'purchaseReportTable');
 	reportTableCreator('customerReportTableDiv', customerReportTableCreatorFile, 'customerReportTable');
 	reportSaleTableCreator('saleReportTableDiv', saleReportTableCreatorFile, 'saleReportTable');
 	reportTableCreator('vendorReportTableDiv', vendorReportTableCreatorFile, 'vendorReportTable');
 	
-	// Initiate popovers
+	
+	/* initiate popover */
 	$(document).on('mouseover', '.itemDetailsHover', function(){
-		// Create item details popover boxes
+		/* create item popover */
 		$('.itemHover').popover({
 			container: 'body',
 			title: 'Item Details',
@@ -383,7 +350,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	// Listen to refresh buttons
+	/* list file */
 	$('#searchTableRefresh, #reportTableRefresh').on('click', function(){
 		searchTableCreator('itemSearchTableDiv', itemSearchTableCreatorFile, 'itemSearchTable');
 		searchTableCreator('purchaseSearchTableDiv', purchaseSearchTableCreatorFile, 'purchaseSearchTable');
@@ -398,26 +365,26 @@ $(document).ready(function(){
 		reportSaleTableCreator('saleReportTableDiv', saleReportTableCreatorFile, 'saleReportTable');
 	});
 	
-	
-	// Listen to purchase report show button
+	/* list purchase repot */
 	$('#showPurchaseReport').on('click', function(){
 		filteredPurchaseReportTableCreator('purchaseReportStartDate', 'purchaseReportEndDate', purchaseFilteredReportCreatorFile, 'purchaseReportsTableDiv', 'purchaseFilteredReportsTable');
 	});
 	
-	// Listen to sale report show button
+	/* list sale report */
 	$('#showSaleReport').on('click', function(){
 		filteredSaleReportTableCreator('saleReportStartDate', 'saleReportEndDate', saleFilteredReportCreatorFile, 'saleReportsTableDiv', 'saleFilteredReportsTable');
 	});
 });
 
-// Function to fetch data to show in popovers
+
+/* function fetch data for show popover*/
 function fetchData(){
 	var fetch_data = '';
 	var element = $(this);
 	var id = element.attr('id');
 	
 	$.ajax({
-		url: 'model/item/getItemDetailsForPopover.php',
+		url: 'model/item/getItemPopover.php',
 		method: 'POST',
 		async: false,
 		data: {id:id},
@@ -429,7 +396,7 @@ function fetchData(){
 }
 
 
-// Function to call the script that process imageURL in DB
+/* function call scriptPath  image */
 function processImage(imageFormID, scriptPath, messageDivID){
 	var form = $('#' + imageFormID)[0];
 	var formData = new FormData(form);
@@ -445,23 +412,22 @@ function processImage(imageFormID, scriptPath, messageDivID){
 	});
 }
 
-// Function to create searchable datatables for customer, item, purchase, sale
+/* create searchable database */
 function searchTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 	var tableContainerDivID = '#' + tableContainerDiv;
 	var tableID = '#' + table;
 	$(tableContainerDivID).load(tableCreatorFileUrl, function(){
-		// Initiate the Datatable plugin once the table is added to the DOM
+		/* initiate datable plugin */
 		$(tableID).DataTable();
 	});
 }
 
-
-// Function to create reports datatables for customer, item, purchase, sale
+/* create reports  */
 function reportsTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 	var tableContainerDivID = '#' + tableContainerDiv;
 	var tableID = '#' + table;
 	$(tableContainerDivID).load(tableCreatorFileUrl, function(){
-		// Initiate the Datatable plugin once the table is added to the DOM
+		/* initiate datable plugin  */
 		$(tableID).DataTable({
 			dom: 'lBfrtip',
 			//dom: 'lfBrtip',
@@ -477,12 +443,11 @@ function reportsTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 }
 
 
-// Function to create reports datatables for purchase
 function reportsPurchaseTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 	var tableContainerDivID = '#' + tableContainerDiv;
 	var tableID = '#' + table;
 	$(tableContainerDivID).load(tableCreatorFileUrl, function(){
-		// Initiate the Datatable plugin once the table is added to the DOM
+		/* initate datable plugin */
 		$(tableID).DataTable({
 			dom: 'lBfrtip',
 			buttons: [
@@ -495,23 +460,23 @@ function reportsPurchaseTableCreator(tableContainerDiv, tableCreatorFileUrl, tab
 			"footerCallback": function ( row, data, start, end, display ) {
 				var api = this.api(), data;
 	 
-				// Remove the formatting to get integer data for summation
+				/*Remove the formatting to get integer data for summation  */
 				var intVal = function ( i ) {
 					return typeof i === 'string' ?
 						i.replace(/[\$,]/g, '')*1 :
 						typeof i === 'number' ?
 							i : 0;
 				};
-	 
-				// Quantity total over all pages
+	 			
+				/*  Quantity total over all pages */
 				quantityTotal = api
 					.column( 6 )
 					.data()
 					.reduce( function (a, b) {
 						return intVal(a) + intVal(b);
 					}, 0 );
-	 
-				// Quantity for current page
+	 				
+				/* Quantity for current page */
 				quantityFilteredTotal = api
 					.column( 6, { page: 'current'} )
 					.data()
@@ -519,7 +484,7 @@ function reportsPurchaseTableCreator(tableContainerDiv, tableCreatorFileUrl, tab
 						return intVal(a) + intVal(b);
 					}, 0 );
 				
-				// Unit price total over all pages
+				/* Unit price total over all pages  */
 				unitPriceTotal = api
 					.column( 7 )
 					.data()
@@ -886,7 +851,7 @@ function addCustomer() {
 			$('#customerMessage').html(data);
 		},
 		complete: function(data){
-			populateLastInsertedID(customerLastInsertedIDFile, 'cusomerID');
+			populateLastInsertedID(customerLastInsertedIDFile, 'customerID');
 			searchTableCreator('customerSearchTableDiv', customerSearchTableCreatorFile, 'customerSearchTable');
 			reportsTableCreator('customerReportTableDiv', customerReportTableCreatorFile, 'customerReportTable');
 		}
@@ -896,37 +861,37 @@ function addCustomer() {
 
 // Function to call the insertVendor.php script to insert vendor data to db
 function addVendor() {
-	var vendorFullName = $('#vendorFullName').val();
-	var vendorEmail = $('#vendorEmail').val();
-	var vendorMobile = $('#vendorMobile').val();
-	var vendorPhone = $('#vendorPhone').val();
-	var vendorAddress = $('#vendorAddress').val();
-	var vendorAddress2 = $('#vendorAddress2').val();
-	var vendorCity = $('#vendorCity').val();
-	var vendorDistrict = $('#vendorDistrict option:selected').text();
-	var vendorStatus = $('#vendorStatus option:selected').text();
+	var venFullName = $('#vendorFullName').val();
+	var venEmail = $('#vendorEmail').val();
+	var venMobile = $('#vendorMobile').val();
+	var venPhone = $('#vendorPhone').val();
+	var venAddress = $('#vendorAddress').val();
+	var venAddress2 = $('#vendorAddress2').val();
+	var venCity = $('#vendorCity').val();
+	var venDistrict = $('#vendorDistrict option:selected').text();
+	var venStatus = $('#vendorStatus option:selected').text();
 	
 	$.ajax({
 		url: 'model/vendor/insertVendor.php',
 		method: 'POST',
 		data: {
-			vendorFullName:vendorFullName,
-			vendorEmail:vendorEmail,
-			vendorMobile:vendorMobile,
-			vendorPhone:vendorPhone,
-			vendorAddress:vendorAddress,
-			vendorAddress2:vendorAddress2,
-			vendorVendorCity:vendorCity,
-			vendorDistrict:vendorDistrict,
-			vendorStatus:vendorStatus,
+			venFullName:venFullName,
+			venEmail:venEmail,
+			venMobile:venMobile,
+			venPhone:venPhone,
+			venAddress:venAddress,
+			venAddress2:venAddress2,
+			venVendorCity:venCity,
+			venDistrict:venDistrict,
+			venStatus:venStatus,
 		},
 		success: function(data){
-			$('#vendorDetailsMessage').fadeIn();
-			$('#vendorDetailsMessage').html(data);
+			$('#vendorMessage').fadeIn();
+			$('#vendorMessage').html(data);
 		},
 		complete: function(data){
 			populateLastInsertedID(vendorLastInsertedFile, 'vendorID');
-			searchTableCreator('vendorDetailsTableDiv', vendorSearchTableCreatorFile, 'vendorsearchTable');
+			searchTableCreator('vendorSearchTableDiv', vendorSearchTableCreatorFile, 'vendorSearchTable');
 			reportsTableCreator('vendorReportsTableDiv', vendorReportTableCreatorFile, 'vendorReportTable');
 			$('#purchaseVendorName').load('model/vendor/getVendorNames.php');
 		}
@@ -940,7 +905,7 @@ function addItem() {
 	var itemName = $('#itemName').val();
 	var itemDiscount = $('#itemDiscount').val();
 	var itemQuantity = $('#itemQuantity').val();
-	var itemPrice = $('#itemUnitPrice').val();
+	var itemUnitPrice = $('#itemUnitPrice').val();
 	var itemStatus = $('#itemStatus').val();
 	var itemDescription = $('#itemDescription').val();
 	
@@ -949,7 +914,7 @@ function addItem() {
 		method: 'POST',
 		data: {
 			itemNumber:itemNumber,
-			itemName:itemItemName,
+			itemName:itemName,
 			itemDiscount:itemDiscount,
 			itemQuantity:itemQuantity,
 			itemUnitPrice:itemUnitPrice,
@@ -972,23 +937,23 @@ function addItem() {
 
 // Function to call the insertPurchase.php script to insert purchase data to db
 function addPurchase() {
-	var purchaseItemNumber = $('#purchaseItemNumber').val();
-	var purchaseDate = $('#purchaseDate').val();
-	var purchaseItemName = $('#purchaseItemName').val();
-	var purchaseQuantity = $('#purchaseQuantity').val();
-	var purchaseUnitPrice = $('#purchaseUnitPrice').val();
-	var purchaseVendorName = $('#purchaseVendorName').val();
+	var purchItemNumber = $('#purchaseItemNumber').val();
+	var purchDate = $('#purchaseDate').val();
+	var purchItemName = $('#purchaseItemName').val();
+	var purchQuantity = $('#purchaseQuantity').val();
+	var purchUnitPrice = $('#purchaseUnitPrice').val();
+	var purchVendorName = $('#purchaseVendorName').val();
 	
 	$.ajax({
 		url: 'model/purchase/insertPurchase.php',
 		method: 'POST',
 		data: {
-			purchaseItemNumber:purchaseItemNumber,
-			purchaseDate:purchaseDate,
-			purchaseItemName:purchaseItemName,
-			purchaseQuantity:purchaseQuantity,
-			purchaseUnitPrice:purchaseUnitPrice,
-			purchaseVendorName:purchaseVendorName,
+			purchItemNumber:purchItemNumber,
+			purchDate:purchDate,
+			purchItemName:purchItemName,
+			purchQuantity:purchQuantity,
+			purchUnitPrice:purchUnitPrice,
+			purchVendorName:purchVendorName,
 		},
 		success: function(data){
 			$('#purchaseMessage').fadeIn();
@@ -1015,7 +980,7 @@ function addSale() {
 	var saleUnitPrice = $('#saleUnitPrice').val();
 	var saleCustomerID = $('#saleCustomerID').val();
 	var saleCustomerName = $('#saleCustomerName').val();
-	var saleSaleDate = $('#saleDate').val();
+	var saleDate = $('#saleDate').val();
 	
 	$.ajax({
 		url: 'model/sale/insertSale.php',
@@ -1063,7 +1028,7 @@ function getPopulateItem(){
 		dataType: 'json',
 		success: function(data){
 			$('#itemProductID').val(data.productID);
-			$('#itemItemName').val(data.itemName);
+			$('#itemName').val(data.itemName);
 			$('#itemDiscount').val(data.discount);
 			$('#itemTotalStock').val(data.stock);
 			$('#itemUnitPrice').val(data.unitPrice);
@@ -1455,7 +1420,7 @@ function updateCustomer() {
 	var customerID = $('#customerID').val();
 	var customerFullName = $('#customerFullName').val();
 	var customerMobile = $('#customerMobile').val();
-	var customerPhone2 = $('#customerPhone').val();
+	var customerPhone = $('#customerPhone').val();
 	var customerAddress = $('#customerAddress').val();
 	var customerEmail = $('#customerEmail').val();
 	var customerAddress2 = $('#customerAddress2').val();
@@ -1464,7 +1429,7 @@ function updateCustomer() {
 	var customerStatus = $('#customerStatus option:selected').text();
 	
 	$.ajax({
-		url: 'model/customer/updateCustomerDetails.php',
+		url: 'model/customer/updateCustomer.php',
 		method: 'POST',
 		data: {
 			customerID:customerID,
