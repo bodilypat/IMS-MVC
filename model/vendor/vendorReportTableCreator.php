@@ -23,7 +23,7 @@
 				</thead>
 				<tbody>';
 	
-	// Create table rows from the selected data
+	/* create vendor table from object in database */
 	while($resultset = $venStatement->fetch(PDO::FETCH_ASSOC)){
 		$output .= '<tr>' .
 						'<td>' . $resultset['vendorID'] . '</td>' .
