@@ -27,7 +27,7 @@
 				</thead>
 				<tbody>';
 	
-	/* Create table rows from the selected data */
+	/* Create purchase table from object select in database */
 	while($resultset = $purchStatement->fetch(PDO::FETCH_ASSOC)){
 		$unitPrice = $resultset['unitPrice'];
 		$quantity = $resultset['quantity'];
