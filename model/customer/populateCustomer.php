@@ -7,13 +7,13 @@
 		
 		$customerID = htmlentities($_POST['customerID']);
 		
-		$qCust= 'SELECT * FROM customer WHERE customerID = :customerID';
-		$custStatement = $dbcon->prepare($qCust);
+		$qCust = " SELECT * FROM customer WHERE customerID = '$customerID'";
+		$custStatement = $conn->prepare($custQuery);
 		$custStatement->execute(['customerID' => $customerID]);
 		
-		/*  If data is found for the given item number, return it as a json object */
+		/* get customer object  from database , return object by json */
 		if($custStatement->rowCount() > 0) {
-			$result = $custStatement->fetch(PDO::FETCH_ASSOC);
+			$resultset = $custStatement->fetch(PDO::FETCH_ASSOC);
 			echo json_encode($resultset);
 		}
 		$custStatement->closeCursor();
