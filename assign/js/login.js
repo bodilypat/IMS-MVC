@@ -1,31 +1,35 @@
 $(document).ready(function(){
-
-    $('#register').on('click',function(){
+    /* register  */
+    $('#register').on('click', function(){
         register();
     });
 
+    /* reset password */
     $('#resetPassword').on('click', function(){
         resetPassword();
     });
 
-    $('login').on('click', function(){
+    /* login */
+    $('#login').on('click', function(){
         login();
     });
 });
 
+/* register new user */
 function register(){
-    var fullname = $('#fullname').val();
-    var username = $('#username').val();
-    var password = $('$password').val();
-    var confirmPassword = $('confirmPassword').val();
-    $.ajax({
+    var rgFullName = $('#rgFullName').val();
+    var rgUsername = $('#rgUsername').val();
+    var rgPassword = $('#rgPassword').val();
+    var rgConfirmPassword = $('#rgConfirmPassword');
+
+    $.ajax = ({
         url: 'model/login/register.php',
         method: 'POST',
         data: {
-            fullName:fullname,
-            username:username,
-            password:password,
-            confirmPassword:confirmPassword,
+            rgFullName:rgFullName,
+            rgUsername:rgUsername,
+            rgPassword:rgPassword,
+            rgConfirmPassword:rgConfirmPassword,
         },
         success: function(data){
             $('#registerMessage').html(data);
@@ -33,22 +37,22 @@ function register(){
     });
 }
 
-//function to reset password
+/* reset password */
 function resetPassword(){
-    var username = $('#username').val();
-    var password = $('#password').val();
-    var confirmPasswrod = $('#confirmPassword').val();
+    var rsUsername = $('#rsUsername').val();
+    var rsPassword = $('#rsPassword').val();
+    var rsConfirmPassword = $('rsConfirmPassword').val();
 
     $.ajax({
         url: 'model/login/resetPassword.php',
         method: 'POST',
         data: {
-            username:username,
-            password:password,
-            confirmPassword:confirmPassword,
+            rsUsername:rsUsername,
+            rsPassword:rsPassword,
+            rsConfirmPassword:rsConfirmPassword,
         },
         success: function(data){
-            $('#resetPasswordMessage').html(data);
+            $('#resetMessage').html(data);
         }
     });
 }
