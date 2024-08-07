@@ -93,7 +93,7 @@
                                                 <button type="button" id="addItem" class="btn btn-success">Add Item</button>
                                                 <button type="button" id="updateItem" class="btn btn-primary">Update</button>
                                                 <button type="button" id="deleteItem" class="btn-btn-dnager">Delete</button>
-                                                <button type="button" id="itemClear">Clear</button>
+                                                <button type="reset" id="itemClear">Clear</button>
                                             </form>
                                         </div>
                                         <div id="itemImage" class="container-fluid tab-panel fade">
