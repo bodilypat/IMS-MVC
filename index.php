@@ -4,9 +4,9 @@
         header('Location: login.php');
         exist();
     }
-    require_once('assing/config/constant.php')
-    require_once('assign/config/dbConnect.php');
-    require_once('assign/header.html');
+    require_once('define/config/constant.php')
+    require_once('define/config/dbConnect.php');
+    require_once('define/header.html');
 ?>
 
 <body>
@@ -63,7 +63,7 @@
                                                     <div class="form-group col-md-2">
                                                         <label for="ItemStatus">Status</label>
                                                         <select id="itemStatus" name="itemStatus" class="form-control chosenSelect">Status
-                                                            <?php include('assign/statusList.html'); ?>
+                                                            <?php include('define/statusList.html'); ?>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -143,7 +143,7 @@
                                             <div class="form-group col-md-2">
                                                 <label for="CustomerStatus">Status</label>
                                                 <select id="customerStatus" name="customerStatus" class="form-control chosenSelect">
-                                                       <?php include('assign/statusList.php');?>
+                                                       <?php include('define/statusList.php');?>
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-3">
@@ -335,7 +335,7 @@
                                             <div class="form-group">
                                                 <label for="VendorStatus">Status</label>
                                                 <select id="vendorStatus" name="vendorStatus" class="form-control chosenSelect">
-                                                     <?php include('include/statusList.html'); ?>
+                                                     <?php include('define/statusList.html'); ?>
                                                 </select>
                                             </div>
                                             <div class="form-group">
@@ -373,7 +373,7 @@
                                             <div class="form-group">
                                                 <label for="VendorDistrict">District</label>
                                                 <select id="vendorDistrict" name="vendorDistrict" class="form-control chosenSelect">
-                                                    <?php include('include/districtList.html'); ?>
+                                                    <?php include('define/districtList.html'); ?>
                                                 </select>
                                             </div>
                                        </div>
@@ -486,5 +486,5 @@
             </div>
         </div>
     </div>
-<?php require 'assign/foodter.php'; ?>
+<?php require 'define/foodter.php'; ?>
 </body>
