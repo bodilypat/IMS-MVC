@@ -1,61 +1,61 @@
 <?php
-	require_once('../../define/config/constants.php');
-	require_once('../../define/config/dbconnect.php');
-	
-	$qCust = 'SELECT * FROM customer';
-	$custStatement = $dbcon->prepare($qCust);
-	$custStatement->execute();
+    require_once('../../define/config/constant.php');
+    require_once('../../define/config/dbConnect.php');
 
-	$output = '<table id="customerReportTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
-				<thead>
-					<tr>
-						<th>Customer ID</th>
-						<th>Full Name</th>
-						<th>Email</th>
-						<th>Mobile</th>
-						<th>Phone</th>
-						<th>Address</th>
-						<th>Address 2</th>
-						<th>City</th>
-						<th>District</th>
-						<th>Status</th>
-					</tr>
-				</thead>
-				<tbody>';
-	
-	/*  Create customer table from customer object select from DB */
-	while($resultset = $custStatement->fetch(PDO::FETCH_ASSOC)){
-		$output .= '<tr>' .
-						'<td>' . $resultset['customerID'] . '</td>' .
-						'<td>' . $resultset['fullName'] . '</td>' .
-						'<td>' . $resultset['email'] . '</td>' .
-						'<td>' . $resultset['mobile'] . '</td>' .
-						'<td>' . $resultset['phone'] . '</td>' .
-						'<td>' . $resultset['address'] . '</td>' .
-						'<td>' . $resultset['address2'] . '</td>' .
-						'<td>' . $resultset['city'] . '</td>' .
-						'<td>' . $resultset['district'] . '</td>' .
-						'<td>' . $resultset['status'] . '</td>' .
-					'</tr>';
-	}
-	
-	$custStatement->closeCursor();
-	
-	$output .= '</tbody>
-					<tfoot>
-						<tr>
-							<th>Customer ID</th>
-							<th>Full Name</th>
-							<th>Email</th>
-							<th>Mobile</th>
-							<th>Phone </th>
-							<th>Address</th>
-							<th>Address 2</th>
-							<th>City</th>
-							<th>District</th>
-							<th>Status</th>
-						</tr>
-					</tfoot>
-				</table>';
-	echo $output;
+    $qCust = "SELECT * FROM customer ";
+    $custStatement = $deal->prepare($qCust);
+    $custStatement->execute();
+
+    $output = '<table id="saleReportTable" class="table table-sm table-bordered table-hover" style="width: 100%">
+                    <thead>
+                        <tr>
+                             <th>Customer ID</th>
+                             <th>Full Name</th>
+                             <th>Email</th>
+                             <th>Mobile</th>
+                             <th>Phone</th>
+                             <th>Address</th>
+                             <th>Address2</th>
+                             <th>City</th>
+                             <th>District</th>
+                             <th>Status<th>
+                        </tr>
+                    </thead>
+                    <tbody>';
+
+    /* create table rows from the select data */
+    while($result = $custStatement->fetch(PDO::FETCH_ASSOC)) {
+        $output .= '<tr>' . 
+                        '<td>' . $result['customerID']. '</td>' . 
+                        '<td>' . $result['fullName'] . '</td>' . 
+                        '<td>' . $result['email'] . '</td>' . 
+                        '<td>' . $result['mobile'] . '</td>' . 
+                        '<td>' . $result['phone'] . '</td>' . 
+                        '<td>' . $result['address'] . '</td>' .
+                        '<td>' . $result['address2'] . '</td>' . 
+                        '<td>' . $result['city'] . '</td>' . 
+                        '<td>' . $result['district'] . '</td>' . 
+                        '<td>' . $result['status'] . '</td>' . 
+                    '</tr>'; 
+    }
+
+    $custStatement->closeCursor();
+
+    $output .='</tbody> 
+                 <tfoot>
+                       <tr>
+                            <td>Customer ID</td>
+                            <td>Full Name</td>
+                            <td>Email</td>
+                            <td>Mobile</td>
+                            <td>Phone</td>
+                            <td>Address</td>
+                            <td>Address2</td>
+                            <td>City</td>
+                            <td>District</td>
+                            <td>Status</td>
+                       </tr>
+                 </tfoot>
+                 </table>';
+    echo $output;
 ?>
