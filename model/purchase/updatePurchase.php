@@ -1,6 +1,6 @@
 <?php
-    require_once('../../config/constants.php');
-    require_once('../../config/dbConnect.php');
+    require_once('../../define/config/constants.php');
+    require_once('../../define/config/dbConnect.php');
 
     if(isset($_POST['purchaseID'])) {
 
