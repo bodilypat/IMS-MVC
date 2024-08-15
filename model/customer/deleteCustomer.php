@@ -2,9 +2,9 @@
     require_once('../../define/config/constant.php');
     require_once('../../define/config/dbConnect.php');
 
-    if(isset($_POST['customerID'])) {
+    $customerID = htmlentities($_POST['customerID']);
 
-        $customerID = htmlentities($_POST['customerID']);
+    if(isset($_POST['customerID'])) {
 
         /* check mandatory fields */
         if(!empty($customerID)) {
