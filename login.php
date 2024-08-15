@@ -7,7 +7,7 @@
         exit();
     }
     require_once('define/config/constants.php');
-    require_once('define/config/dbconnect.php');
+    require_once('define/config/dbConnect.php');
     require_once('define/header.php');
 ?>
 <body>
