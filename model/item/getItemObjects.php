@@ -1,21 +1,12 @@
 <?php
-    require_once('../../define/config/constants.php');
-    require_once('../../define/config/dbConnect.php');
+    $qItem = "SELECT * FROM item ";
+    $itemStatement = $deal->prepare($qItem);
+    $itemStatement->execute();
 
-    $itemNumber = htmlentities($_POST['saleItemNumber']);
-
-    /* execute the script POST */
-    if(isset($_POST['itemNumber'])) {
-
-        $qItem = "SELECT * FROM  item WHERE itemNumber = '$itemNumber' ";
-        $saleItemStatement = $deal->prepare($qSale);
-        $saleItemStatement->execute(['itemNumber'=> $itemNumber ]);
-
-        /* data is found given itemNumber, return it as a json objects */
-        if($itemStatement->rowCount() > 0) {
-            $result = $itemStatement->fetch(PDO::FETCH_ASSOC);
-            echo json_encode($result);
-        }
-        $saleItemStatement->closeCursor();
+    if($itemStatement->rowCount() > 0){
+        while($result = $itemStatement->fetch(PDO::FETCH_ASSOC)) [
+            echo '<option>' . $result['itemName'] . '</option>';
+        ]
     }
+    $itemStatement->closeCursor();
 ?>
