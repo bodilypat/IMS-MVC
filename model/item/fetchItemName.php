@@ -1,26 +1,26 @@
 <?php
-    require_once('../../define/config/constants.php');
-    require_once('../../define/dbConnect.php');
+    require_once('../../define/config/constants.php')
+    require_once('../../define/config/dbConnect.php');
 
     /* check POST */
-    if(isset(_POST['textBoxValue'])) {
-
+    if(isset($_POST['textBoxValue'])) {
         $output = '';
         $itemNameString = '%' . htmlentities($_POST['textBoxValue']) . '%';
 
-        /* query itemName */
-        $qItem = "SELECT itemName FROM item WHERE itemName LIKE ? ";
+        /* query to get itemName */
+        $qItem = "SELECT itemName FROM item WHERE itemName = '$itemNameString' ";
         $itemStatement = $deal->preapre($qItem);
-        $itemStatement->execute(['$itemNameString']);
+        $itemStatement->execute([$itemNameString]);
 
-        if($itemStatement->rowCount() > 0) {
-            $output = '<ul class="list-unstyeled suggestionList" id="itemNameSuggestionsList">';
+        /* receive any results , display them in a list */
+        if($itemStatement->rowCount() > 0){
+            $output = '<ul class="list-unstyled suggestionList" id="itemNameSuggestionList">';
             while($result = $itemStatement->fetch(PDO::FETCH_ASSOC)) {
-                $output .= '<LI' . $result['itemName'] . '</li>';
+                $output .= '<li>' . $result['itemName'] . '<li>';
             }
             echo '</ul>';
-        }else {
-            $outPut = '';
+        } else {
+            $output = '';
         }
         $itemStatement->closeCursor();
         echo $output;
