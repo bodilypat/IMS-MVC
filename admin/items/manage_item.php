@@ -42,8 +42,8 @@
                  <td><?php echo $result['quantity'];?></td>
                  <td><?php echo $result['price'];?></td>
                  <td>
-                    <a href="edit_item.php?edit=" >Edit</a>
-                    <a href="delete_item.php?delid = ">Delete</a> 
+                    <a href="edit_item.php?edit=<?php $result['id'];?>" class="btn btn-transparent btn-x" >Edit</a>
+                    <a href="delete_item.php?delid<?php echo $resulu['id'];?>" onClick="return confirm ('Are you sure?');">>Delete</a> 
                  </td>
             </tr>  
         <?php    } ?>
