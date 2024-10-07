@@ -14,11 +14,11 @@
         $category_id = $_POST['category_id'];
         $supplier_id = $_POST['supplier_id'];
 
-        if(addProduct($name, $description, $price, $quantity, $category_id, $supplier_id)){
+        if(addProduct($name, $description, $price, $stock, $category_id, $supplier_id)){
             header("Location: view_products.php");
             exit();
         } else {
-            $error = "Failed to add appointment";
+            $error = "Failed to add product";
         }
     }
 ?>
@@ -44,8 +44,8 @@
             <input type="number" name="price" class="form-control" placeholder="Price" require>
         </div>
         <div class="form-group">
-            <label for="Quantity">Quantity</label>
-            <input type="number" name="quantity" class="form-control" placeholder="Quantity" required>
+            <label for="Stock">Quantity</label>
+            <input type="number" name="stock" class="form-control" placeholder="Quantity" required>
         </div>
         <div class="form-group">
             <label for="Category">Category Name</label>
