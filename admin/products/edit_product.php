@@ -8,14 +8,16 @@
     }
 
     if($_SERVER['REQUEST_METHOD']){
-        $product_name = $_POST['name'];
+        $name = $_POST['name'];
         $category_id = $_POST['category_id'];
         $supplier_id = $_POST['supplier_id'];
         $description = $_POST['description'];
-        $quantity = $_POST['quantity'];
+        $stock = $_POST['stock'];
         $price = $_POST['price'];
 
-        if(updateProduct($product_id,$category_id, $supplier_id, $name, $description, $quantity, $price)){
+        if(updateProduct($id,$product_name, $category_id, $supplier_id, $description, $stock, $price, $record_level)){
+            
+            echo "Product update successfull! ";
             header("Location:view_products.php");
             exit();
         } else {
@@ -35,37 +37,34 @@
         <form method="post" name="form-product">
 
             <div class="form-group">
-                <label for="ProductName">Product Name</label>
-                <input type="text" name="name" class="form-control"  value="<?php echo $product['name'];?>" required>
+                <input type="hidden" name="id" value="<?php $product['id'];?>" required>
+                <label for="ProductName"> Product Name</label>
+                <input type="text" name="product_name" value="<?php echo $product['product_name'];?>" required>
             </div>
 
             <div class="form-group">
                 <label for="Category">Category</label>
-                <select name="category_id" required >
+                <select name="category_id" value="<?php echo $product['category_id'];?>" required >
                     <option value="">Select Category</option>
                     <?php
                         //Fetch all categories
                         $categories = getCategories();
-                        foreach($categories as $category){
-                            $selected = ($category['id'] == $product['product_id']) ? 'selected' : '';
-                            echo "<option value=\"{category['id']}\" $selected>{$category['name']}</option>";
-                        }
-                        ?>
+                        foreach($categories as $category): ?>
+                            <option value="<?php echo $category['category_id'];?>"><?php echo $category['category_name'];?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="Supplier">Suplier</label>
-                <select name="supplier_id" required>
+                <select name="supplier_id" value="<?php echo $product['category_id'];?>"  required>
                     <option value="">Select Supplier</option>
                     <?php 
                         //Fetch all supplier
                         $suppliers = getSuppliers();
-                        foreach($suppliers as $supplier){
-                            $selected = ($customer['id'] == $sale['customer_id']) ? 'selected' : '';
-                            echo "<option value=\"{$customer['id']}\" $selected> {$customer['name']}</option>";
-                        }
-                    ?>
+                        foreach($suppliers as $supplier): ?>
+                            <option value="<?php echo $supplier['supplier_id'];?>"><?php echo $supplier['supplier_name'];?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
 
@@ -76,12 +75,17 @@
 
             <div class="form-group">
                 <label for="stock">Stock</label>
-                <input type="text" name="stock" class="form-control" value="<?php echo $product['stock'];?>" required >
+                <input type="number" name="stock" class="form-control" value="<?php echo $product['stock'];?>" required >
             </div>
 
             <div class="form-group">
                 <label for="Price">Price</label>
-                <input type="text" name="price" class="form-control" value="<?phpe echo $product['price'];?>" required>
+                <input type="number" name="price" class="form-control" value="<?phpe echo $product['price'];?>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="recordLavel">Record Level</label>
+                <input type="number" name="record_level" class="form-control" value="<?phpe echo $product['price'];?>" required>
             </div>
 
             <button type="submit" >Update product</button>
