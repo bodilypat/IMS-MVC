@@ -1,6 +1,7 @@
 <?php
 
-    require '../includes/functions.php';
+    require ('../includes/functions.php');
+    
     if($isset($_GET['id'])) {
         deleteProduct($_GET['id']);
         header("location:view_products.php");
