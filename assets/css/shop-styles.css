@@ -1,67 +1,60 @@
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
-
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 60px; /* Set the fixed height of the footer here */
-  line-height: 60px; /* Vertically center the text there */
-  background-color: #f5f5f5;
-}
- 
- 
-body {
-	margin-bottom: 60px; /* Margin bottom by footer height */
-  padding-top: 54px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: #f5f5f5;
 }
 
-@media (min-width: 992px) {
-  body {
-    padding-top: 56px;
-  }
+body{
+    margin-bottom: 60px;
+    padding-top: 54px;
 }
-
-/* Required icon */
+@media(min-width: 992px) {
+    body {
+        padding: 56px;
+    }
+}
 .requiredIcon {
-	color: red;
+    color: red;
 }
 
-/* Suggestion list styles */
-	ul.suggestionsList {
-		background-color: #eee;
-		cursor: pointer;
-		border-radius: 3px;
-	
-	}
-		
-	ul.suggestionsList li {
-		padding: 12px;
-		
-	}
+/* Suggestion List styles  */
+ul.suggestionList {
+        background-color: #eee;
+        cursor: pointer;
+        border-radius: 3px;
+    }
+    
+    ul.suggestionList li {
+        padding: 12px;
+    }
 
-/* End Suggestion list styles */
-
-
-/* Changing the bootstrap table stripe colors to red */
-.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
-   background-color: #ecf9ec;
+/* changing the bootstrap table stripe colors to red */
+.table-striped > tbody tr:nth-child(2n-1) > td,
+.table-striped > tbody > tr:nth-child(2n-1) > th {
+    background-color: #ecf9ec;
 }
 
-/* Changing the background color for tab/pills */
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+/* Changing the background color for tab/pills  */
+.nav-pills .nav-link.active,
+.nav-pills .show.nav-link {
     color: #fff;
-    background-color: #2E8B57 ;
+    background-color: #2EBB57;
 }
 
 /* Display the suggestions list on top of other elements */
-.customListDivWidth{
-	position: absolute;
-	z-index:500;
-	width: 100%;
+.customListDivWith {
+    position: absolute;
+    z-index: 500;
+    width: 100%;
 }
+
 .blueText {
-	color: #2FA4E7;
+    color: #2FA4E7;
 }
