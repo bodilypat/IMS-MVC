@@ -7,41 +7,44 @@ html {
     bottom: 0;
     width: 100%;
     height: 60px;
+    line-height: 60px;
     background-color: #f5f5f5;
 }
 body {
     margin-bottom: 60px;
-    paddin-top: 54px;
+    padding-top: 54px;
 }
-@media (min-width: 992px) {
-    body {
+@media screen and(min-width: 992px) {
+    body{
         padding-top: 56px;
     }
 }
-.requiredIcon {
+
+.required_icon {
     color: red;
 }
-
-ul.adviseList {
+ul .advise_list {
     background-color: #eee;
     cursor: pointer;
     border-radius: 3px;
 }
-ul.suggestionList li {
+ul .suggestion_list li {
     padding: 12px;
 }
-.table-striped > tbody > tr:nth-child(2n-1) > td,
-.table-striped > tbody > tr:nth-child(2n+1) > th {
+.table_striped > tbody > tr:nth-child(2n+1) > td,
+.table_striped > tbody > tr:nth-child(2n+1) > th {
     background-color: #ecf9ec;
 }
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+.nav_pills .nav_link .active,
+.nav_pills .showw > .nav_link {
     color: #fff;
     background-color: #2E8B57;
 }
-.customList{
-    postion: absolute;
+.custom_list {
+    position: absolute;
     z-index: 500;
+    width: 100%;
 }
-.blueText {
+.blue_text {
     color: #2FA4E7;
 }
