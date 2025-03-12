@@ -48,7 +48,7 @@ asset/
         frame-style.css
         outline-style.css
         styles.css
-
+	shop-styles.css
     images/
         image.jpg
 
@@ -64,7 +64,7 @@ conduct/
 	categories
 	login
 database/
-    db_inventroy.sql
+    inventory_system.sql
 
 includes/
     dbconnect.php
