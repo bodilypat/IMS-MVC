@@ -122,7 +122,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="tab-panel-fade" id="panel_items" role="tabpanel">
                             <div class="card-outline">
                                 <div class="card-header">Items</div>
@@ -231,7 +230,6 @@
                                             </fieldset>
                                         </form>
                                     </div>
-
                                     <!-- Image Upload Tab -->
                                     <div id="itemImageTab" class="container tab-pane fade" role="tabpanel" aria-labelledby="image-tab">
                                         <div id="itemImageMessage"></div>
@@ -268,63 +266,171 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>        
-                    <div class="tab-panel fade" id="panel_supplier" role="tabpanel">
-                        <div class="card-outline">
-                            <div class="card-header">Supplier Details</div>
-                            <div class="card-body">
-                                <!-- Div to show the ajax message from validations/db submission  -->
-                                <div id="suppliersMessage"></div>
-                                <form>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="suppler-name">Supplier Name: </label>
-                                            <input type="text" id="supplier_name" name="supplier_name" required>
-                                        </div>                                                                            
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-8">
-                                            <label for="contact-name">Contact Name: </label>
-                                            <input type="text" id="contact_name" name="contact_name" required>
+                        <div class="tab-panel fade" id="panel_supplier" role="tabpanel">
+                            <div class="card-outline">
+                                <div class="card-header">Supplier Details</div>
+                                <div class="card-body">
+                                    <!-- Div to show the ajax message from validations/db submission -->
+                                    <div id="supplierMessage"></div>
+                                    <form id="supplierForm">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="supplier_name">Supplier Name:</label>
+                                                <input type="text" id="supplier_name" name="supplier_name" class="form-control" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="phone">Contact Phone:</label>
+                                                <input type="text" id="phone" name="phone" class="form-control" required>
+                                            </div>
                                         </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="contact-phone">Contact Phone</label>
-                                            <input type="tel" id="contact_phone" name="contact_phone" required>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="contact_email">Contact Email:</label>
+                                                <input type="email" id="contact_email" name="contact_email" class="form-control" required>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <label for="contact-email">Contact Email: </label>
-                                        <input type="email" id="contact_email" name="contact_email">
-                                    </div>
-                                    <div class="form-row">
-                                        <label for="supplier-address">Address: </label>
-                                        <textarea id="address" name="address" required><textarea>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label for="city">City :</label>
-                                            <input type="text" id="city" name="city"> 
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="address">Address:</label>
+                                                <textarea id="address" name="address" class="form-control" required></textarea>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <label for="city">City:</label>
+                                                <input type="text" id="city" name="city" class="form-control" required>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <label for="state">State:</label>
+                                                <select id="state" name="state" class="form-control chosenSelect" required>
+                                                    <?php include('include/stateList.html'); ?>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <label for="zipcode">Zipcode:</label>
+                                                <input type="text" id="zipcode" name="zipcode" class="form-control" required>
+                                            </div>
                                         </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="state">State: </label>
-                                            <select id="state" name="state" class="form-control chosenSelect" >
-                                                <?php include('include/stateList.html'); ?>
-                                            </select>
+                                        <div class="form-row">
+                                            <button type="button" id="addSupplier" class="btn btn-success">Add Supplier</button>
+                                            <button type="button" id="updateSupplier" class="btn btn-primary">Update</button>
+                                            <button type="button" id="deleteSupplier" class="btn btn-danger">Delete</button>
+                                            <button type="reset" id="clear" class="btn btn-secondary">Clear</button>
                                         </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="zipcode">Zipcode: </label>
-                                            <input type="text" id="zipcode" name="zipcode" class="form-control">
-                                        </div>
-                                    </div>
-                                    <button type="button" id="add_supplier" class="btn-success">Add Supplier</button>
-                                    <button type="button" id="update_supplier" class="btn-primary">Update</button>
-                                    <button type="button" id="delete_supplier" class="btn-danger">Delete</button>
-                                    <button type="reset" id="clear" class="btn">Clear</button>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="tab-panel fade" id="panel_vendors" role="tabpanel"> 
+                            <div class="card-outline">
+                                <div class="card-header">Vendor Details</div>
+                                <div class="card-body">
+                                    <!-- Div to show AJAX message from validations/db submission -->
+                                    <div class="vendorMessage"></div>
+                                    
+                                    <form>
+                                        <!-- Vendor Name and Email -->
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="vendor_name">Vendor Name</label>
+                                                <input type="text" class="form-control" id="vendor_name" name="vendor_name" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="email">Email</label>
+                                                <input type="email" class="form-control" id="email" name="email" required>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Status, Mobile, and Phone -->
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                <label for="status">Status</label>
+                                                <input type="text" class="form-control" id="status" name="status" required>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="mobile">Mobile</label>
+                                                <input type="tel" class="form-control" id="mobile" name="mobile" required>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="phone">Phone</label>
+                                                <input type="tel" class="form-control" id="phone" name="phone" required>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Address, City, State, Zipcode -->
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                <label for="address">Address</label>
+                                                <textarea class="form-control" id="address" name="address" required></textarea>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <label for="city">City</label>
+                                                <input type="text" class="form-control" id="city" name="city" required>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <label for="state">State</label>
+                                                <select id="state" name="state" class="form-control chosenSelect">
+                                                    <?php include('include/stateList.html'); ?>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <label for="zipcode">Zipcode</label>
+                                                <input type="text" class="form-control" id="zipcode" name="zipcode" required>
+                                            </div>
+                                        </div>
+
+                                        <!-- Action Buttons -->
+                                        <div class="form-row">
+                                            <div class="col">
+                                                <button type="button" id="add-vendor" name="addVendor" class="btn btn-success">Add Vendor</button>
+                                                <button type="button" id="update-vendor" class="btn btn-primary">Update</button>
+                                                <button type="button" id="delete-vendor" class="btn btn-danger">Delete</button>
+                                                <button type="reset" class="btn btn-secondary">Clear</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-panel fade" id="panel_product" role="tablist">
+                            <div class="card-outline">
+                                <div class="card-header">Product Details</div>
+                                <div class="card-body">
+                                    <div id="productMessage"></div>
+                                    <form>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="product-name">Product Name:</label>
+                                                <input type="type" class="form-contrpl" id="product_name" name="product_name" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="descript">Description: </label>
+                                                <textarea id="description" name="description"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="price">Price: </label>
+                                                <input type="number" class="form-control" id="price" name="price">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="quantity">Quantity: </label>
+                                                <input type="number" class="form-control" id="quantity" name="quantity">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="vendor-id">Vendor ID: </label>
+                                                <input type="number" class="form-control" id="vendor_id" name="vendor_id" required>
+                                            </div>
+                                            <div class="form-group"></div>
+                                        </div>
+                                        <button type="button" id="add_product" class="btn-primary">Add Product</button>
+                                        <button type="button" id="update_product" class="btn-primary">Update</button>
+                                        <button type="button" id="delete_product" class="btn-danger">Delte</button>
+                                        <button type="reset" id="clear" class="btn">Clear</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>       
                 </div>
             </div>                     
         </div>
