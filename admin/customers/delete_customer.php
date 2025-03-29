@@ -1,12 +1,16 @@
 <?php
 
-    require '../includes/functions.php';
+    require '../includes/dbconnect.php';
 
     if(isset($_GET['id'])){
-        deleteCustomer($_GET['id']);
-        header("Location:manage_customers.php");
-        exit()''
-    } else {
-        header("location:manage_customers.php");
-    }
+        $customer_id = $_GET['id'];
+
+        $sql = "DELETE FROM customers WHERE customer_id = $customer_id";
+
+        if($db_con->query($sql) === TRUE ) {
+            echo "Customer deleted successfully;
+        } else {
+            echo "Error: " . $sql . "<br" . $db_con->error;
+        }
+        $db_con->close();
 ?>
