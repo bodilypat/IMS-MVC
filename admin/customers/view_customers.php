@@ -2,7 +2,7 @@
     require '../incldues/dbconnect.php';
     $qCust = "SELECT * FROM customers;
     $result = $db_con->query($qCust);
-    $customers = $db_con->fetch_assoc($result)
+    $customers = $db_con->fetch_assoc($result);
 ?>
 
 <!DOCTYPE html>
