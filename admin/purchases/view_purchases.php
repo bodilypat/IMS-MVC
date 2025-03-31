@@ -9,9 +9,19 @@
         $qPurchase = "SELECT p.purchase_id, p.purchase_date, p.unit_price, p.quantity, p.vendor_id, i.item_name, v.vendor_name
                       FROM purchases p
                       JOIN items i ON p.item_id = i.item_id
-                      JOION vendors v ON p.vendor_id = v.vendor_id";
+                      JOION vendors v ON p.vendor_id = v.vendor_id
+                      WHERE p.purchase_id = :purchase_id";
         $stmt = $db_con->query($qPurchase);
-        $purchases = $stmt->fetchAll();
+        $stmt->bindParam(':purchase_id', $purchase_id, PDO:PARAM_INT);
+        $stmt->execute();
+        $purchases = $stmt->fetchAll(PDO:FETCH_ASSOC);
+        
+        // If no purchase is found 
+        if(!$purchase) {
+            echo "Purchase not found";
+            exit();
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,15 +48,15 @@
                 <tbody>
                     <?php foreach($purchases as $purchase) : ?>
                     <tr>
-                         <td><?php echo $purchase['id']);?></td>
-                         <td><?php echo $purchase['iteme_name']);?></td>
-                         <td><?php echo $purchase['purchase_date']);?></td>
-                         <td><?php echo $purchase['unit_price']);?></td>
-                         <td><?php echo $purchase['quantity']);?></td>
-                         <td><?php echo $purchase['vendor_name']); ?></td>
+                         <td><?php echo echo htmlspecialchars($purchase['purchase_id']); ?></td>
+                         <td><?php echo htmlspecialchars($purchase['iteme_name']); ?></td>
+                         <td><?php echo htmlspecialchars($purchase['purchase_date']); ?></td>
+                         <td><?php echo htmlspecialchars($purchase['unit_price']); ?></td>
+                         <td><?php echo htmlspecialchars($purchase['quantity']); ?></td>
+                         <td><?php echo htmlspecialchars($purchase['vendor_name']); ?></td>
                          <td>
-                             <a href="update_purchase.php?id=<?php $purchase['id'];?>" class="btn btn-warning btn-sm">Edit</a>
-                             <a href="delete_purchase.php?id=<?php $purchase['id'];?>" class="btn btn-danger btn-sm" onClick="return confirm('Are you sure? ')">Delete</a>
+                             <a href="update_purchase.php?id=<?php echo htmlspecialchars($purchase['id']);?>" class="btn btn-warning btn-sm">Edit</a>
+                             <a href="delete_purchase.php?id=<?php echo htmlspecialchars($purchase['id']);?>" class="btn btn-danger btn-sm" onClick="return confirm('Are you sure? ')">Delete</a>
                          </td>
                     </tr>
                     <?php endforeach; ?>
