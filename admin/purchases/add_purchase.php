@@ -1,16 +1,13 @@
 <?php
 
-    require '../includes/functions.php';
+    include('../includes/dbconnect.php');
 
-    $products = getProducts();
-    $suppliers = getSuppliers();
-
-    if($_SERVER['REQUEST_METHOD'] =='POST'){
-        $product_id = $_POST['product_id'];
-        $supplier_id = $_POST['supplier_id'];
+    if ($_SERVER['REQUEST_METHOD'] =='POST'){
+        $item_id = $_POST['item_id'];
+        $purchase_date = $_POST['purchase_date'];
+        $unit_price = $_POST['unit_price'];
         $quantity = $_POST['quantity'];
-        $supplier_date = $_POST['supplier_date'];
-        $total_cost = $_POST['total_cost'];
+        $vendor_id = $_POST['vendor_id'];
 
         if(addPurchase($product_id, $supplier_id, $quantity, $supplier_date, $total_cost)) {
             header("Location: magement_suppliers.php");
@@ -33,10 +30,10 @@
         <form method="post" name="form-purchase">
 
             <div class="form-group">
-                <label for="ProductName">Product Name</label>
-                <select name="product_id" class="form-control" reqired>
-                    <?php foreach($products as $product): ?>
-                        <option value="<?php echo $product['product_id'];?>"><?php echo $product['product_name'];?></option>
+                <label for="item-id">Item ID</label>
+                <select name="item_id" class="form-control" reqired>
+                    <?php foreach($items as $item): ?>
+                        <option value="<?php echo $item['item_id'];?>"><?php echo $item['item_name'];?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -51,8 +48,8 @@
             </div>
 
             <div class="form-group">
-                <label for="Quantity">Quantity</label>
-                <input type="number" name="Quantity" class="form-control" placeholder="Quantity" required>
+                <label for="purchase-date">Purchase Date</label>
+                <input type="date" name="purchase_date" class="form-control" placeholder="Quantity" required>
             </div>
 
             <div class="form-group">
