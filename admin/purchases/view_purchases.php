@@ -1,7 +1,17 @@
 <?php
 
-    include '../includes/functions.php';
-    $purchases = getPurchase();
+    include ('../includes/dbconnect.php');
+
+    if ($_SERVER['REQUEST_METHOD'] == isset($_GET['id'])) {
+        $purchase_id = $_GET['id'];
+
+        /* Fetch order details from databasse  */
+        $qPurchase = "SELECT p.purchase_id, p.purchase_date, p.unit_price, p.quantity, p.vendor_id, i.item_name, v.vendor_name
+                      FROM purchases p
+                      JOIN items i ON p.item_id = i.item_id
+                      JOION vendors v ON p.vendor_id = v.vendor_id";
+        $stmt = $db_con->query($qPurchase);
+        $purchases = $stmt->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,26 +26,26 @@
             <table  class="table table-purchases" >
                 <thead>
                     <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <th>Purchase ID</th>
+                        <th>Item</th>
+                        <th>Purchase Date</th>
+                        <th>Unit Price</th>
+                        <th>Quantitity</th>
+                        <th>Vendor</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach($purchases as $purchase) : ?>
                     <tr>
-                         <td><?php htmlspecialchars($purchase['id']);?></td>
-                         <td><?php htmlspecialchars($purchase['supplier_name']);?></td>
-                         <td><?php htmlspecialchars($purchase['product_name']);?></td>
-                         <td><?php htmlspecialchars($purchase['quantity']);?></td>
-                         <td><?php htmlspecialchars($purchase['purchase_price']);?></td>
-                         <td><?php htmlspecialchars(date('y-m-d H:i', strtotime($purchase['purchase_date']))) ?></td>
+                         <td><?php echo $purchase['id']);?></td>
+                         <td><?php echo $purchase['iteme_name']);?></td>
+                         <td><?php echo $purchase['purchase_date']);?></td>
+                         <td><?php echo $purchase['unit_price']);?></td>
+                         <td><?php echo $purchase['quantity']);?></td>
+                         <td><?php echo $purchase['vendor_name']); ?></td>
                          <td>
-                             <a href="edit_purchase.php?id=<?php $purchase['id'];?>" class="btn btn-warning btn-sm">Edit</a>
+                             <a href="update_purchase.php?id=<?php $purchase['id'];?>" class="btn btn-warning btn-sm">Edit</a>
                              <a href="delete_purchase.php?id=<?php $purchase['id'];?>" class="btn btn-danger btn-sm" onClick="return confirm('Are you sure? ')">Delete</a>
                          </td>
                     </tr>
