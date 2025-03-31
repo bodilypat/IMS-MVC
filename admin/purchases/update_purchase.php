@@ -1,15 +1,17 @@
 <?php
 
     include('../includes/dbconnect.php';
-
-    /* Retrieve data from database */
-    $qPruchase = "SELECT p.purchase_id, p.purchase_date, p.unit_price, p.quantity, p.vendor_id, i.item_name, v.vendor_name
+    if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
+        $purchase_id = $GET['id'];
+        
+        /* Retrieve data from database */
+        $qPruchase = "SELECT p.purchase_id, p.purchase_date, p.unit_price, p.quantity, p.vendor_id, i.item_name, v.vendor_name
                   FROM purchase p
                   JOIN items i ON p.item_id = i.item_id
                   JOIN vendors v ON p.vendor_id = v.vendor_id";
-    $stmt = $db_con->query($qPurchase);
-    $purchase = $stmt->fetchAll();
-
+        $stmt = $db_con->query($qPurchase);
+        $purchases = $stmt->fetchAll();
+    }
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $id = $_POST['id'];
         $supplier_id = $_POST['supplier_id'];
