@@ -2,18 +2,15 @@
 
     require '../includes/functions.php';
 
-    /* handle form submissions for adding or deleting purchases */
-    if($_SERVER["REQUEST_METHOD"] == 'POST') {
-        if(isset($_POST['add'])){
-            //call the addPurchase function
-            $result = addPurchase($_POST['product_id'], $_POST['supplier_id'], $_POST['quantity'], $_POST['total_cost']);
-        } elseif (isset($_POST['delete'])) {
-            //call the deletePurchase function
-            $result = deletePurchase($_POST['id']);
-        }
-    }
-    /* Fetch all purchase */
-    $purchases = getPurchases();
+    /* Fetch items and vendors for the dropdown options */
+    $qPurchase = " SELECT p.purchase_id, p.purchase_date, p.unit_price, p.quantity, p.vendor_id, item_name, v.vendor_name
+                   FROM purchase p
+                   JOIN items i ON p.item_id = i.item_id
+                   JOIN vendors v ON p.vendor_id = v.vendor_id ";
+    $stmt = $pdo->prepare($qPurchase);
+    $stmt->execute();
+    $purchases = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
 ?>
 
 <!DOCTYPE html>
