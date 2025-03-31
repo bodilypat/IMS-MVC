@@ -77,8 +77,8 @@
            <label for="status">Status: </label>
            <select name="status">
                 <option value="Pending" <?php if ($row['status'] == 'Pending') echo 'selected';? >>Pending</option>
-                <option value="Completed" <?php if ($row['Completed'] == 'Completed') echo 'selected'; ?>>Completed</option>
-                <option value="Cancelled" <?php if ($row['Cancelled'] == 'Cancelled') echo 'selected'; ?>>Cancelled</option>
+                <option value="Completed" <?php if ($row['status'] == 'Completed') echo 'selected'; ?>>Completed</option>
+                <option value="Cancelled" <?php if ($row['status'] == 'Cancelled') echo 'selected'; ?>>Cancelled</option>
            </select>
       </div>
       <button type="submit" name="update_order" value="update Order">Update Order</button>
