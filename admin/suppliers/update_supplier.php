@@ -2,21 +2,39 @@
 
     require '../includes/functions.php';
 
-    if(!isset($_GET['id'])){
-        header("Location:view_suppliers.php");
+    if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
+        header("Location: index.php");
         exit();
     }
 
-    $suppliers = getSupplier($_GET['id']);
-    
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
+        $supplier_id = $_GET['id'];
+        $qSupplier = "SELECT * FROM supplier WHERE customer_id = $customer_id";
 
-        $name = $_POST['name'];
-        $contactInfo = $_POST['contactInfo'];
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
-        $address = $_POST['address'];
-
+        if ($result->num_rows == 1) {
+            $suppliers = $result->fetch_assoc();
+        } else {
+            echo "Supplier not found.";
+        }
+    }
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ID'])) {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $phone = $_POST['phone'];
+            $address = $_POST['address'];
+            $city  = $_POST['city'];
+            $state = $_POST['state'];
+            $zipcode = $_POST['zipcode'];
+        
+            $sql = "UPDATE suppliers SET supplier_name = '$supplier_name',
+                                         email = '$email',
+                                         phone = '$phone',
+                                         address = '$address',
+                                         city = '$city',
+                                         state = '$state',
+                                         zipcode = '$zipcode'
+                    WHERE supplier_id = '$supplier_id'";
+            
         if(updateSupplier($id, $name, $contactInfo, $email, $phone, $address)){
             header("Location:manage_suppliers.php");
             exit();
