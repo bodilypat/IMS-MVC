@@ -18,7 +18,7 @@
 
     try {
         /* Create a new PDO instance */
-        $pdo = new PDO($dsn, $user, $pass, $options);
+        $db_con = new PDO($dsn, $user, $pass, $options);
         echo "Connected successfully";
         /* For debugging purpose */
     } catch (PDOException $e) {
