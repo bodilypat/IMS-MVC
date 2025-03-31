@@ -2,22 +2,35 @@
 
     require '../includes/functions.php';
 
-    $suppliers = getSupplier();
-
     if($_SERVER['REQUEST_METHOD'] =='POST'){
-        $name =$_POST['name'];
+        $name =$_POST['supplier_name'];
         $contactInfo = $_POST['contactInfo'];
         $email = $_POST['email'];
         $phone = $_POST['phone'];
         $address = $_POST['address'];
+        $city = $_POST['city'];
+        $state = $_POST['state'];
+        $zipcode = $_POST['zipcode'];
+        
+        $sql = "INSERT INTO suppliers(supplier_name, email, phone, address, city, state, zipcode)
+                VALUES(:supplier_name, :email, :phone, :address, :city, :state, :zipcode)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':supplier_name', $supplier_name, PDO::PARAM_INT);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
+        $stmt->bindParam(':address', $address, PDO::PARAM_STR);
+        $stmt->bindParam(':city', $city, PDO::PARAM_STR);
+        $stmt->bindParam(':state', $state, PDO::PARAM_STR);
+        $stmt->bindParam(':zipcode', $zipcode, PDO::PARAM_STR);
 
-        if(addSupplier($name, $contactInfo, $email, $phone, $address)) {
-            header("Location:view_suppliers.php");
+        if($stmt->execute()) {
+            header("Location: manage_suppliers.php?status=success");
             exit();
         } else {
-            $error = "Failed to add Supplier.";
+            $error = "Error : ", .$e->getMessage();
         }
     }
+}
 ?>
 
 <!DOCTYPE html>
@@ -49,6 +62,18 @@
             <div class="form-group">
                 <label for="Address">Address</label>
                 <textarea name="address" class="form-control" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="city">City: </label>
+                <input type="text" id="city" name="city" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="state">State: </label>
+                <input type="text" id="state" name="state" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="zipcode">Zipcode: </label>
+                <input type="text" id="zipcode" name="zipcode" class="form-control" required>
             </div>
             <button type="submit">Add Supplier</button>
         </form>
