@@ -2,6 +2,14 @@
 
     include('../includes/dbconnect.php');
 
+    /* Retrieve data from database */
+    $qPurchase = "SELECT p.purchase_id, p.purchase_date, p.unit_price, p.quantity, p.vendor_id, i.item_name, v.vendor_name
+                  FROM purchases p 
+                  JOIN items i ON p.item_id = i.item_id
+                  JOIN vendors v ON p.vendor_id = v.vendor_id";
+    $stmt = $db_con->query($qPurchase);
+    $purchases = $stmt->fetchAll();
+
     if ($_SERVER['REQUEST_METHOD'] =='POST'){
         $item_id = $_POST['item_id'];
         $purchase_date = $_POST['purchase_date'];
@@ -9,13 +17,16 @@
         $quantity = $_POST['quantity'];
         $vendor_id = $_POST['vendor_id'];
 
-        if(addPurchase($product_id, $supplier_id, $quantity, $supplier_date, $total_cost)) {
-            header("Location: magement_suppliers.php");
-            exit();
+        /* Insert the order into the database */
+        $sql = "INSERT INTO purchases(item_id, pruchase_date, unit_price, quantity, vendor_id)
+                VALUES('$item_id','$purchase_date','$unit_price','$quantity','$vendor_id')";
+
+        if ($db_con->query($sql) === TRUE) {
+            echo "Add new order successfully.";
         } else {
-            $error = "Failed to add supplier.";
+            echo "Error: " . $sql . "<br>" . $db_con->error";
         }
-    }
+        $db_con->close();
 ?>
 
 <!DOCTYPE html>
@@ -30,23 +41,13 @@
         <form method="post" name="form-purchase">
 
             <div class="form-group">
-                <label for="item-id">Item ID</label>
+                <label for="item-id">Item Name</label>
                 <select name="item_id" class="form-control" reqired>
-                    <?php foreach($items as $item): ?>
-                        <option value="<?php echo $item['item_id'];?>"><?php echo $item['item_name'];?></option>
+                    <?php foreach($purchases as $purchase): ?>
+                        <option value="<?php echo $purchase['item_id'];?>"><?php echo $purchase['item_name'];?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
-
-            <div class="form-group">
-                <label for="SupplierName">Supplier Name</label>
-                <seelct name="supplier_id" class="form-control" required>
-                    <?php foreach($suppliers as $supplier): ?>
-                        <option value="<?php echo $supplier['supplier_id'];?>"><?php echo $supplier['supplier_name'];?></option>
-                    <?php endforeach; ?>
-                </section>
-            </div>
-
             <div class="form-group">
                 <label for="purchase-date">Purchase Date</label>
                 <input type="date" name="purchase_date" class="form-control" placeholder="Quantity" required>
@@ -60,6 +61,13 @@
             <div class="form-group">
                 <label for="quantity">Quantity</label>
                 <input type="number" id="quajtname="total_cost" class="form-control" placeholder="Total Cost" required>
+            </div>
+            <div class="form-group">
+                <label for="vendor-id">Vendor Name</label>
+                <select id="vendor_id" name="vendor_id" class="form-control" required>
+                    <?php foreach($purchases as $purchase) : ?>
+                        <option value="<?php $purchase['vendor_id'];?>"><?php $purchase['vendor_name'];?></option>
+                </select>
             </div>
             <button type="submit">Add Purchase</button>
         </form>
