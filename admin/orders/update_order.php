@@ -5,7 +5,7 @@
          $order_id = $_GET['id'];
 
          /* Fetch order details from database  */
-         $qOrder = "SELECT o.order_id, o.order_date, o.discount, o.qunaity, o.unit_price, o.total_price, ,o.status, i.item_name, c.customer_name
+         $qOrder = "SELECT o.order_id, o.order_date, o.discount, o.qunaity, o.unit_price, o.total_price,o.status, i.item_name, c.customer_name
                          FROM orders o 
                          JOIN items i ON o.item_id = i.item_id
                          JOIN customers c ON o.customer_id = c.customer_id";
@@ -53,7 +53,7 @@
      <div class="form-group">
          <label for="customer-id">Customer ID : </label>
          <select name="customer_id" required>
-              <?php foreach($orders as $order): ?>
+              <?php foreach($orders as $order) ?>
                   <option value="<?php echo $order['customer_id'];?>"><?php echo $order['customer_name'];?></option>
                <?php endforeach;  ?>
          </select>
