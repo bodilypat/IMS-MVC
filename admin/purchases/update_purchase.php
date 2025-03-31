@@ -2,6 +2,14 @@
 
     include('../includes/dbconnect.php';
 
+    /* Retrieve data from database */
+    $qPruchase = "SELECT p.purchase_id, p.purchase_date, p.unit_price, p.quantity, p.vendor_id, i.item_name, v.vendor_name
+                  FROM purchase p
+                  JOIN items i ON p.item_id = i.item_id
+                  JOIN vendors v ON p.vendor_id = v.vendor_id";
+    $stmt = $db_con->query($qPurchase);
+    $purchase = $stmt->fetchAll();
+
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $id = $_POST['id'];
         $supplier_id = $_POST['supplier_id'];
@@ -9,15 +17,21 @@
         $quantity = $_POST['quantity'];
         $purchase_date = $_POST['purchase_price'];
 
-        if(updatePurchase($id,$supplier_id, $product_id, $quantity, $purchase_date)){
+        $sql = "UPDATE purchases 
+                SET item_id ='$item_id',
+                    purchase_date = '$purchase_date',
+                    unit_price = '$unit_price',
+                    quantity = '$quantity',
+                    vendor_id = '$vendor_id'
+                WHERE purchase_id = $purchase_id";
+        
+
+        if($db_con->query($sql) === TRUE ){
             echo "Purchase updated Successfull!";
         } else {
             echo "Failed to update purchase.";
         }
-    } else {
-        $id = $_GET['id'];
-        /* Fetch current purchase details */
-        $purchase = getPurchase($id);
+        $db_con->close();
     }
 ?>
 <!DOCTYPE html>
@@ -34,39 +48,33 @@
 
             <div class="form-group">
                 <label for="supplier">Supplier: </label>
-                <select name="supplier_id" required>
-                    <option value="">Select Supplier</option>
-                    <?php
-                        $supplier = getSupplier(); // Assuming you have a function to get suppliers
-                        foreach($suppliers as $suppler){
-                            $selected = ($supplier['id'] == $purchase['supplier_id']) ? 'selected': '';
-                            echo "<option value=\"{$suppler['id']}\" $selected>{$supplier['name']}</option>";
-                        }
-                    ?>
+                <select name="item_id" required>
+                    <option value="">Item ID</option>
+                    <?php foreach($purchases as $purchase): ?> 
+                         <option value="<?php echo $purchase['item_id'];?>"><?php $purchase['item_name'];?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
-
             <div class="form-group">
-                <label for="product">Product</label>
-                <select name="product_id" required>
-                    <option value="">Select Product</option>
-                    <?php
-                        $products = getProducts(); // Assuming you have a function to get products
-                        foreach($products as $product){
-                            echo"<option value=\"{$product['id']}\" $selected>{$product['name']}</option>";
-                        }
-                    ?>
-                </section>
+                <label for="purchase-date">Purchase Date</label>
+                <input type="date" name="pruchase_id" placeholder="Purchase Date" value="<?php echo $purchase['purchase_date'];?>" required>
             </div>
-
             <div class="form-group">
                 <label for="quantity">Quantity</label>
-                <input type="number" name="quantity" placeholder="quantity" value="<?php htmlspecialchars($purchase['quantity']) ?>" required>
+                <input type="number" name="quantity" placeholder="quantity" value="<?php echo $purchase['quantity']; ?>" required>
             </div>
 
             <div class="form-group">
-                <label for="price">Price</label>
-                <input type="text" name="purchase_price" placeholder="Purchase Price" value="<?php htmlspecialchars($purchase['purchase_price']) ?>" required>
+                <label for="unit-price">Unit Price</label>
+                <input type="text" name="unit_price" placeholder="Price" value="<?php $purchase['unit_price']; ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="vendor-id">Vendor ID: </label>
+                <select name="vendor_id" requried>
+                    <?php foreach($purchases as $purchase): ?>
+                        <option value="<?php echo $purchase['vendor_id'];?>"><?php $purchase['vendor_name'];?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
             <button type="submit">Update Purchase</button>
         </form>
