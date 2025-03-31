@@ -7,8 +7,10 @@
                   FROM purchases p 
                   JOIN items i ON p.item_id = i.item_id
                   JOIN vendors v ON p.vendor_id = v.vendor_id";
-    $stmt = $db_con->query($qPurchase);
-    $purchases = $stmt->fetchAll();
+    $stmt = $pdo->prepare($qPurchase);
+    $stmt->execute();
+    /* Fetch the results using a more memory-efficient method */
+    $purchases = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if ($_SERVER['REQUEST_METHOD'] =='POST'){
         $item_id = $_POST['item_id'];
