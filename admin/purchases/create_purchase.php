@@ -53,13 +53,13 @@
             </div>
 
             <div class="form-group">
-                <label for="PurchaseDate">Purchase Date</label>
-                <input type="date" name="purchase_date" class="form-control" placeholder="Purchase Date" required>
+                <label for="unit-price">Unit Price</label>
+                <input type="number" id="unit_price" name="unit_price"  class="form-control" placeholder="Unit Price" required>
             </div>
 
             <div class="form-group">
-                <label for="TotalCost">Total Cost</label>
-                <input type="number" name="total_cost" class="form-control" placeholder="Total Cost" required>
+                <label for="quantity">Quantity</label>
+                <input type="number" id="quajtname="total_cost" class="form-control" placeholder="Total Cost" required>
             </div>
             <button type="submit">Add Purchase</button>
         </form>
