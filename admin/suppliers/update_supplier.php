@@ -75,6 +75,18 @@
                     <label for="Address">Address</label>
                     <textarea name="address" class="form-control" value="<?php echo $supplier['address'];?>"></textarea>
                 </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" name="city" class="form-control" value="<?php echo $supplier['city']; ?>" >
+                </div>
+                <div class="form-group">
+                    <label for="state">State:</label>
+                    <input type="text" name="state" class="form-control" value="<?php echo $supplier['state']; ?>" >
+                </div>
+                <div class="form-group">
+                    <label for="zipcode">Zipcode: </label>
+                    <input type="text" name="zipcode" class="form-control" value="<?php echo $supplier['zipcode']; ?>">
+                </div>
             </form>
             <a href="manage_suppliers.php">Back to suppier List</a>
     </body>
