@@ -1,6 +1,6 @@
 <?php
 
-    require '../includes/functions.php';
+    require '../includes/dbconnect.php';
 
     /* Fetch items and vendors for the dropdown options */
     $qPurchase = " SELECT p.purchase_id, p.purchase_date, p.unit_price, p.quantity, p.vendor_id, item_name, v.vendor_name
