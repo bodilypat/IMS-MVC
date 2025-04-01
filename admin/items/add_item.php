@@ -2,6 +2,7 @@
      include('../include/dbconnect.php');
 
      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+          
          /* Validation and santize the iput */
          $item_number = $db_con->real_escape_string($_POST['item_number']);
          $product_id = intval($_POST['product_id']);
