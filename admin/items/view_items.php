@@ -1,6 +1,7 @@
 <?php
      include('../includes/dbconnect.php');
 
+     /* Fetch data from the items table */
      $qItem = "SELECT * FROM items;
      $result = $db_con->query($qItem);
 
@@ -23,17 +24,17 @@
                          </tr>";
                     while ($row = $result->fetch_assoc()) {
                     echo "<tr> 
-                               <td>" . $row['item_id'] . "</td>
-                               <td>" . $row['item_number'] . "</td>
-                               <td>" . $row['product_id'] . "</td>
-                               <td>" . $row['item_name'] . "</td>
-                               <td>" . $row['discount'] . "</td>
-                               <td>" . $row['stock'] . "></td>
-                               <td>" . $row['unit_price'] . "</td>
-                               <td>" . $row['image_url"] . "</td>
-                               <td>" . $row['status'] . "</td>
-                               <td>" . $row['description'] ."</td>
-                               <td><a href='update_item.php?id=" . $row['item_id'] . "'>Edit</a> | <a href="delete_item.php?id=" . $row['item_id'] . "'>Delete</a></td>
+                               <td>" . htmlspecialchars($row['item_id']) . "</td>
+                               <td>" . htmlspecialchars($row['item_number']) . "</td>
+                               <td>" . htmlspecialchars($row['product_id']) . "</td>
+                               <td>" . htmlspecialchars($row['item_name']) . "</td>
+                               <td>" . htmlspecialchars($row['discount']) . "</td>
+                               <td>" . htmlspecialchars($row['stock']) . "></td>
+                               <td>" . htmlspecialchars($row['unit_price']) . "</td>
+                               <td>" . htmlspecialchars($row['image_url"]) . "</td>
+                               <td>" . htmlspecialchars($row['status']) . "</td>
+                               <td>" . htmlspecialchars($row['description']) ."</td>
+                               <td><a href='update_item.php?id=" . htmlspecialchars($row['item_id']) . "'>Edit</a> | <a href="delete_item.php?id=" . htmlspecialchars($row['item_id']) . "'>Delete</a></td>
                           </tr>";
                      }
                      echo "</table>";
