@@ -5,9 +5,13 @@
    $qSuppier = "SELECT * FROM suppliers ";
    $stmt = $db_con->prepare($qSupplier);
    $stmt->execute();
-   $supplier = $stmt->fetch(PDO::FETCH_ASSOC);
+   $suppliers = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
+   /* Optional: you can handle errors if any (use try-cath for better error handing */
+   if (!suppliers {
+        /* Handle error or return empty array */
+       $suppilers = [];
+       }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +22,7 @@
     </head>
     <body>
         <h1>Supplier List</h1>
-        <a href="add_supplier.php">Add Supplier</a>
+        <a href="create_supplier.php">Add Supplier</a>
         <table border="1">
                <tr>
                     <th>ID</th>
@@ -38,8 +42,8 @@
                     <td><?php htmlspecialchars($supplier['phone']);?></td>
                     <td><?php htmlspecialchars($supplier['address']);?></td>
                     <td>
-                         <a href="edit_supplier.php?id=<?php $supplier['id']?>">Edit</a>
-                         <a href="delete_supplier.php?id=<?php $supplier['id']?>">Delete</a>
+                         <a href="update_supplier.php?id=<?php echo $supplier['id']; ?>">Update</a>
+                         <a href="delete_supplier.php?id=<?php echo $supplier['id']; ?>">Delete</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
