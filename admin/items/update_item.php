@@ -2,32 +2,61 @@
      include('../includes/dbconnect.php');
 
      if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
-       $item_id = $_GET['id'];
+            $item_id = intval($_GET['id']); /* Ensure item_id is treated as an integer */
 
-       /* Fetch order details from database */
-       $sql = "SELECT * FROM items WHERE item_id = $item_id";
-       $result = $db_con->query($sql0;
+            /* Fetch order details from database */
+            $sql = "SELECT * FROM items WHERE item_id = $item_id";
+            $stmt = $db_con->prepare($sql);
+            $stmt->bindparam("i", $item_id);
+            $stmt->execute();
+            $result = $db_con->get_result();
 
-       if ($result->num_rows == 1 ) {
-             $row = $result->fetch_assoc();
-       } else {
-             echo "Order not found";
-             exit;
-         }
+            if ($result->num_rows == 1 ) {
+                  $row = $result->fetch_assoc();
+            } else {
+                  echo "Order not found";
+                  exit;
+            }
      }
      if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['item_id'])) {
-           $item_id = $_POST['item_id'];
-           $item_number = $_POST['item_number'];
-           $product_id = $_POST['product_id'];
-           $item_name = $_POST['item_name'];
-           $discount = $_POST['discount'];
-           $stock = $_POST['stock'];
-           $unit_price = $_POST['unit_price'];
-           $image_url = $_POST['image_url'];
-           $status = $_POST['status'];
-           $description = $_POST['description'];
+          
+            /* Sanitize and validate user inpts */
+            $item_id = intval($_POST['item_id']);
+            $item_number = $db_con->real_escape_string(trim($_POST['item_number']));
+            $product_id = intval($_POST['product_id']);
+            $item_name = $db_con->real_escape_string(trim($_POST['item_name']));
+            $discount = floatval($_POST['discount']);
+            $stock = intval($_POST['stock']);
+            $unit_price = floatval($_POST['unit_price']);
+            $status = $db_con->real_escape_string(trim( $_POST['status']);
+            $description = $db_con->real_escape_string($_POST['description']);
 
-           $sql = "UPDATE items SET item_number = '$item_number',
+            /* Handle image URL(file upload) */
+            $image_url = ''; // Default value
+            if (isset($_FILES['image_url']) && $_FILES['image_url']['error'] == 0) {
+                 $target_dir = "../upload/";
+                 $target_file = $target_dir . basename($_FIELS['image_url']['name']);
+                 $image_file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                 $allowed_type = ['jpg','jpeg','png','gif'];
+
+                 /* Check if the file is an allowed image type */
+                 if (in_array(($image_file_type, $allowed_types)) {
+
+                      /* Move the uploaded file */
+                      if (move_uploaded_file($_FILES['image_url'], $target_file)) {
+                           $image_url = $target_file; // Set image URL to the uploaded file path
+                      } else {
+                           echo "Error: File upload failed.";
+                           exit;
+                      }
+                 } else {
+                      echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
+                      exit;
+                 }
+            }
+            /* Prepare SQL statement to update the record */
+            $sql = "UPDATE items SET 
+                                   
                                     product_id = '$product_id',
                                     item_name = '$item_name',
                                     discount = '$discount',
@@ -37,6 +66,8 @@
                                     status = '$status',
                                     description = '$discription'
                   WHERE item_id = $item_id";
+          $stmt = $db_con->prepare($sql);
+          $stmt->bind_param(
           if ($db_con->query($sql) === TRUE) {
                echo "Order update successfull.";
           } else {
