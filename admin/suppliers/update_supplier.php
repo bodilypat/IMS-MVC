@@ -59,7 +59,7 @@
         <h2>Edit Supplier</h2>
         <?php if(isset($error)) echo "<p style='color:red;'>$error"; ?>
             <form method="post">
-                <input type="hidden" name="supplier_id" value="<?php $supplier['supplier_id']; ?>" >
+                <input type="hidden" name="supplier_id" value="<?php echo $supplier['supplier_id']; ?>" >
                 <div class="form-group" action="" >
                     <label for="name">Name</label>
                     <input type="text" name="supplier_name" value="form-control" value="<?php echo $supplier['supplier_name'];?>" required>
