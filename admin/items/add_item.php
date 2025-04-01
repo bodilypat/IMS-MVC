@@ -85,7 +85,7 @@
       </div>
       <div class="form-group">
           <label for="description">Description: </label>
-          <textarea name="description" id="description" name="description" required>
+          <textarea name="description" id="description" name="description" required></textarea>
       </div>
       <div class="form-group">
           <label for="image">Image: </label>
