@@ -1,8 +1,12 @@
 <?php 
     
-    require '../includes/functions.php';
+    require '../includes/dbconnect.php';
 
-    $suppliers = getSuppilers();
+   $qSuppier = "SELECT * FROM suppliers ";
+   $stmt = $db_con->prepare($qSupplier);
+   $stmt->execute();
+   $supplier = $stmt->fetch(PDO::FETCH_ASSOC);
+
 
 ?>
 <!DOCTYPE html>
