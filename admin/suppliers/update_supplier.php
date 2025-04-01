@@ -9,15 +9,18 @@
 
     if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
         $supplier_id = $_GET['id'];
-        $qSupplier = "SELECT * FROM supplier WHERE customer_id = $customer_id";
+        $qSupplier = "SELECT * FROM supplier WHERE supplier_id = $supplier_id";
 
-        if ($result->num_rows == 1) {
-            $suppliers = $result->fetch_assoc();
+        $result = mysqi_query($db_con, $qSupplier);
+        if ($result && mysqli_query_rows == 1) {
+            $suppliers = $result->fetch_assoc($result);
         } else {
             echo "Supplier not found.";
+            exit();
         }
     }
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ID'])) {
+            /* Collect from data */
             $name = $_POST['name'];
             $email = $_POST['email'];
             $phone = $_POST['phone'];
@@ -25,7 +28,8 @@
             $city  = $_POST['city'];
             $state = $_POST['state'];
             $zipcode = $_POST['zipcode'];
-        
+
+            /* Update query */
             $sql = "UPDATE suppliers SET supplier_name = '$supplier_name',
                                          email = '$email',
                                          phone = '$phone',
@@ -35,7 +39,7 @@
                                          zipcode = '$zipcode'
                     WHERE supplier_id = '$supplier_id'";
             
-        if(updateSupplier($id, $name, $contactInfo, $email, $phone, $address)){
+        if (mysqli_query($db_con, $sql){
             header("Location:manage_suppliers.php");
             exit();
         } else {
@@ -55,13 +59,10 @@
         <h2>Edit Supplier</h2>
         <?php if(isset($error)) echo "<p style='color:red;'>$error"; ?>
             <form method="post">
-                <div class="form-group">
+                <input type="hidden" name="supplier_id" value="<?php $supplier['supplier_id']; ?>" >
+                <div class="form-group" action="" >
                     <label for="name">Name</label>
-                    <input type="text" name="name" value="form-control" value="<?php echo $supplier['name'];?>" required>
-                </div>
-                <div class="form-group">
-                    <label for="ContactInfo">Contact Info</label>
-                    <input type="text" name="contactInfo" class="form-control" value="<?php $supplier['contactInfo'];?>" required >
+                    <input type="text" name="supplier_name" value="form-control" value="<?php echo $supplier['supplier_name'];?>" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
