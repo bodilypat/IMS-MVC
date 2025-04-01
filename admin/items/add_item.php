@@ -11,21 +11,47 @@
          $unit_price = floatval($_POST['unit_price']);
          $description = $db_con->real_escape_string($_POST['description']);
 
-         /* Handle image upload  */
+         /* Handle image upload with validation */
          $image_url = imageNotAvailable.jpg'; /* Default image URL  */
          if (isset($_FILES['image']) && $_FILES['image']['error'] == 0 ) {
-             $target_dir = "upload/;
-             $target_file = $target_dir . basename[$_FILES['image']['name']); 
-             if (move_uploaded_file($_FILES['image']['tmp_name'], target_file)) {
-                 $image_url = $target_file;
-           }
-        }
-        /* Insert the data into the database */
-        $sql = "INSERT INTO items(item_number, product_id, item_name, discount, stock, unit_price, status, description) 
+
+              /* Check file type and size */
+             $allowed_extensions = ['jpg','jpeg','png','gif'];
+             $file_extension = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+             $max_file_size = 5 * 1024 * 1024; // 5MB
+
+             /* Validate file extension */
+             if ($_FILES[$file_extension, $allowed_extension)) {
+                  /* Validate file size */
+                  if ($_FILES['image']['size'] <= $max_file_size) {
+
+                       /* Generate a unique name for the uploaded file */
+                       $target_dir = "../upload/;
+                       $target_file = $target_dir . uniqid('img_', true) . '.' . $file_extension; 
+                       
+                       /* Move the upload file */
+                       if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
+                           $image_url = $target_file;
+                       } else {
+                            echo "Error: File upload failed.";
+                            exit;
+                       }
+                 } else {
+                       echo "Error:  File size exceeds the maximum limit(5MB).";
+                       exit;
+                 }
+          } else {
+               echo "Error: Invalid file type. Only JPG, JPEG, PNG, and GIF are allowed.";
+               exit;
+          }
+     }
+
+     /* Insert the data into the database */
+     $sql = "INSERT INTO items(item_number, product_id, item_name, discount, stock, unit_price, status, description) 
                 VALUES('$item_number','$product_id','$item_name','$discount','$stock','$unit_price','$image_url','Active','$description')";
-        if ($db_con->query($sql) === TRUE) {
+     if ($db_con->query($sql) === TRUE) {
              echo "New record created successfully";
-        } else {
+     } else {
            echo "Error: " . $sql . "<br>" . $db_con->error;
         }
     }
