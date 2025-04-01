@@ -1,6 +1,6 @@
 <?php
 
-    require '../includes/functions.php';
+    require '../includes/dbconnect.php';
 
 
     if($_SERVER['REQUEST_METHOD'] =='POST'){
