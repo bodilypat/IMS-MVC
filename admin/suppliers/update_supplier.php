@@ -2,26 +2,40 @@
 
     require '../includes/functions.php';
 
+    /* Ensure the user is logged in and has 'admin' role */
     if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
         header("Location: index.php");
         exit();
     }
 
-    if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
+    /* Get the supplier's information when 'GET' method is used and 'id' is set */
+    if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
         $supplier_id = $_GET['id'];
-        $qSupplier = "SELECT * FROM supplier WHERE supplier_id = $supplier_id";
+        
+        /* Prepared statement to fetch the supplier */
+        $qSupplier = "SELECT * FROM supplier WHERE supplier_id = ? ";
+        
+        if ($stmt = $db_con->prepare($sql)) {
+            $stmt->bind_param("i", $supplier_id);  // 'i' indicates on integer parameter
+            $stmt->execute();
+            $result = $stmt->get_result();
 
-        $result = mysqi_query($db_con, $qSupplier);
-        if ($result && mysqli_query_rows == 1) {
-            $suppliers = $result->fetch_assoc($result);
-        } else {
-            echo "Supplier not found.";
-            exit();
+            if ($result->num_rows == 1 ) {
+                $supplier = $result->fetch_assoc();
+            } else {
+                echo "Supplier not found.";
+                exit();
+            } 
+            $stmt->close();
         }
     }
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ID'])) {
+    
+    /* Update the supplier when the form is submitted with 'POST' method */
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['supplier_id'])) {
+        
             /* Collect from data */
-            $name = $_POST['name'];
+            $supplier_id = $_POST['supplier_id'];
+            $name = $_POST['supplier_name'];
             $email = $_POST['email'];
             $phone = $_POST['phone'];
             $address = $_POST['address'];
@@ -29,23 +43,26 @@
             $state = $_POST['state'];
             $zipcode = $_POST['zipcode'];
 
-            /* Update query */
-            $sql = "UPDATE suppliers SET supplier_name = '$supplier_name',
-                                         email = '$email',
-                                         phone = '$phone',
-                                         address = '$address',
-                                         city = '$city',
-                                         state = '$state',
-                                         zipcode = '$zipcode'
-                    WHERE supplier_id = '$supplier_id'";
-            
-        if (mysqli_query($db_con, $sql){
-            header("Location:manage_suppliers.php");
-            exit();
-        } else {
-            $error = "Failed to update Supplier.";
+            /* Prepare the SQL query to update the supplier details */
+            $sql = "UPDATE suppliers SET supplier_name = ?, email = ?, phone = ?, address = ?, city = ?, state = ?, zipcode = ?'
+                    WHERE supplier_id = ?";
+
+        if ($stmt = $db_con->prepare($sql)) {
+            $stmt->bind_param("sssssssi", $supplier_name, $email, $phone, $address, $city, $state, $zipcode, $supplier_id);
+
+            if ($stmt->execute()) {
+                 
+                /* Redirect to the manage suppliers page after successful update */
+                header("Location: manage_suppliers.php");
+                exit();
+            } else {
+                $error = "Failed to update supplier.";
+            }
+                $stmt->close();
+            } else {
+                $error ="Database query failed: " . $db_con->error;
+            }
         }
-    }
 ?>
 
 <!DOCTYPE html>
