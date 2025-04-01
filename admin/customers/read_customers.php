@@ -45,6 +45,6 @@
             </tr>
             <?php endforeach; ?>
         </table>
-        <a href="add_customer.php">Add New Customer</a>
+        <a href="create_customer.php">Add New Customer</a>
     </body>
 </html>
