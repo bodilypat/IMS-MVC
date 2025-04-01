@@ -79,27 +79,27 @@
 <form method="POST" action="update_order.php">
      <div class="form-group">
          <label for="item-id">Item ID</label>
-         <input type="number" id="item_id" name="item_id" required>
+         <input type="number" id="item_id" name="item_id" value="<?php echo isset($row['item_id']) ? $row['item_id'] : ''; ?>" required>
      </div>
      <div class="form-group">
          <label for="item-number">Item Number</label>
-         <input type="text" id="item_number" name="item_number" required>
+         <input type="text" id="item_number" name="item_number" value="<?php echo isset($row['item_number']) ? $row['item_number'] : ; ?>" required>
      </div>
      <div class="form-group">
          <label for="product-id">Product ID</label>
-         <input type="number" id="product_id" name="product_id" required>
+         <input type="number" id="product_id" name="product_id" value="<?php echo isset($row['product_id']) ? $row['product_id'] : ?>" required>
      </div>
      <div class="form-group">
          <label for="item-name">Item Name</label>
-         <input type="text" id="item_name" name="item_name" required>
+         <input type="text" id="item_name" name="item_name"  value="<?php echo isset['item_name']) ? $row['item_number'] : ''; ?>" required>
      </div>
      <div class="form-group">
          <label for="discount">Discount: </label>
-         <input type="number" id="discount"name="discount" step="0.01" required>
+         <input type="number" id="discount"name="discount" step="0.01" value="<?php echo isset($row['discount']) ? $row['discount'] : ''; ?>" required>
      </div>
      <div class="form-group">
          <label for="stock">Stock: </label>
-         <input type="number" id="stock" name="stock" required>
+         <input type="number" id="stock" name="stock" value="<?php echo isset($row['stock']) ? $row['stock'] : ''; ?>" required>
      </div>
      <div class="form-group">
          <label for="unit-price">Unit price: </label>
@@ -112,14 +112,14 @@
      <div class="form-group">
          <label for="status">Status: </label>
          <select name="status">
-              <option value="Pending" <?php if ($row['status'] == 'Pending') echo 'selected'; ?>>Pending</option>
-              <option calue="Completed" <?php if ($row['status'] == 'Completed') echo 'selected'; ?>>Completed</option>
-              <option value="Cancelled" <?php if ($row['status'] == 'Cancelled') echo 'selected'; ?>>Cancelled</option>
+              <option value="Pending" <?php if (isset($row['status']) && $row['status'] == 'Pending') echo 'selected'; ?>>Pending</option>
+              <option calue="Completed" <?php if (isset($row['status']) && $row['status'] == 'Completed') echo 'selected'; ?>>Completed</option>
+              <option value="Cancelled" <?php if (isset($row['status']) && $row['status'] == 'Cancelled') echo 'selected'; ?>>Cancelled</option>
          </select>
      </div>
      <div class="form-group">
          <label for="description">Discription:</label>
-         <textarea id="description" name="description" required>
+         <textarea id="description" name="description" value="<?php echo isset($row['description']) ? $row['description'] : ''; ?></textarea>
      </div>
      <button type="submit" name="update_item" value="update_item">Update Item</button>
 </form>
