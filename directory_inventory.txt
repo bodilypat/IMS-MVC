@@ -1,47 +1,54 @@
-admin/
-    dashboard
-    login.php 
+Backend/
+   admin/
+    	dashboard
+    	login.php 
 
-    auth/
-        register.php
-        foget_password.php
-        logout.php 
+    	auth/
+	        register.php
+	        foget_password.php
+	        logout.php 
 
-    categories/
-        add_category.php 
-        edit_category.php 
-        delete_category.php 
-        view_categories.php
+    	categories/
+        	create_category.php 
+        	update_category.php 
+        	delete_category.php 
+        	view_categories.php
+        	manage_categories.php
 
-    products/ 
-        add_product.php 
-        edit_product.php 
-        delete_product.php 
-        view_products.php 
+    	products/ 
+	        create_product.php 
+	        update_product.php 
+	        delete_product.php 
+	        view_products.php 
+	        manage_categories.php
 
-    suppliers/ 
-        add_supplier.php 
-        edit_supplier.php 
-        delete_supplier.php 
-        view_suppliers.php 
+    	suppliers/ 
+	        create_supplier.php 
+	        update_supplier.php 
+	        delete_supplier.php 
+	        view_suppliers.php 
+	        manage_suppliers.php
 
-    purchases/ 
-        add_purchase.php 
-        edit_purchase.php 
-        delete_purchase.php 
-        view_purchase.php 
+    	purchases/ 
+	        create_purchase.php 
+	        udpate_purchase.php 
+	        delete_purchase.php 
+	        view_purchases.php 
+	        manage_purchases.php
 
-    sales/ 
-        add_sale.php 
-        edit_sale.php 
-        delete_sale.php 
-        view_sales.php 
+    	orders/ 
+	        create_order.php 
+	        update_order.php 
+	        delete_order.php 
+	        view_orders.php 
+	        manage_orders.php
 
-    customer/ 
-        add_customer.php 
-        edit_customer.php 
-        delete_customer.php 
-        view_customers.php 
+    	customer/ 
+	        create_customer.php 
+	        update_customer.php 
+	        delete_customer.php 
+	        view_customers.php 
+	        manage_customer
         
 asset/
     css/
@@ -55,14 +62,14 @@ asset/
     js/
         login.js
         scripts.js
-conduct/
+Frontend/
+	login
 	customers
 	orders
 	products
 	purchases
 	suppliers
 	categories
-	login
 database/
     inventory_system.sql
 
