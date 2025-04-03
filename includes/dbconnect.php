@@ -1,10 +1,10 @@
 <?php
 
     /* dbconnect.php */
-    $host = 'localhost';
-    $db = 'dbinventory';
-    $user = 'root';
-    $pass = '';
+    $host = 'psinventory.com';
+    $db = 'dbinventories';
+    $user = 'pacha';
+    $pass = 'invent';
     $charset = 'utf8mb4';
 
     $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
