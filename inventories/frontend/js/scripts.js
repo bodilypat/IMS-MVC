@@ -1,5 +1,5 @@
 // Base URL of your API endpoint (replace with your actual endpoint)
-const API_URL = 'http://psmedical.com/admin/api/customers.php';
+const API_URL = 'http://psmedical.com/ventories/backend/api/customers.php';
 
 // Function to fetch all customers
 async function getCustomers() {
@@ -336,7 +336,7 @@ function deleteItem(itemId) {
 window.onload = getItems;
 
 // Base URL of your API endpoint (replace with your actual endpoint)
-const API_URL = 'http://psmedical.com/inventories/backend/api/orders.php';
+const API_URL = 'http://psmedical.com/ventories/backend/api/orders.php';
 
 // Function to fetch all orders
 function getOrders() {
