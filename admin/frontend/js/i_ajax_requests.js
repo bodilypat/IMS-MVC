@@ -1,5 +1,5 @@
 // Base URL of your API endpoint (replace with your actual endpoint)
-const API_URL = 'http://psmedical.com/admin/admin/api/items.php';
+const API_URL = 'http://psmedical.com/admin/api/items.php';
 
 // Function to fetch all items
 function getItems() {
