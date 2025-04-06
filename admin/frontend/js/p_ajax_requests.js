@@ -1,4 +1,4 @@
-const API_URL = 'http://psmedical.com/admin/admin/api/products.php';
+const API_URL = 'http://psmedical.com/admin/api/products.php';
 
 // Fetch all products
 function getProducts() {
