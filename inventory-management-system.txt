@@ -1,0 +1,62 @@
+inventory-management-system
+ 
+	admin-management-system/
+	├── backend/                   		# Backend API (PHP files)
+	│   ├── api/                   		# API endpoints for CRUD operations
+	│   │   ├── customers.php        	# Endpoint for handling customer-related requests
+	│   │   ├── orders.php   			# Endpoint for handling orders-related requests
+	│   │   ├── items.php       		# Endpoint for handling items-related requests	
+	│   │   ├── purchases.php      		# Endpoint for handling purchases-related requests
+	│   │   ├── suppliers.php           # Endpoint for handling suppliers-related requests
+	│   │   ├── vendors.php          	# Endpoint for handling vendors-related requests
+	│   │   ├── products.php     		# Endpoint for handling products-related requests
+	│   │   ├── users.php               # Endpoint for handling user-related requests
+		|   |
+	│   │   ├── dbconnect.php           # Database connection
+	│   │   └── ...                     # Other API files for various operations
+	│   ├── config/                     # Configuration files (e.g., database connection settings)
+	│   │   └── config.php              # Configuration file (e.g., database settings)
+	│   └── .htaccess                   # If you're using Apache server (optional)
+	├── frontend/                       # Frontend (HTML, JavaScript, CSS files)
+	│   ├── dashboard.html              # Main HTML file with form and table
+	│   ├── css/                        # CSS styles
+	│   │   └── style.css               # Styles for the frontend
+	│   ├── js/                         # JavaScript files
+	│   │   ├── script.js               # Main JavaScript file for handling API requests (AJAX)
+	│   │   ├── login.js               # Helper functions (optional)
+	│   │   └── ajax-requests.js        # Separate file for AJAX requests (optional)
+	├── assets/                         # Public assets (images, fonts, etc.)
+	│   └── logo.png                    # Example logo
+	├── .gitignore                      # Git ignore file (optional)
+	└── README.md                       # Project readme (optional)
+
+	inventories-management-system/
+	├── backend/                   		# Backend API (PHP files)
+	│   ├── api/                   		# API endpoints for CRUD operations
+	│   │   ├── customers.php        	# Endpoint for handling customer-related requests
+	│   │   ├── orders.php   			# Endpoint for handling orders-related requests
+	│   │   ├── items.php       		# Endpoint for handling items-related requests	
+	│   │   ├── purchases.php      		# Endpoint for handling purchases-related requests
+	│   │   ├── suppliers.php           # Endpoint for handling suppliers-related requests
+	│   │   ├── vendors.php          	# Endpoint for handling vendors-related requests
+	│   │   ├── products.php     		# Endpoint for handling products-related requests
+	│   │   ├── users.php               # Endpoint for handling user-related requests
+		|   |
+	│   │   ├── dbconnect.php           # Database connection
+	│   │   └── ...                     # Other API files for various operations
+	│   ├── config/                     # Configuration files (e.g., database connection settings)
+	│   │   └── config.php              # Configuration file (e.g., database settings)
+	│   └── .htaccess                   # If you're using Apache server (optional)
+	├── frontend/                       # Frontend (HTML, JavaScript, CSS files)
+	│   ├── dashboard.html              # Main HTML file with form and table
+	│   ├── css/                        # CSS styles
+	│   │   └── style.css               # Styles for the frontend
+	│   ├── js/                         # JavaScript files
+	│   │   ├── script.js               # Main JavaScript file for handling API requests (AJAX)
+	│   │   ├── login.js               # Helper functions (optional)
+	│   │   └── ajax-requests.js        # Separate file for AJAX requests (optional)
+	├── assets/                         # Public assets (images, fonts, etc.)
+	│   └── logo.png                    # Example logo
+	├── .gitignore                      # Git ignore file (optional)
+	└── README.md                       # Project readme (optional)
+	
