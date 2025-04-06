@@ -1,5 +1,5 @@
 // Base URL of your API endpoint (replace with your actual endpoint)
-const API_URL = 'http://psmedical.com/ventories/backend/api/customers.php';
+const API_URL = 'http://psmedical.com/admin/api/customers.php';
 
 // Function to fetch all customers
 async function getCustomers() {
@@ -168,6 +168,10 @@ async function deleteCustomer(customerId) {
     }
   }
 }
+
+// Call getCustomers when the page loads to show the list of customers
+window.onload = getCustomers;
+
 // Base URL of your API endpoint (replace with your actual endpoint)
 const API_URL = 'http://psmedical.com/ventories/backend/api/items.php';
 
@@ -327,6 +331,10 @@ function deleteItem(itemId) {
     .catch(error => console.error('Error deleting item:', error));
   }
 }
+
+// Call getItems when the page loads to show the list of items
+window.onload = getItems;
+
 // Base URL of your API endpoint (replace with your actual endpoint)
 const API_URL = 'http://psmedical.com/inventories/backend/api/orders.php';
 
@@ -483,146 +491,8 @@ function deleteOrder(orderId) {
   }
 }
 
-// Base URL of your API endpoint (replace with your actual endpoint)
-const API_URL = 'http://psmedical.com/ventories/backend/api/suppliers.php';
-
-// Function to fetch all suppliers
-function getSuppliers() {
-  fetch(API_URL, {
-    method: 'GET',
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (Array.isArray(data) && data.length > 0) {
-      displaySuppliers(data);
-    } else {
-      alert("No suppliers found.");
-    }
-  })
-  .catch(error => console.error('Error fetching suppliers:', error));
-}
-
-// Function to display suppliers on the page
-function displaySuppliers(suppliers) {
-  const supplierList = document.getElementById('supplierList');
-  supplierList.innerHTML = ''; // Clear previous list
-
-  suppliers.forEach(supplier => {
-    const supplierItem = document.createElement('div');
-    supplierItem.classList.add('supplier-item');
-    supplierItem.innerHTML = `
-      <p>Supplier ID: ${supplier.supplier_id}</p>
-      <p>Supplier Name: ${supplier.supplier_name}</p>
-      <p>Contact Info: ${supplier.contact_info || 'N/A'}</p>
-      <p>Address: ${supplier.address}</p>
-      <p>Created At: ${supplier.created_at}</p>
-      <p>Updated At: ${supplier.updated_at}</p>
-      <button onclick="editSupplier(${supplier.supplier_id})">Edit</button>
-      <button onclick="deleteSupplier(${supplier.supplier_id})">Delete</button>
-    `;
-    supplierList.appendChild(supplierItem);
-  });
-}
-
-// Function to create a new supplier
-function createSupplier() {
-  const supplierData = {
-    supplier_name: document.getElementById('supplier_name').value,
-    contact_info: document.getElementById('contact_info').value,
-    address: document.getElementById('address').value,
-  };
-
-  fetch(API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(supplierData),
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.message === 'New supplier created successfully') {
-      alert('Supplier created successfully');
-      getSuppliers();  // Refresh the supplier list
-    } else {
-      alert('Error creating supplier: ' + data.message);
-    }
-  })
-  .catch(error => console.error('Error creating supplier:', error));
-}
-
-// Function to fetch a single supplier by ID
-function getSupplierById(supplierId) {
-  fetch(`${API_URL}?id=${supplierId}`, {
-    method: 'GET',
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data) {
-      populateEditForm(data);
-    } else {
-      alert('Supplier not found.');
-    }
-  })
-  .catch(error => console.error('Error fetching supplier:', error));
-}
-
-// Function to populate the form for editing
-function populateEditForm(supplier) {
-  document.getElementById('supplier_name').value = supplier.supplier_name;
-  document.getElementById('contact_info').value = supplier.contact_info;
-  document.getElementById('address').value = supplier.address;
-
-  document.getElementById('submitButton').onclick = function() {
-    updateSupplier(supplier.supplier_id);
-  };
-}
-
-// Function to update an existing supplier
-function updateSupplier(supplierId) {
-  const updatedData = {
-    supplier_name: document.getElementById('supplier_name').value,
-    contact_info: document.getElementById('contact_info').value,
-    address: document.getElementById('address').value,
-  };
-
-  fetch(`${API_URL}?id=${supplierId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(updatedData),
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.message === 'Supplier updated successfully') {
-      alert('Supplier updated successfully');
-      getSuppliers();  // Refresh the supplier list
-    } else {
-      alert('Error updating supplier: ' + data.message);
-    }
-  })
-  .catch(error => console.error('Error updating supplier:', error));
-}
-
-// Function to delete a supplier
-function deleteSupplier(supplierId) {
-  if (confirm("Are you sure you want to delete this supplier?")) {
-    fetch(`${API_URL}?id=${supplierId}`, {
-      method: 'DELETE',
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.message === 'Supplier deleted successfully') {
-        alert('Supplier deleted successfully');
-        getSuppliers();  // Refresh the supplier list
-      } else {
-        alert('Error deleting supplier: ' + data.message);
-      }
-    })
-    .catch(error => console.error('Error deleting supplier:', error));
-  }
-}
+// Call getOrders when the page loads to show the list of orders
+window.onload = getOrders;
 
 // Base URL of your API endpoint (replace with your actual endpoint)
 const API_URL = 'http://psmedical.com/ventories/backend/api/vendors.php';
@@ -783,22 +653,35 @@ function deleteVendor(vendorId) {
   }
 }
 
+// Call getVendors when the page loads to show the list of vendors
+window.onload = getVendors;
+
+// Base URL of your API endpoint (replace with your actual endpoint)
 const API_URL = 'http://psmedical.com/ventories/backend/api/products.php';
 
-// Fetch all products
-function getProducts() {
-  fetch(API_URL, {
-    method: 'GET',
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (Array.isArray(data) && data.length > 0) {
-      displayProducts(data);
-    } else {
-      document.getElementById('productsContainer').innerHTML = 'No products found.';
+// Function to handle all fetch requests, ensuring DRY (Don't Repeat Yourself) principle
+async function fetchData(url, options = {}) {
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
-  })
-  .catch(error => console.error('Error fetching products:', error));
+    return await response.json();
+  } catch (error) {
+    console.error('Fetch error:', error);
+    alert('An error occurred while processing the request.');
+  }
+}
+
+// Fetch all products
+async function getProducts() {
+  const data = await fetchData(API_URL, { method: 'GET' });
+
+  if (Array.isArray(data) && data.length > 0) {
+    displayProducts(data);
+  } else {
+    document.getElementById('productsContainer').innerHTML = 'No products found.';
+  }
 }
 
 // Display products on the page
@@ -815,14 +698,22 @@ function displayProducts(products) {
       <p><strong>Price:</strong> $${product.price}</p>
       <p><strong>Quantity:</strong> ${product.quantity}</p>
       <p><strong>Vendor ID:</strong> ${product.vendor_id}</p>
-      <button onclick="deleteProduct(${product.product_id})">Delete</button>
+      <button class="delete-button" data-product-id="${product.product_id}">Delete</button>
     `;
     productsContainer.appendChild(productItem);
+  });
+
+  // Attach event listeners to delete buttons after displaying products
+  document.querySelectorAll('.delete-button').forEach(button => {
+    button.addEventListener('click', (e) => {
+      const productId = e.target.getAttribute('data-product-id');
+      deleteProduct(productId);
+    });
   });
 }
 
 // Create a new product
-function createProduct(event) {
+async function createProduct(event) {
   event.preventDefault();
 
   const productData = {
@@ -833,44 +724,41 @@ function createProduct(event) {
     vendor_id: document.getElementById('vendor_id').value,
   };
 
-  fetch(API_URL, {
+  const data = await fetchData(API_URL, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(productData),
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.message === 'Product created successfully') {
-      alert('Product created successfully');
-      getProducts();  // Refresh product list
-    } else {
-      alert('Error creating product: ' + data.message);
-    }
-  })
-  .catch(error => console.error('Error creating product:', error));
-}
+  });
 
-// Delete a product
-function deleteProduct(productId) {
-  if (confirm('Are you sure you want to delete this product?')) {
-    fetch(`${API_URL}?id=${productId}`, {
-      method: 'DELETE',
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.message === 'Product deleted successfully') {
-        alert('Product deleted successfully');
-        getProducts();  // Refresh product list
-      } else {
-        alert('Error deleting product: ' + data.message);
-      }
-    })
-    .catch(error => console.error('Error deleting product:', error));
+  if (data.message === 'Product created successfully') {
+    alert('Product created successfully');
+    getProducts();  // Refresh product list
+  } else {
+    alert('Error creating product: ' + data.message);
   }
 }
 
+// Delete a product
+async function deleteProduct(productId) {
+  if (confirm('Are you sure you want to delete this product?')) {
+    const data = await fetchData(`${API_URL}?id=${productId}`, { method: 'DELETE' });
+
+    if (data.message === 'Product deleted successfully') {
+      alert('Product deleted successfully');
+      getProducts();  // Refresh product list
+    } else {
+      alert('Error deleting product: ' + data.message);
+    }
+  }
+}
+
+// Call getProducts when the page loads
+window.onload = function() {
+  getProducts();
+  document.getElementById('productForm').addEventListener('submit', createProduct);
+};
+
+// Base URL of your API endpoint (replace with your actual endpoint)
 const API_URL = 'http://psmedical.com/ventories/backend/api/users.php'; // Replace with actual API URL
 
 // Function to fetch all users
@@ -1024,20 +912,4 @@ window.onload = function() {
   getUsers();
   document.getElementById('userForm').addEventListener('submit', createUser);
 };
-// Call getProducts when the page loads
-window.onload = function() {
-  getProducts();
-  document.getElementById('productForm').addEventListener('submit', createProduct);
-};
-// Call getVendors when the page loads to show the list of vendors
-window.onload = getVendors;
-// Call getSuppliers when the page loads to show the list of suppliers
-window.onload = getSuppliers;
-// Call getOrders when the page loads to show the list of orders
-window.onload = getOrders;
 
-// Call getItems when the page loads to show the list of items
-window.onload = getItems;
-
-// Call getCustomers when the page loads to show the list of customers
-window.onload = getCustomers;
