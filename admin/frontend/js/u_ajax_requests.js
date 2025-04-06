@@ -1,4 +1,4 @@
-const API_URL = 'http://psmedical.com/admin/admin/api/users.php'; // Replace with actual API URL
+const API_URL = 'http://psmedical.com/admin/api/users.php'; // Replace with actual API URL
 
 // Function to fetch all users
 function getUsers() {
