@@ -12,13 +12,13 @@ inventory-management-system
 	│   │   ├── products.php     	    # Endpoint for handling products-related requests
 	│   │   ├── users.php               # Endpoint for handling user-related requests
 		|   |
-	│   │   ├── dbconnect.php           # Database connection
+	│   │   ├── api_handling.php        # Endpoint for handling related requests
 	│   │   └── ...                     # Other API files for various operations
 	│   ├── config/                     # Configuration files (e.g., database connection settings)
-	│   │   └── config.php              # Configuration file (e.g., database settings)
+	│   │   └── dbconnect.php           # Database connection 
 	│   └── .htaccess                   # If you're using Apache server (optional)
 	├── frontend/                       # Frontend (HTML, JavaScript, CSS files)
-	│   ├── dashboard.html              # Main HTML file with form and table
+	│   ├── admin-dashboard.html        # Main HTML file with form and table
 	│   ├── css/                        # CSS styles
 	│   │   └── style.css               # Styles for the frontend
 	│   ├── js/                         # JavaScript files
@@ -42,13 +42,13 @@ inventory-management-system
 	│   │   ├── products.php     	    # Endpoint for handling products-related requests
 	│   │   ├── users.php               # Endpoint for handling user-related requests
 		|   |
-	│   │   ├── dbconnect.php           # Database connection
+	│   │   ├── api_handling.php        # Endpoint for handling related request
 	│   │   └── ...                     # Other API files for various operations
 	│   ├── config/                     # Configuration files (e.g., database connection settings)
-	│   │   └── config.php              # Configuration file (e.g., database settings)
+	│   │   └── dbconnect.php           # Database connection
 	│   └── .htaccess                   # If you're using Apache server (optional)
 	├── frontend/                       # Frontend (HTML, JavaScript, CSS files)
-	│   ├── dashboard.html              # Main HTML file with form and table
+	│   ├── inventories-dashboard.html  # Main HTML file with form and table
 	│   ├── css/                        # CSS styles
 	│   │   └── style.css               # Styles for the frontend
 	│   ├── js/                         # JavaScript files
