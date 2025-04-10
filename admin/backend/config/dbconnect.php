@@ -1,8 +1,8 @@
 <?php
 // Database connection settings
 $host = 'psmedical.com'; // Database host (e.g., localhost, 127.0.0.1, etc.)
-$dbname = 'dbmedical'; // The name of your database
-$username = 'medical'; // The username for your database
+$dbname = 'dbinventories'; // The name of your database
+$username = 'inventories'; // The username for your database
 $password = ''; // The password for your database
 
 try {
