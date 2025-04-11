@@ -1,0 +1,82 @@
+inventory-management-system/
+├── backend/                        # Backend API & core logic (PHP)
+│   ├── config/                     # App & DB configuration
+│   │   ├── config.php              # App-wide configs (API keys, constants, env vars)
+│   │   └── dbconnect.php           # Database connection
+│
+│   ├── core/                       # Core utilities and middleware
+│   │   ├── auth/                   # Auth helpers
+│   │   │   └── auth.php
+│   │   └── validation/             # Input sanitization, data validation
+│   │       └── validator.php
+│
+│   ├── api/                        # RESTful API endpoints
+│   │   ├── common/                 # Shared logic: login, roles, user mgmt
+│   │   │   ├── users.php
+│   │   │   └── roles.php
+│   │   ├── admin/                  # Admin-only routes
+│   │   │   ├── products.php
+│   │   │   ├── suppliers.php
+│   │   │   ├── vendors.php
+│   │   │   ├── purchases.php
+│   │   │   └── reports.php
+│   │   ├── inventory/              # Inventory logic
+│   │   │   ├── items.php
+│   │   │   ├── stock.php
+│   │   │   └── categories.php
+│   │   ├── sales/                  # Sales/customer-facing endpoints
+│   │   │   ├── orders.php
+│   │   │   ├── customers.php
+│   │   │   └── invoices.php
+│   │   └── index.php               # Central API router (if needed)
+│
+│   └── helpers/                    # Optional: reusable PHP helper functions
+│       └── response.php            # JSON responses, error formatting, etc.
+│
+├── frontend/                       # Frontend UI and logic
+│   ├── common/                     # Shared frontend resources
+│   │   ├── css/
+│   │   │   └── global.css
+│   │   ├── js/
+│   │   │   ├── utils.js
+│   │   │   └── auth.js
+│   │   └── assets/                 # Shared images, fonts, icons
+│   │       └── logo.png
+│
+│   ├── admin/                      # Admin UI
+│   │   ├── dashboard.html
+│   │   ├── css/
+│   │   │   └── style.css
+│   │   └── js/
+│   │       ├── dashboard.js
+│   │       ├── product.js
+│   │       ├── supplier.js
+│   │       └── reports.js
+│
+│   ├── inventory/                  # Inventory operator UI
+│   │   ├── dashboard.html
+│   │   └── js/
+│   │       └── inventory.js
+│
+│   └── sales/                      # Sales/customer-facing UI
+│       ├── dashboard.html
+│       └── js/
+│           └── orders.js
+│
+├── database/                       # SQL files and migrations
+│   ├── schema.sql
+│   └── seed.sql
+│
+├── docs/                           # Documentation and specifications
+│   ├── api_routes.md
+│   ├── database_schema.md
+│   ├── system_architecture.md
+│   └── changelog.md
+│
+├── include/                        # Reusable PHP partials
+│   ├── header.php
+│   ├── footer.php
+│   └── sidebar.php
+│
+├── .gitignore
+└── README.md
