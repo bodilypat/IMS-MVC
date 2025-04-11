@@ -1,1 +1,38 @@
-inventory dashboard
+<script type="module">
+	import {
+		getAllInventories,
+		createInventory,
+		updateInventory,
+		deleteInventory
+	} from ' ./inventory.js';
+	
+	document.addEventListener('DOMContentLoaded', async () => {
+		// Fetch all inventories and display in the console 
+		const inventories = await getAllInventories();
+		console.log('Inventories: ', inventories);
+		
+		// example: Create a new inventory record 
+		const newInventory = {
+			item_id: 1,
+			location_id: 2,
+			quantity_in_stock: 150,
+			reorder_level: 50,
+			last_restock_date: '2025-04-10',
+		};
+		const createInventory = await createInventory(newInventory);
+		console.log('Create Inventory: ', createdInventory);
+		
+		// Update an inventory record 
+		const updateInventory = {
+			quantity_in_stock: 200,
+			recorder_level: 60,
+			last_restock_date: '2025-04-12',
+		};
+		const update = await updateInventory(1, updatedInventory); // Assime inventory ID is 1
+		console.log('Updating Inventory: ', updated);
+		
+		// Delete an inventory record 
+		const deleted = await deleteInventory(1); // Assume inventory ID is 1
+		console.log('Deleted Inventory: ', deleted0;
+	});
+</script>
