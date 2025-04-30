@@ -36,7 +36,7 @@
 				/* Update an existing supplier */
 				update_supplier($pdo, intval($_GET['supplier_id']),$input);
 			} else {
-				sendResponse9400, ['message' => 'Supplier ID is required']0;
+				sendResponse(400, ['message' => 'Supplier ID is required']);
 			break;
 
 		case 'DELETE':
@@ -49,7 +49,7 @@
 			break;
 
 		default:
-			sendResponse(400, ['message' => 'Method Not Allowed']);
+			sendResponse(405, ['message' => 'Method Not Allowed']);
 			break;
 	}
 	
@@ -84,7 +84,7 @@
 	}
 	
 	 /* Get a single supplier by ID */
-	function get_supplier($id) {
+	function get_supplier($pdo, $supplier_id) {
 		try {
 			$stmt = $pdo->prepare("SELECT * FROM suppliers WHERE supplier_id = :supplier_id");
 			$stmt->execute(['supplier_id' => $supplier_id]);			
@@ -102,10 +102,7 @@
 	 /* Create a new supplier */
 	function create_supplier($pdo, $data) {
 		 /* Input validation */
-		$validation = validationSupplierInput($data);
-		if (!$validation)) {
-			return sendResponse(500,["message" => "Invalid input data"]));
-		}
+		if (!validateSupplierInput($data)) return;
 		
 		/* Prepare SQL to insert data */
 		try {
@@ -118,7 +115,10 @@
 							'contact_info' => $data['contact_info'],
 							'address' => $data['address']
 			]);
-			sendResponse(201,['message' = 'Supplier created successfully'], 'supplier_id' => $pdo->lastInsertId());
+			sendResponse(201,[
+				'message' = 'Supplier created successfully'], 
+				'supplier_id' => $pdo->lastInsertId()
+				]);
 		} catch (PDOException $e) {
 			sendResponse(500, ['error' => $e->getMessage()]);
 		}
@@ -126,12 +126,8 @@
 					
 	 /* Update an existing supplier */
 	function update_supplier($pdo, $supplier_id, $data) {
-		$validation = validateSupplierInput($data);
-		
 		 /* Input validation */
-		if (!$validation)) {
-			return sendResponse(500,["message" => "Invalid input data"]));
-		}
+		if (!$validateSupplierInput($data)) return;
 
 		 /* Prepare SQL to update data */
 		 try {
@@ -143,8 +139,9 @@
 		
 			$stmt ->execute([
 							'supplier_name' => $data['supplier_name'],
-							'contact_info' => $data['contact_info'],
-							'address' => $data['address']
+							'contact_info' => $data['contact_info'] ?? null,
+							'address' => $data['address'] ?? null,
+							'supplier_id' => $supplier_id
 		    ]);
 			sendResponse(200,['message' => 'Supplier updated successfully']);
 			
