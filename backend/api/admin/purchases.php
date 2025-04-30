@@ -97,7 +97,7 @@
 			if ($purchase) {
 				sendResponse(200, $purchase);
 			} else {
-				sendResponse(404,['error' => $e->getMessage()]);
+				sendResponse(404,['message' => 'Purchase not found']);
 			}
 		} catch (PDOException $e) {
 			sendResponse(500, ['error' => $e->Message()]);
@@ -110,8 +110,8 @@
 		
 		try {
 			$stmt = $pdo->prepare("
-				INSERT INTO purchases (item_id, purchase_dae, unit_price, quantity, vendor_id)
-				VALUES (:item_id, :purchase_date, :unit_price, : quantity, : vendor_id)
+				INSERT INTO purchases (item_id, purchase_date, unit_price, quantity, vendor_id)
+				VALUES (:item_id, :purchase_date, :unit_price, :quantity, :vendor_id)
 		");
 		$stmt->execute([ 
 			'item_id' => $data['item_id'],
