@@ -124,20 +124,6 @@
 		}
 	}
 					
-
-		 /* Bind parameters */
-		$stmt->bindParam(':supplier_name', $data['supplier_name']);
-		$stmt->bindParam(':contact_info', $data['contact_info']);
-		$stmt->bindParam(':address', $data['address']);
-
-		 /* Execute the statement and return success or failure message */
-		if ($stmt->execute()) {
-			echo json_encode(array("message" => "New supplier created successfully", "supplier_id" => $conn->lastInsertId()));
-		} else {
-			echo json_encode(array("message" => "Error creating supplier"));
-		}
-	}
-
 	 /* Update an existing supplier */
 	function update_supplier($pdo, $supplier_id, $data) {
 		$validation = validateSupplierInput($data);
