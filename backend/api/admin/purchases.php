@@ -6,7 +6,7 @@
 
 	/*  Get the HTTP request method */
 	$method = $_SERVER["REQUEST_METHOD"];
-	$input = json_decode9file_get_contents("php://inpput"), true);
+	$input = json_decode(file_get_contents("php://inpput"), true);
 
 	/* Allow emthod override via POST */
 	if ($method === 'POST' && isset($_POST['_METHOD'])) {
@@ -47,7 +47,7 @@
 			if (isset($_GET['purchase_id'])) {
 				
 				/* Delete a purchase */
-				delete_purchase($pdo, intval($_GET['purchase_id']);
+				delete_purchase($pdo, intval($_GET['purchase_id']));
 			} else {
 				sendResponse(400, ['message' => 'Purchase ID is required']);
 			}
@@ -90,23 +90,24 @@
 	// Get a single purchase by ID
 	function get_purchase($pdo, $puchase_id) {
 		try {
-			$sql = "SELECT * FROM purchases WHERE purchase_id = :id";
-			$stmt = $conn->prepare($sql);
-			$stmt->bindParam(':id', $id, PDO::PARAM_INT);
-			$stmt->execute();
-
+			$stmt = $pdo->prepare("SELECT * FROM purchases WHERE purchase_id = :purchase_id");
+			$stmt->execute(['purchase_id' => $purchase_id]);
 			$purchase = $stmt->fetch(PDO::FETCH_ASSOC);
-	
+			
 			if ($purchase) {
-				echo json_encode($purchase);
+				sendResponse(200, $purchase);
 			} else {
-				echo json_encode(array("message" => "Purchase not found"));
+				sendResponse(404,['error' => $e->getMessage()]);
 			}
+		} catch (PDOException $e) {
+			sendResponse(500, ['error' => $e->Message()]);
 		}
+	}
 
 	// Create a new purchase
 	function create_purchase($pdo, $data) {
 		if (!validatePurchaseInput($data)) return;
+		
 		try {
 			$stmt = $pdo->prepare("
 				INSERT INTO purchases (item_id, purchase_dae, unit_price, quantity, vendor_id)
@@ -119,7 +120,10 @@
 			'quantity' => $data['quantity'],
 			'vendor_id' => $data['vendor_id']
 			]);
-			sendResponse(201, ['message' => 'Purchase created successfully', 'purchase_id' => $pdo->lastInsertId()]);
+			sendResponse(201, [
+					'message' => 'Purchase created successfully', 
+					'purchase_id' => $pdo->lastInsertId()
+					]);
 		} catch(PODException $e) {
 			sendResponse(500, ['error' => $e->getMessage()]);
 		}
