@@ -1,10 +1,10 @@
 <?php
 	header("Content-Type: application/json");
 
-	// Include the database connection
+	/* Include the database connection */
 	include('../../config/dbconnect.php');
 
-	// Get the HTTP request method
+	 /* Get the HTTP request method */
 	$method = $_SERVER["REQUEST_METHOD"];
 	$input = json_decode(file_get_contents("php://input"), true);
 
@@ -56,7 +56,7 @@
 	/* Standard JSON response */
 	function sendResponse($code, $data) {
 		http_response_code($code);
-		ech json_encode($data);
+		echo json_encode($data);
 	}
 
 	/* Validate input data */
@@ -116,10 +116,10 @@
 						'item_id' => $data['item_id'],
 						'customer_id' => $data['customer_id'],
 						'order_date' => $data['order_date'],
-						'discount' => $data['discount'],
+						'discount' => $data['discount'] ?? 0,
 						'quantity' => $data['quantity'],
 						'unit_price' => $data['unit_price'],
-						'status' => $data['status']
+						'status' => $data['status'] ?? 'pending'
 					]);
 					sendResponse(201, [
 							'message' => 'Order created successfully',
@@ -146,10 +146,10 @@
 				'item_id' => $data['item_id'],
 				'customer_id' => $data['customer_id'],
 				'order_date' => $data['order_date'],
-				'discount' => $data['discount'],
+				'discount' => $data['discount'] ?? 0,
 				'quantity' => $data['quantity'],
 				'unit_price' => $data['unit_price'],
-				'status' => $data['status'],
+				'status' => $data['status'] ?? 'pending',
 				'order_id' => $order_id
 				]);
 				sendResponse(200, ['message' => 'Order updated successfully']);
