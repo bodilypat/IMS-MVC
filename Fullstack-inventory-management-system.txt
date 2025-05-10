@@ -5,10 +5,12 @@ FullStack-Inventory-Management-System/
 │                     							
 ├── frontend/                               	# All UI and assets
 │	├── pages/                           		# Page templates
-│	│	├── login.php                           
+│	│	├── auth/
+│	│	│	├── login.php 
+│	│	│	└── register.php 
+│   │   │                    
 │  	│	├── dashboard.php                       
 │	│   ├── products.php                        
-│	│	├── products.php
 │  	│   ├── orders.php 
 │   │	├── customers.php
 │	│	└── suppliers.js 
@@ -26,9 +28,12 @@ FullStack-Inventory-Management-System/
 │   │   ├── js/
 │   │   │   ├── main.js                         # Shared JavaScript
 │   │   │   ├── dashboard.js   
-│   │	│   ├── products.js                     # Products logic
-│	│	│	├── customers.js
-│   │   │   └── utils.js                   		# Charts, stats
+│   │	│   ├── modules/                        # Products logic
+│	│	│	│	├── products.js
+│	│	│	│	├── customers.js
+│	│	│	│	├── orders.js
+│   │   │   │	└── suppliers.js                # Charts, stats
+│   │   │   └── utils.js  
 │   │   │
 │   │   └── images/                             # Shared images, fonts, icons
 │   │       └── logo.png
@@ -60,6 +65,7 @@ FullStack-Inventory-Management-System/
 │	│	 └── delete.php
 │  	│
 │  	└── reports/
+│		├── sales_summary.php
 │		└── export_csv.php
 │   
 ├── app/                                           # Application logic
@@ -68,29 +74,32 @@ FullStack-Inventory-Management-System/
 │   │   ├── ProductController.php 
 │	│	├── InventoryController.php
 │	│	├── CustomerController.php
-│	│	└── OrderController.php 
+│   │   ├── OrderController.php
+│	│	└── ReportController.php                   # reporting logic
 │  	│	
-│	├── models/                                 # Database interaction Layer
+│	├── models/                                    # Database interaction Layer
 │	│   ├── User.php
 │	│   ├── Product.php
 │   │   ├── Inventory.php
 │	│	├── Customer.php
-│	│	└── Order.php 
+│   │   ├── Order.php
+│	│	└── Report.php 
 │  	│
 │	└── helpers/                                    
 │		    ├── Database.php                        
 │		    ├── Auth.php                           
 │		    ├── Response.php                        
-│		    ├── Validator.php                      
-│		    └── Logger.php                          
+│		    ├── Validator.php  
+			├── Logger.php 
+│		    └── FileUpload.php                          
 │	
-├── config/
+├── config/										# Configuration settings
 │	  ├── config.php                                
 │	  └── database.php                              
 │                           
 ├── uploads/									# File/image upload
 ├── logs/                                       # Log storage
 ├── vendor/                                     # Composer packages (if used)
-├── .htaccess		                            # URL rewrites/security rules
+├── .htaccess		                            # URL rewrites/security rulesc
 │	
 └── README.md  
