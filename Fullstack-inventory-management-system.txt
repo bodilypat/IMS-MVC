@@ -28,78 +28,78 @@ FullStack-Inventory-Management-System/
 │   │   ├── js/
 │   │   │   ├── main.js                         # Shared JavaScript
 │   │   │   ├── dashboard.js   
-│   │	│   ├── modules/                        # Products logic
-│	│	│	│	├── products.js
-│	│	│	│	├── customers.js
-│	│	│	│	├── orders.js
-│   │   │   │	└── suppliers.js                # Charts, stats
+│   │	│   ├── modules/                          # Products logic
+│   │	│   │	├── products.js
+│   │   │   │   ├── customers.js
+│   │   │   │   ├── orders.js
+│   │   │   │	└── suppliers.js                  # Charts, stats
 │   │   │   └── utils.js  
 │   │   │
-│   │   └── images/                             # Shared images, fonts, icons
+│   │   └── images/                               # Shared images, fonts, icons
 │   │       └── logo.png
 │   │
-│	│                           				                  
-├── api/                                        # Backend API endpoints 
+│   │                           				                  
+├── api/                                          # Backend API endpoints 
 │   ├── auth/
 │   │	├── login.php  
-│	│	└── logout.php
+│   │	└── logout.php
 │   │
-│   ├── products/                      			# Product management page
+│   ├── products/                      		  # Product management page
 │   │	 ├── list.php                         	
 │   │	 ├── add.php                          	
-│	│	 ├── update.php                         
-│	│	 └── delete.php
+│   │	 ├── update.php                         
+│   │	 └── delete.php
 │   │
-│  	├── stock/                          
-│   │	  ├── stock_in.php   
-│	│	  └── stock_out.php    
+│   ├── stock/                          
+│   │	 ├── stock_in.php   
+│   │	 └── stock_out.php    
 │   │              
-│	├── orders/
-│  	│	 ├── create.php
-│  	│	 └── list.php
+│   ├── orders/
+│   │	 ├── create.php
+│   │	 └── list.php
 │   │
-│	├── customers/
-│	│	 ├── list.php
-│	│	 ├── add.php
-│	│	 ├── update.php
-│	│	 └── delete.php
-│  	│
-│  	└── reports/
-│		├── sales_summary.php
-│		└── export_csv.php
+│   ├── customers/
+│   │	 ├── list.php
+│   │	 ├── add.php
+│   │	 ├── update.php
+│   │	 └── delete.php
+│   │
+│   └── reports/
+│	├── sales_summary.php
+│	    └── export_csv.php
 │   
-├── app/                                           # Application logic
+├── app/                                          # Application logic
 │	├── controllers/ 
-│	│	├── AuthController.php
-│   │   ├── ProductController.php 
-│	│	├── InventoryController.php
-│	│	├── CustomerController.php
-│   │   ├── OrderController.php
-│	│	└── ReportController.php                   # reporting logic
+│	│   ├── AuthController.php
+│   	│   ├── ProductController.php 
+│	│   ├── InventoryController.php
+│	│   ├── CustomerController.php
+│       │   ├── OrderController.php
+│	│   └── ReportController.php              # reporting logic
 │  	│	
-│	├── models/                                    # Database interaction Layer
+│	├── models/                               # Database interaction Layer
 │	│   ├── User.php
 │	│   ├── Product.php
-│   │   ├── Inventory.php
-│	│	├── Customer.php
-│   │   ├── Order.php
-│	│	└── Report.php 
+│       │   ├── Inventory.php
+│	│   ├── Customer.php
+│       │   ├── Order.php
+│	│   └── Report.php 
 │  	│
 │	└── helpers/                                    
 │		    ├── Database.php                        
 │		    ├── Auth.php                           
 │		    ├── Response.php                        
 │		    ├── Validator.php  
-			├── Logger.php 
+		    ├── Logger.php 
 │		    └── FileUpload.php                          
 │	
-├── config/										# Configuration settings
-│	  ├── config.php                                
-│	  └── database.php                              
+├── config/					# Configuration settings
+│   ├── config.php                                
+│   └── database.php                              
 │                           
-├── uploads/									# File/image upload
+├── uploads/					# File/image upload
 ├── logs/                                       # Log storage
 ├── vendor/                                     # Composer packages (if used)
-├── .htaccess		                            # URL rewrites/security rulesc
+├── .htaccess		                        # URL rewrites/security rulesc
 │	
 └── README.md  
