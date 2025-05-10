@@ -1,83 +1,96 @@
 FullStack-Inventory-Management-System/
 │
-├── public(frontend)/                      	 	# Publicly accessible frontend + entry points
-│   ├── index.php                           	# Main entry (login/dashboard redirect)
-│	  ├── login.php                               # Login page
-│	  ├── dashboard.php                           # Dashboard UI
-│	  ├── product.php                             # Product UI
-│  	├── stock.php                               # Stock in / Out interface
-│	  ├── orders.php                              # Order Management
-│  	├── customers.php                           # Customer record
+├── public/                      	 	    	# Web root (entry point
+│       └── index.php                           # Router or redirect to login/dashboard
+│                     							
+├── frontend/                               	# All UI and assets
+│	├── pages/                           		# Page templates
+│	│	├── login.php                           
+│  	│	├── dashboard.php                       
+│	│   ├── products.php                        
+│	│	├── products.php
+│  	│   ├── orders.php 
+│   │	├── customers.php
+│	│	└── suppliers.js 
+│   │
+│	├── components/                             # shared UI elements
+│	│	├── header.php  
+│	│	├── sidebar.php  
+│	│	└── footer.php 
 │   │
 │   ├── assets/                                 # Static assets
 │   │   ├── css/
-│   │   │   └── global.css
+│   │   │   ├── global.css 
+│   │   │   └── form.css
 │   │   │
 │   │   ├── js/
 │   │   │   ├── main.js                         # Shared JavaScript
-│   │	  │   ├── products.js                     # Products logic
-│   │   │   └── dashboard.js                    # Charts, stats
+│   │   │   ├── dashboard.js   
+│   │	│   ├── products.js                     # Products logic
+│	│	│	├── customers.js
+│   │   │   └── utils.js                   		# Charts, stats
 │   │   │
 │   │   └── images/                             # Shared images, fonts, icons
 │   │       └── logo.png
 │   │
-│	  └── components/                             # Reuseable UI blocks (optional)
-│		├── header.php                          
-│		├── sidebar.php                         
-│		└── footer.php 
-│                         
-├── api/                                        # Backend endpoint (AJAX/REST)
+│	│                           				                  
+├── api/                                        # Backend API endpoints 
 │   ├── auth/
 │   │	├── login.php  
-│	  │	└── logout.php
+│	│	└── logout.php
 │   │
 │   ├── products/                      			# Product management page
-│   │	  ├── list.php                         	
-│   │	  ├── add.php                          	
-│	  │	  ├── update.php                         
-│	  │	  └── delete.php
+│   │	 ├── list.php                         	
+│   │	 ├── add.php                          	
+│	│	 ├── update.php                         
+│	│	 └── delete.php
 │   │
 │  	├── stock/                          
 │   │	  ├── stock_in.php   
-│	  │	  └── stock_out.php    
+│	│	  └── stock_out.php    
 │   │              
-│	  ├── orders/
-│  	│	  ├── create.php
-│  	│	  └── list.php
+│	├── orders/
+│  	│	 ├── create.php
+│  	│	 └── list.php
 │   │
-│	  ├── customers.php
+│	├── customers/
+│	│	 ├── list.php
+│	│	 ├── add.php
+│	│	 ├── update.php
+│	│	 └── delete.php
 │  	│
 │  	└── reports/
-│			└── export_csv.php
+│		└── export_csv.php
 │   
-├── app/                                        # Core application logic
-│	  ├── controllers/ 
-│   │   ├── ProductControllers 
-│	  │	  ├── InventoryController
-│	  │	  ├── AuthController.php
-│	  │	  └── OrderController.php 
+├── app/                                           # Application logic
+│	├── controllers/ 
+│	│	├── AuthController.php
+│   │   ├── ProductController.php 
+│	│	├── InventoryController.php
+│	│	├── CustomerController.php
+│	│	└── OrderController.php 
 │  	│	
-│	  ├── models/                                 # Database interaction Layer
-│	  │   ├── Product.php
-│	  │   ├── User.php
+│	├── models/                                 # Database interaction Layer
+│	│   ├── User.php
+│	│   ├── Product.php
 │   │   ├── Inventory.php
-│	  │	  └── Order.php 
+│	│	├── Customer.php
+│	│	└── Order.php 
 │  	│
-│	  └── helpers/                                # Utility classes and services
-│		    ├── Database.php                        # DB connecting (PDO) 
-│		    ├── Auth.php                            # Auth/session utilities
-│		    ├── Response.php                        # Standardized API responses
-│		    ├── Validator.php                       # In put validation
-│		    └── Logger.php                          # Action / error Logs
+│	└── helpers/                                    
+│		    ├── Database.php                        
+│		    ├── Auth.php                           
+│		    ├── Response.php                        
+│		    ├── Validator.php                      
+│		    └── Logger.php                          
 │	
 ├── config/
-│	  ├── config.php                              # App settings
-│	  └── database.php                            # PDO connection Logs
+│	  ├── config.php                                
+│	  └── database.php                              
 │                           
-├── uploads/
-├── logs/
-├── vendor/
-├── .htaccess
-│		
+├── uploads/									# File/image upload
+├── logs/                                       # Log storage
+├── vendor/                                     # Composer packages (if used)
+├── .htaccess		                            # URL rewrites/security rules
 │	
 └── README.md  
