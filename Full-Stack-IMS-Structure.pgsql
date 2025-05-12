@@ -2,13 +2,13 @@ Full-Stack-IMS-Structure/
 │
 ├── Frontend/                      	 	
 │   ├── index.html                          	
-│	├── login.html
-│	├── register.html                           
-│	├── products.html                            
-│	├── order.html                               
-│	├── stock.html                              
-│	├── customers.html                           
-│	├── suppliers.html
+│	  ├── login.html
+│	  ├── register.html                           
+│	  ├── products.html                            
+│	  ├── order.html                               
+│	  ├── stock.html                              
+│  	├── customers.html                           
+│	  ├── suppliers.html
 │   │
 │   ├── assets/                                 # Static assets
 │   │   ├── css/
@@ -22,7 +22,7 @@ Full-Stack-IMS-Structure/
 │   │   │   ├── auth.js 
 │   │   │   ├── product.js 
 │   │   │   ├── orders.js                      
-│   │	│   ├── stock.js                     
+│   │	  │   ├── stock.js                     
 │   │   │   └── utils.js                    
 │   │   │
 │   │   └── images/  
@@ -36,36 +36,36 @@ Full-Stack-IMS-Structure/
 │                         
 ├── backend/ 
 │   ├── public/
-│   │	├── index.php  
-│	│	└── .htaccess 
+│   │  	├── index.php  
+│  	│	  └── .htaccess 
 │   ├── api/                               
-│	│   ├── auth/
-│	│   │	├── login.php  
-│	│	│	└── logout.php
-│	│   │
-│	│   ├── products/                      			  # Product management page
-│	│   │	├── list.php                         	
-│	│   │	├── add.php                          	
-│	│	│	├── update.php                         
-│	│	│	└── delete.php
-│	│   │
-│	│  	├── stock/                          
-│	│   │	├── stock_in.php   
-│	│	│	└── stock_out.php    
-│	│   │              
-│	│	├── orders/
-│	│	│	├── create.php
-│	│	│	└── list.php
-│	│   │
-│	│	├── customers.php
-│	│   │	├── list.php                         	
-│	│   │	├── add.php                          	
-│	│	│	├── update.php                         
-│	│	│	└── delete.php
-│	│	│
-│	│	└── reports/
-│	│       ├── list.php  
-│	│		└── export_csv.php
+│  	│   ├── auth/
+│	  │   │	  ├── login.php  
+│	  │	  │	  └── logout.php
+│	  │   │
+│	  │   ├── products/                      			  # Product management page
+│	  │   │  	├── list.php                         	
+│	  │   │	  ├── add.php                          	
+│	  │	  │  	├── update.php                         
+│	  │	  │  	└── delete.php
+│  	│   │
+│  	│  	├── stock/                          
+│	  │   │	  ├── stock_in.php   
+│  	│	  │	  └── stock_out.php    
+│	  │   │              
+│	  │	  ├── orders/
+│  	│	  │	  ├── create.php
+│  	│	  │  	└── list.php
+│  	│   │
+│	  │  	├── customers.php
+│  	│   │	  ├── list.php                         	
+│  	│   │	  ├── add.php                          	
+│  	│	  │	  ├── update.php                         
+│	  │  	│	  └── delete.php
+│  	│	  │
+│	  │	  └── reports/
+│  	│       ├── list.php  
+│  	│		    └── export_csv.php
 │   │
 ├── app/                                        # Core application logic
 │	├── controllers/ 
