@@ -1,83 +1,108 @@
-FullStack-Inventory-Management-System/
+IMS-Full-Stack-Structure/
 │
-├── public(frontend)/                      	 	# Publicly accessible frontend + entry points
-│   ├── index.php                           	# Main entry (login/dashboard redirect)
-│	├── login.php                               # Login page
-│	├── dashboard.php                           # Dashboard UI
-│	├── product.php                             # Product UI
-│	├── stock.php                               # Stock in / Out interface
-│	├── orders.php                              # Order Management
-│	├── customers.php                           # Customer record
+├── Frontend/                      	 	
+│   ├── index.html                          	
+│	├── login.html
+│	├── register.html                           
+│	├── products.html                            
+│	├── order.html                               
+│	├── stock.html                              
+│	├── customers.html                           
+│	├── suppliers.html
 │   │
 │   ├── assets/                                 # Static assets
 │   │   ├── css/
-│   │   │   └── global.css
+│   │   │   ├── main.css
+│   │   │   ├── layout.css
+│   │   │   ├── forms.css
+│   │   │   └── components
 │   │   │
 │   │   ├── js/
-│   │   │   ├── main.js                         # Shared JavaScript
-│   │	│   ├── products.js                     # Products logic
-│   │   │   └── dashboard.js                    # Charts, stats
+│   │   │   ├── main.js    
+│   │   │   ├── auth.js 
+│   │   │   ├── product.js 
+│   │   │   ├── orders.js                      
+│   │	│   ├── stock.js                     
+│   │   │   └── utils.js                    
 │   │   │
-│   │   └── images/                             # Shared images, fonts, icons
-│   │       └── logo.png
+│   │   └── images/  
+│   │       ├── logo.png                          
+│   │       └── icon/
 │   │
 │	└── components/                             # Reuseable UI blocks (optional)
-│		├── header.php                          
-│		├── sidebar.php                         
-│		└── footer.php 
+│		├── header.html                         
+│		├── sidebar.html                       
+│		└── footer.html
 │                         
-├── api/                                        # Backend endpoint (AJAX/REST)
-│   ├── auth/
-│   │	├── login.php  
-│	│	└── logout.php
+├── backend/ 
+│   ├── public/
+│   │	├── index.php  
+│	│	└── .htaccess 
+│   ├── api/                               
+│	│   ├── auth/
+│	│   │	├── login.php  
+│	│	│	└── logout.php
+│	│   │
+│	│   ├── products/                      			  # Product management page
+│	│   │	├── list.php                         	
+│	│   │	├── add.php                          	
+│	│	│	├── update.php                         
+│	│	│	└── delete.php
+│	│   │
+│	│  	├── stock/                          
+│	│   │	├── stock_in.php   
+│	│	│	└── stock_out.php    
+│	│   │              
+│	│	├── orders/
+│	│	│	├── create.php
+│	│	│	└── list.php
+│	│   │
+│	│	├── customers.php
+│	│   │	├── list.php                         	
+│	│   │	├── add.php                          	
+│	│	│	├── update.php                         
+│	│	│	└── delete.php
+│	│	│
+│	│	└── reports/
+│	│       ├── list.php  
+│	│		└── export_csv.php
 │   │
-│   ├── products/                      			# Product management page
-│   │	├── list.php                         	
-│   │	├── add.php                          	
-│	│	├── update.php                         
-│	│	└── delete.php
-│   │
-│  	├── stock/                          
-│   │	├── stock_in.php   
-│	│	└── stock_out.php    
-│   │              
-│	├── orders/
-│	│	├── create.php
-│	│	└── list.php
-│   │
-│	├── customers.php
-│	│
-│	└── reports/
-│			└── export_csv.php
-│   
 ├── app/                                        # Core application logic
 │	├── controllers/ 
-│   │   ├── ProductControllers 
-│	│	├── InventoryController
-│	│	├── AuthController.php
-│	│	└── OrderController.php 
+│   │   ├── AuthController.php
+│   │   ├── ProductController.php
+│   │   ├── StockController.php
+│	│	├── CustomerControlle.php
+│	│	├── OrderController.php
+│	│	└── ReportController.php 
 │	│	
-│	├── models/                                 # Database interaction Layer
-│	│   ├── Product.php
+│	├── models/                                
 │	│   ├── User.php
-│   │   ├── Inventory.php
-│	│	└── Order.php 
+│	│   ├── Product.php
+│	│   ├── Stock.php
+│	│   ├── Customer.php
+│   │   ├── Order.php
+│	│	└── Report.php 
+│	├── core/                                
+│	│   ├── Controller.php
+│	│   ├── Model.php
+│	│	└── Router.php 
 │	│
-│	└── helpers/                                # Utility classes and services
-│		├── Database.php                        # DB connecting (PDO) 
-│		├── Auth.php                            # Auth/session utilities
-│		├── Response.php                        # Standardized API responses
-│		├── Validator.php                       # In put validation
-│		└── Logger.php                          # Action / error Logs
+│	└── helpers/                                
+│		├── Database.php                        
+│		├── Auth.php                            
+│		├── Validator.php                        
+│		├── Response.php                      
+│		└── FileUpload.php                          
 │	
 ├── config/
-│	├── config.php                              # App settings
-│	└── database.php                            # PDO connection Logs
+│	├── config.php                              
+│	└── database.php                            
 │                           
 ├── uploads/
 ├── logs/
 ├── vendor/
-├── .htaccess
-│		
+├── composer.json
+├── .env
 │	
 └── README.md  
