@@ -72,23 +72,23 @@ Full-Stack-IMS-Structure/
 │   │   │   ├── update.php                         
 │   │   │   └── delete.php
 │   │   │
-│	│  	├── stock/                          
-│	│   │	├── stock_in.php   
-│	│	│	└── stock_out.php    
-│	│   │              
-│	│	├── orders/
-│	│	│	├── create.php
-│	│	│	└── list.php
-│	│   │
-│	│	├── customers.php
-│	│   │	├── list.php                         	
-│	│   │	├── add.php                          	
-│	│	│	├── update.php                         
-│	│	│	└── delete.php
-│	│	│
-│	│	└── reports/
-│	│       ├── list.php  
-│	│		└── export_csv.php
+│   │   ├── stock/                          
+│   │   │	├── stock_in.php   
+│   │   │   └── stock_out.php    
+│   │   │              
+│   │   ├── orders/
+│   │   │   ├── create.php
+│   │   │   └── list.php
+│   │   │
+│   │   ├── customers.php
+│   │   │   ├── list.php                         	
+│   │   │   ├── add.php                          	
+│   │   │   ├── update.php                         
+│   │   │   └── delete.php
+│   │   │
+│   │   └── reports/
+│   │       ├── list.php  
+│   │	    └── export_csv.php
 │   │
 ├── app/                                        # Core application logic
 │	├── controllers/ 
