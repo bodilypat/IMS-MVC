@@ -101,16 +101,18 @@ Full-Stack-IMS-Structure/
 │   │   │   ├── api.php
 │   │   │   └── ...
 │   │   │
-│   │   ├── middleware/
-│   │   │   ├── list.php                         	
-│   │   │   ├── add.php                          	
-│   │   │   ├── update.php                         
-│   │   │   └── delete.php
+│   │   ├── middleware/                                  # Middleware (auth, validation, CORS)
+│   │   │   ├── AuthMiddleware.php                         	                     
+│   │   │   └── CorsMiddleware.php
+│   │   │
 │   │   ├── core/
-│   │   │   ├── list.php                         	
-│   │   │   ├── add.php                          	
-│   │   │   ├── update.php                         
-│   │   │   └── delete.php
+│   │   │   ├── APP.php                         	
+│   │   │   ├── Router.php                          	
+│   │   │   ├── Controller.php     
+│   │   │   ├── Model.php
+│   │   │   ├── Request.php                          
+│   │   │   └── Response.php
+│   │   │
 │   │   ├── config/
 │   │   │   ├── database.php                         	
 │   │   │   ├── config.php                          	                    
