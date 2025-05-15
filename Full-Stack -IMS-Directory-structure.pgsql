@@ -59,7 +59,7 @@ Full-Stack-IMS-Structure/
 ├── backend/ 
 │   ├── public/
 │   │	├── index.php  
-│	│	└── .htaccess 
+│   │   └── .htaccess 
 │   ├── api/                                          # API endpoint for AJAX/front-end calls
 │	│   ├── auth/
 │	│   │	├── login.php  
