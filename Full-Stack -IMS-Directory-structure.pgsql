@@ -93,54 +93,52 @@ Full-Stack-IMS-Structure/
 │   │   │   ├── Category.php                          	                     
 │   │   │   └── User.php
 │   │   │
-│   │   ├── stock/                          
-│   │   │	├── stock_in.php   
-│   │   │   └── stock_out.php    
+│   │   ├── views/                          
+│   │   │   ├── layout/  
+│   │   │   └── customer/   
 │   │   │              
-│   │   ├── orders/
-│   │   │   ├── create.php
-│   │   │   └── list.php
+│   │   ├── routes/
+│   │   │   ├── api.php
+│   │   │   └── ...
 │   │   │
-│   │   ├── customers.php
+│   │   ├── middleware/
 │   │   │   ├── list.php                         	
 │   │   │   ├── add.php                          	
 │   │   │   ├── update.php                         
 │   │   │   └── delete.php
+│   │   ├── core/
+│   │   │   ├── list.php                         	
+│   │   │   ├── add.php                          	
+│   │   │   ├── update.php                         
+│   │   │   └── delete.php
+│   │   ├── config/
+│   │   │   ├── database.php                         	
+│   │   │   ├── config.php                          	                    
+│   │   │   └── env.php
 │   │   │
-│   │   └── reports/
-│   │       ├── list.php  
-│   │	    └── export_csv.php
+│   │   └── helpers/
+│   │       ├── functions.php  
+│   │       ├── auth.php
+│   │	    └── validation.php
 │   │
-├── app/                                        # Core application logic
-│	├── controllers/ 
-│   │   ├── AuthController.php
-│   │   ├── ProductController.php
-│   │   ├── StockController.php
-│	│	├── CustomerControlle.php
-│	│	├── OrderController.php
-│	│	└── ReportController.php 
+├── storage/                                        
+│	├── uploads/ 
+│	├── logs/ 
+│   │   └── app.log 
 │	│	
-│	├── models/                                
-│	│   ├── User.php
-│	│   ├── Product.php
-│	│   ├── Stock.php
-│	│   ├── Customer.php
-│   │   ├── Order.php
-│	│	└── Report.php 
-│	└── helpers/                               
-│	    ├── Auth.php
-│	    ├── Validator.php
-│	    ├── Response.php
-│	 	└── Logger.php                         
+│	├── tests/                                
+│   │   ├── Feature/
+│	│	└── Unit/
+│	└── migrates/                               
+│	    ├── create_table.sql
+│	 	└── seed_data.sql                   
 │	
-├── config/
+├── vendor/
 │	├── config.php                              
 │	└── database.php                            
 │                           
-├── uploads/
-├── logs/
+├── .env
 ├── vendor/
 ├── composer.json
-├── .env
 │	
 └── README.md  
