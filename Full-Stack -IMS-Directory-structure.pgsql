@@ -23,8 +23,8 @@ Full-Stack-IMS-Structure/
 │   │   │   ├── layout.css
 │   │   │   ├── reset.css
 │   │   │   └── modules/
-│	│   │	    ├── navbars.css  
-│	│   │	    ├── table.css
+│   │   │       ├── navbars.css
+│   │   │       ├── table.css
 │	│	│	    └── form.css
 │   │   │
 │   │   ├── js/
