@@ -25,7 +25,8 @@ Full-Stack-IMS-Structure/
 │   │   │   └── modules/
 │   │   │       ├── navbars.css
 │   │   │       ├── table.css
-│	│	│	    └── form.css
+│   │   │       └── form.css 
+│	│	│	   
 │   │   │
 │   │   ├── js/
 │   │   │   ├── auth.js    
