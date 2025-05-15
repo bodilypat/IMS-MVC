@@ -1,10 +1,10 @@
 Full-Stack-IMS-Structure/
 │
 ├── Frontend/                      	 	
-│   ├── index.html                        	
-│	├── login.html
-│	├── register.html                      
-│	├── pages/ 
+│   ├── index.html   
+│   ├── login.html
+│   ├── register.html
+│   ├── pages/                     	
 │   │   ├── dashboard.html
 │   │   ├── customers.html
 │   │   ├── orders.html 
