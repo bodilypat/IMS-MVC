@@ -31,10 +31,10 @@ Full-Stack-IMS-Structure/
 │   │   │   ├── auth.js    
 │   │   │   ├── main.js 
 │   │   │   ├── api.js 
-│   │   │   ├── ui/    
-│	│   │	│   ├── modal.js 
-│	│   │	│   ├── dropdown.js   
-│	│	│	│   └── sidebar.js               
+│   │   │   ├── ui/ 
+│   │   │       ├── model.css
+│   │   │       ├── dropdown.css  
+│   │   │       └── silebar.css            
 │   │   │   └── modules/  
 │	│   │	    ├── customer.js
 │	│   │	    ├── orders.js
