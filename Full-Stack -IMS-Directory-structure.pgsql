@@ -68,17 +68,30 @@ Full-Stack-IMS-Structure/
 │   ├── public/
 │   │	├── index.php  
 │   │   └── .htaccess 
-│   ├── api/                                          # API endpoint for AJAX/front-end calls
-│   │   ├── auth/
-│   │   │   ├── login.php  
-│   │   │   ├── register.php  
-│   │   │   └── resetPassword.php
+│   ├── app/                                          # API endpoint for AJAX/front-end calls
+│   │   ├── controllers/
+│   │   │   ├── CustomerController.php  
+│   │   │   ├── OrderController.php  
+│   │   │   ├── InviceController.php  
+│   │   │   ├── ProductController.php  
+│   │   │   ├── ItemsController.php  
+│   │   │   ├── PurchaseController.php  
+│   │   │   ├── VendorsController.php  
+│   │   │   ├── SupplierController.php  
+│   │   │   ├── CategoryController.php  
+│   │   │   └── UserController.php
 │   │   │
-│   │   ├── products/                      			  # Product management page
-│   │   │   ├── list.php                         	
-│   │   │   ├── add.php                          	
-│   │   │   ├── update.php                         
-│   │   │   └── delete.php
+│   │   ├── models/                      			  # Product management page
+│   │   │   ├── Customer.php          
+│   │   │   ├── Order.php       
+│   │   │   ├── Invoice.php       
+│   │   │   ├── Product.php       
+│   │   │   ├── Item.php       
+│   │   │   ├── Purchase.php       
+│   │   │   ├── Vendor.php       
+│   │   │   ├── Supplier.php  
+│   │   │   ├── Category.php                          	                     
+│   │   │   └── User.php
 │   │   │
 │   │   ├── stock/                          
 │   │   │	├── stock_in.php   
