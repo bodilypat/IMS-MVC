@@ -53,8 +53,9 @@ Full-Stack-IMS-Structure/
 │   │
 │   └── components/                       
 │	    ├── header.html                         
-│	    ├── sidebar.html                       
-│	    └── footer.html
+│	    ├── footer.html 
+│	    ├── sidebar.html                        
+│	    └── navbar.html
 │                         
 ├── backend/ 
 │   ├── public/
