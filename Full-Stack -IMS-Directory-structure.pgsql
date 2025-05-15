@@ -129,7 +129,7 @@ Full-Stack-IMS-Structure/
 │   ├── tests/                                
 │   │   ├── Feature/
 │   │   └── Unit/
-│	└── migrates/                               
+│   └── migrates/                               
 │	    ├── create_table.sql
 │	    └── seed_data.sql                   
 │	
