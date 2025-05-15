@@ -33,8 +33,8 @@ Full-Stack-IMS-Structure/
 │   │   │   ├── api.js 
 │   │   │   ├── ui/ 
 │   │   │   │   ├── model.css
-│   │   │       ├── dropdown.css  
-│   │   │       └── silebar.css            
+│   │   │   │   ├── dropdown.css  
+│   │   │   │   └── silebar.css            
 │   │   │   └── modules/ 
 │   │   │       ├── customers.js
 │   │   │       ├── orders.js
