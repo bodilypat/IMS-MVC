@@ -51,7 +51,7 @@ Full-Stack-IMS-Structure/
 │   │       ├── logo.png                          
 │   │       └── icon/
 │   │
-│	└── components/                             # Reuseable UI blocks (optional)
+│	└── components/                       
 │		├── header.html                         
 │		├── sidebar.html                       
 │		└── footer.html
