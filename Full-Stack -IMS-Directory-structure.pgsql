@@ -35,17 +35,17 @@ Full-Stack-IMS-Structure/
 │   │   │       ├── model.css
 │   │   │       ├── dropdown.css  
 │   │   │       └── silebar.css            
-│   │   │   └── modules/  
-│	│   │	    ├── customer.js
-│	│   │	    ├── orders.js
-│	│   │	    ├── invoices.js 
-│	│   │	    ├── products.js 
-│	│   │	    ├── items.js
-│	│   │	    ├── purchases.js
-│	│   │	    ├── vendors.js 
-│	│   │	    ├── suppliers.js 
-│	│   │	    ├── categorires.js
-│	│	│	    └── users.js
+│   │   │   └── modules/ 
+│   │   │       ├── customers.js
+│   │   │       ├── orders.js
+│   │   │       ├── invoices.js
+│   │   │       ├── products.js
+│   │   │       ├── items.js
+│   │   │       ├── purchases.js
+│   │   │       ├── vendors.js
+│   │   │       ├── suppliers.js
+│   │   │       ├── categories.js
+│   │   │       └── users.js          
 │   │   │
 │   │   └── images/  
 │   │       ├── logo.png                          
