@@ -122,20 +122,20 @@ Full-Stack-IMS-Structure/
 │   │	    └── validation.php
 │   │
 ├── storage/                                        
-│	├── uploads/ 
-│	├── logs/ 
+│   ├── uploads/ 
+│   ├── logs/ 
 │   │   └── app.log 
-│	│	
-│	├── tests/                                
+│   │	
+│   ├── tests/                                
 │   │   ├── Feature/
-│	│	└── Unit/
+│   │   └── Unit/
 │	└── migrates/                               
 │	    ├── create_table.sql
-│	 	└── seed_data.sql                   
+│	    └── seed_data.sql                   
 │	
 ├── vendor/
-│	├── config.php                              
-│	└── database.php                            
+│   ├── config.php                              
+│   └── database.php                            
 │                           
 ├── .env
 ├── vendor/
