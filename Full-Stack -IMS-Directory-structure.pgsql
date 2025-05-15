@@ -32,7 +32,7 @@ Full-Stack-IMS-Structure/
 │   │   │   ├── main.js 
 │   │   │   ├── api.js 
 │   │   │   ├── ui/ 
-│   │   │       ├── model.css
+│   │   │   │   ├── model.css
 │   │   │       ├── dropdown.css  
 │   │   │       └── silebar.css            
 │   │   │   └── modules/ 
