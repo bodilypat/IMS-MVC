@@ -3,31 +3,49 @@ Full-Stack-IMS-Structure/
 ├── Frontend/                      	 	
 │   ├── index.html                        	
 │	├── login.html
-│	├── logout.html                         
-│	├── dashboard.html                           
-│	├── products.html                              
-│	├── stock.html                              
-│   ├── orders.html      
-│   ├── customers.html 
-│   ├── suppliers.html                            
+│	├── register.html                      
+│	├── pages/ 
+│   │   ├── dashboard.html
+│   │   ├── customers.html
+│   │   ├── orders.html 
+│   │   ├── invoices.html                           
+│   │   ├── products.html 
+│   │   ├── items.html
+│   │   ├── purchases.html 
+│   │   ├── vendors.html 
+│   │   ├── suppliers.html 
+│   │   ├── categories.html
+│   │   └── users.html                       
 │   │
 │   ├── assets/                                 
 │   │   ├── css/
 │   │   │   ├── main.css
 │   │   │   ├── layout.css
-│   │   │   ├── forms.css
-│   │   │   └── auth.css
+│   │   │   ├── reset.css
+│   │   │   └── modules/
+│	│   │	    ├── navbars.css  
+│	│   │	    ├── table.css
+│	│	│	    └── form.css
 │   │   │
 │   │   ├── js/
 │   │   │   ├── auth.js    
 │   │   │   ├── main.js 
-│   │   │   ├── product.js 
-│   │   │   ├── orders.js                      
-│   │	│   ├── stock.js        
-│   │	│   ├── orders.js               
-│   │	│   ├── customer.js
-│   │	│   ├── suppliers.js
-│   │   │   └── utils.js                    
+│   │   │   ├── api.js 
+│   │   │   ├── ui/    
+│	│   │	│   ├── modal.js 
+│	│   │	│   ├── dropdown.js   
+│	│	│	│   └── sidebar.js               
+│   │   │   └── modules/  
+│	│   │	    ├── customer.js
+│	│   │	    ├── orders.js
+│	│   │	    ├── invoices.js 
+│	│   │	    ├── products.js 
+│	│   │	    ├── items.js
+│	│   │	    ├── purchases.js
+│	│   │	    ├── vendors.js 
+│	│   │	    ├── suppliers.js 
+│	│   │	    ├── categorires.js
+│	│	│	    └── users.js
 │   │   │
 │   │   └── images/  
 │   │       ├── logo.png                          
