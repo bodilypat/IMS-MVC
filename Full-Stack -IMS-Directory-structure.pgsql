@@ -61,17 +61,17 @@ Full-Stack-IMS-Structure/
 │   │	├── index.php  
 │   │   └── .htaccess 
 │   ├── api/                                          # API endpoint for AJAX/front-end calls
-│	│   ├── auth/
-│	│   │	├── login.php  
-│	│   │	├── register.php  
-│	│	│	└── resetPassword.php
-│	│   │
-│	│   ├── products/                      			  # Product management page
-│	│   │	├── list.php                         	
-│	│   │	├── add.php                          	
-│	│	│	├── update.php                         
-│	│	│	└── delete.php
-│	│   │
+│   │   ├── auth/
+│   │   │   ├── login.php  
+│   │   │   ├── register.php  
+│   │   │   └── resetPassword.php
+│   │   │
+│   │   ├── products/                      			  # Product management page
+│   │   │   ├── list.php                         	
+│   │   │   ├── add.php                          	
+│   │   │   ├── update.php                         
+│   │   │   └── delete.php
+│   │   │
 │	│  	├── stock/                          
 │	│   │	├── stock_in.php   
 │	│	│	└── stock_out.php    
