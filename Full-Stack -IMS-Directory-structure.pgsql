@@ -52,9 +52,9 @@ Full-Stack-IMS-Structure/
 │   │       └── icon/
 │   │
 │   └── components/                       
-│		├── header.html                         
-│		├── sidebar.html                       
-│		└── footer.html
+│	    ├── header.html                         
+│	    ├── sidebar.html                       
+│	    └── footer.html
 │                         
 ├── backend/ 
 │   ├── public/
