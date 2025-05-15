@@ -56,7 +56,14 @@ Full-Stack-IMS-Structure/
 │	    ├── footer.html 
 │	    ├── sidebar.html                        
 │	    └── navbar.html
-│                         
+│  
+├── data/ 
+│   ├── customers.json  
+│   └── products.json  
+│
+├── uploads/
+├── package.json
+│                 
 ├── backend/ 
 │   ├── public/
 │   │	├── index.php  
