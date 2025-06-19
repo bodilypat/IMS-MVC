@@ -109,11 +109,11 @@ Full-Stack-IMS-Directory-Structure/
 │   ├── migrations/                      # SQL schema / versions DB script 
 │   │   ├── create_users_table
 │   │   ├── create_customers_table.sql
-│   │   ├── create_orders_table
+│   │   ├── create_orders_table.sql
 │   │   ├── create_items_table.sql
-│   │   ├── create_products_table
+│   │   ├── create_products_table.sql
 │   │   ├── create_categories_table.sql
-│   │   ├── create_purchases_table
+│   │   ├── create_purchases_table.sql
 │   │   └── create_vendors_table.sql
 │   │ 
 │   ├── logs/                            # error or debug logs
