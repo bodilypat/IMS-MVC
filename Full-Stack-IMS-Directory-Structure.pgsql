@@ -74,9 +74,7 @@ Full-Stack-IMS-Directory-Structure/
 │   │   │   ├── AuthController.php
 │   │   │   ├── CustomerController.php
 │   │   │   ├── OrderController.php
-│   │   │   ├── ItemController.php
 │   │   │   ├── ProductsController.php
-│   │   │   ├── CategoryController.php
 │   │   │   ├── PurchaseController.php
 │   │   │   └── VendorController.php
 │   │   │
@@ -91,6 +89,8 @@ Full-Stack-IMS-Directory-Structure/
 │   │   │   └── Vendor.php
 │   │   │
 │   │   ├── services/
+│   │   │   ├── CustomerService.php
+│   │   │   ├── ProductService.php
 │   │   │   ├── InventoryService.php
 │   │   │   ├── ReportService.php
 │   │   │   └── AuthService.php               
