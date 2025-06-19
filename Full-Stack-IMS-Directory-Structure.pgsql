@@ -107,7 +107,7 @@ Full-Stack-IMS-Directory-Structure/
 │   │   └── AuthMiddleware.php
 │   │ 
 │   ├── migrations/                      # SQL schema / versions DB script 
-│   │   ├── create_users_table
+│   │   ├── create_users_table.sql
 │   │   ├── create_customers_table.sql
 │   │   ├── create_orders_table.sql
 │   │   ├── create_items_table.sql
