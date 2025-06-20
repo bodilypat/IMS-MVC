@@ -33,7 +33,8 @@
 		{
 			$sql = "SELECT item_id, item_name, stock 
 			        FROM items 
-					WHERE stock <= :threshold ORDER BY stock ASC";
+					WHERE stock <= :threshold 
+					ORDER BY stock ASC";
 			$stmt = $this->db->prepare($sql);
 			$stmt->execute(['threshold' => $threshold]);
 			return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -45,6 +46,7 @@
 			$sql = "UPDATE items 
 				    SET stock = :stock 
 				    WHERE item_id = :item_id";
+			$stmt = $this->db->prepare($sql);
 			return $stmt->execute([
 				'stack' => $newStock,
 				'item_id' => $itemId
