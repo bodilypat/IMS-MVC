@@ -1,5 +1,5 @@
 <?php
-
+	/* app/services/ProductService.  */
 	class ProductService 
 	{
 		private PDO $pdo;
@@ -12,7 +12,10 @@
 		/* Get all products (excluding soft-deleted). */
 		public function getAllProducts(): array 
 		{
-			$stmt = $this->pdo->prepare("SELECT * FROM products WHERE deleted_on IS NULL ORDER BY created_on DESC");
+			$stmt = $this->pdo->prepare("SELECT * 
+			                             FROM products  
+										 WHERE deleted_on IS NULL ORDER BY created_on DESC
+									");
 			$stmt->execute();
 			return $stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
@@ -20,7 +23,10 @@
 		/* Get product by ID */
 		public function getProductById(int $id): ?array 
 		{
-			$stmt = $this->pdo->prepare("SELECT * FROM products WHERE product_id = :id AND deleted_on IS NULL");
+			$stmt = $this->pdo->prepare("SELECT * 
+										 FROM products 
+										 WHERE product_id = :id AND deleted_on IS NULL
+									");
 			$stmt->execute(['id' => $id]);
 			$product = $stmt->fetch(PDO::FETCH_ASSOC);
 			return $prodcut ?: null;
@@ -75,7 +81,8 @@
 		/* Soft delete a product */
 		public function softDeleteProduct(int $id): bool
 		{
-			$stmt = $this->pdo->prepare("UPDATE products SET deleted_on = CURRENT_TIMESTAMP
+			$stmt = $this->pdo->prepare("UPDATE products 
+			                             SET deleted_on = CURRENT_TIMESTAMP
 										 WHERE product_id = :id");
 		}
 	}
