@@ -15,7 +15,7 @@ Full-Stack-IMS-Directory-Structure/
 │   │   ├── vendors.html
 │   │   └── reports.html
 │   │
-│   ├── components/                     # Reusable frontend components
+│   ├── components/                          # Reusable frontend components
 │   │   ├── header.html
 │   │   ├── sidebar.html
 │   │   ├── footer.html
@@ -70,7 +70,7 @@ Full-Stack-IMS-Directory-Structure/
 │   │   └── uploads/
 │   │
 │   ├── app/
-│   │   ├── controllers/
+│   │   ├── controllers/                              # HTTP Reguest Handlers
 │   │   │   ├── AuthController.php
 │   │   │   ├── CustomerController.php
 │   │   │   ├── OrderController.php
@@ -78,7 +78,7 @@ Full-Stack-IMS-Directory-Structure/
 │   │   │   ├── PurchaseController.php
 │   │   │   └── VendorController.php
 │   │   │
-│   │   ├── models/
+│   │   ├── models/                                   # DB Abstractions
 │   │   │   ├── User.php
 │   │   │   ├── Customers.php
 │   │   │   ├── Order.php
@@ -88,25 +88,25 @@ Full-Stack-IMS-Directory-Structure/
 │   │   │   ├── Purchase.php
 │   │   │   └── Vendor.php
 │   │   │
-│   │   ├── services/
+│   │   ├── services/								# Business Logic layer
 │   │   │   ├── CustomerService.php
 │   │   │   ├── ProductService.php
 │   │   │   ├── InventoryService.php
 │   │   │   ├── ReportService.php
 │   │   │   └── AuthService.php               
 │   │   │
-│   │   ├── routes/
-│   │   │   ├── api.php
-│   │   │   └── web.php
+│   │   ├── routes/									# HTTP Routing 
+│   │   │   ├── api.php								# RESTful endpoint
+│   │   │   └── web.php								# Web-based routes
 │   │   ├── helpers/
 │   │   │   ├── auth_helpers.php
 │   │   │   ├── response_helper.php
 │   │   │   └── input_helper.php
 │   │   │ 
-│   ├── middleware/                      # Reguest filtering (auth, permission)
-│   │   └── AuthMiddleware.php
+│   ├── middleware/                      			# Reguest filtering (auth, permission)
+│   │   └── AuthMiddleware.php           			# JWT/session token or role
 │   │ 
-│   ├── migrations/                      # SQL schema / versions DB script 
+│   ├── migrations/                      			# SQL script for each tableschema / versions DB script 
 │   │   ├── create_users_table.sql
 │   │   ├── create_customers_table.sql
 │   │   ├── create_orders_table.sql
@@ -116,26 +116,15 @@ Full-Stack-IMS-Directory-Structure/
 │   │   ├── create_purchases_table.sql
 │   │   └── create_vendors_table.sql
 │   │ 
-│   ├── logs/                            # error or debug logs
+│   ├── logs/                            			# Centrao error log.
 │   │   └── app.log
 │   │ 
-│   ├── storage/                         # file uploads or generate content
-│   │   └── invoices/
+│   ├── storage/                         
+│   │   └── invoices/					            # Auto-generate PDFs or receipts
 │   │ 
 │   ├── tests/
 │   │   └── ProductTest.php
 │   │ 
-├── storage/
-│   ├── uploads/
-│   ├── logs/
-│   │   └── app.log
-│   ├── tests/
-│   │   ├── Feature/
-│   │   └── Unit/
-│   └── migrations/
-│       ├── create_tables.sql
-│       └── seed_data.sql
-│
 ├── vendor/
 │   └── (Composer dependencies)
 │
