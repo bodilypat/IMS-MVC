@@ -1,10 +1,16 @@
 <?php
 
 	/* app/services/InventoryService.php */
+	namespace App\Services;
+	
+	use PDO;
+	use PDOException;
+	
+	
 	class InventoryService 
 	{
 		
-		private $db;
+		private PDO $db;
 		
 		public function __construct(PDO $pdo)
 		{
@@ -82,7 +88,7 @@
 			]);
 		}
 	
-		/* Update stock after a sale or purchase */
+		/* Validate and Update stock after a sale or purchase */
 		public function updateStock(int $itemId, int $resqultQuantity): bool
 		{
 			$available = $this->getItemStock($itemId);
