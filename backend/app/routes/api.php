@@ -10,8 +10,10 @@
 	$router = new Router(); // Custom or 3rd-party
 	
 	/* Auth Routes  */
-	$router->post('/api/login', [AuthConroller::class,'login']);
+	$router->post('/api/login', [AuthController::class,'login']);
+	$router->get('/api/verify', [AuthController::class, 'verify']);
 	$router->post('/api/register',[AuthController::class,'register']);
+	$router->post('/api/logout', [AuthController::class, 'logout']);
 	
 	/* Customer Router */
 	$router->get('/api/customers', [CustomerController::class,'index']);
