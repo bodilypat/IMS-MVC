@@ -1,5 +1,12 @@
 <?php
 	/* app/services/ProductService.  */
+	
+	namespace App\Services;
+	
+	use PDO;
+	use PDOException;
+	use Exception;
+	
 	class ProductService 
 	{
 		private PDO $pdo;
@@ -35,10 +42,11 @@
 		/* Create a new product. */
 		public function createProduct(array $data): bool 
 		{
-			$stmt = "
-				INSERT INTO products (
-					sku, product_name, description, cost_price, sale_price,
-					quantity, category_id, vendor_id, status, product_image_url
+			try {
+				$stmt = "
+					INSERT INTO products (
+						sku, product_name, description, cost_price, sale_price,
+						quantity, category_id, vendor_id, status, product_image_url
 					) VALUES (
 						:sku, :product_name, :description, :cost_price, :sale_price,
 						:quantity, :category_id, :vendor_id, :status, :product_url
@@ -58,10 +66,18 @@
 					':status' => $data['status'] ?? 'Available',
 					':product_image_url' => $data['product_image_url'] ?? null,
 				]);
+			} catch (PDOException $e) {
+				return false;
+			}
 		}
+		
 		/* Update a product by ID */
-		public function updateProduct(int 4id, array $data): bool 
+		public function updateProduct(int $id, array $data): bool 
 		{
+			if (empty($data)) {
+				return false;
+			}
+			
 			$field = [];
 			$params = ['id' => $id];
 			
@@ -83,7 +99,9 @@
 		{
 			$stmt = $this->pdo->prepare("UPDATE products 
 			                             SET deleted_on = CURRENT_TIMESTAMP
-										 WHERE product_id = :id");
+										 WHERE product_id = :id AND deleted_on IS NULL 
+									");
+			return $stmt->execute(['id' => $id]);
 		}
 	}
 	
