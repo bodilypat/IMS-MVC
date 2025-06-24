@@ -114,6 +114,11 @@
 				'item_id' => $itemId
 			]);
 		}
+		
+		public function validateStockChange(int $itemId, int $requiredQuantity): bool
+		{
+			return $this->hasSufficientStock($itemId, $requiredQuantity);
+		}
 	}
 	
 	
