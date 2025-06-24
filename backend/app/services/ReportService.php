@@ -1,5 +1,11 @@
 <?php
 
+	namespace App\Services;
+	
+	use PDO;
+	use DateTime;
+	use PDOException;
+	
 	class ReportService 
 	{
 		private PDO $db;
@@ -10,7 +16,7 @@
 		}
 		
 		/* Get total sales within a data name. */
-		public function getTotalSales(DateTime $startDate, DateTime $endDate): floatval
+		public function getTotalSales(DateTime $startDate, DateTime $endDate): float
 		{
 			$sql = "SELECT SUM(total_price) as total_sales 
 					FROM orders
@@ -19,7 +25,7 @@
 			$stmt = $this->db->prepare($sql);
 			$stmt->execute([
 				'start' => $startDate->format('Y-m-d');
-				'end' => $endDate('Y-m-d')
+				'end' => $endDate->format('Y-m-d')
 			]);
 			
 			$result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -29,11 +35,11 @@
 		/* Get top N selling items by quantity */
 		public function getTopSellingItems(int $limit = 5): array 
 		{
-			$sql = "SELECT items.item_name, SUM(orders.quantity) as total_sold
-				    FROM orders 
-					INNER JOIN items ON orders.item_id = items.item_id 
-					WHERE orders.status = 'Completed'
-					GROUP BY orders.item_id 
+			$sql = "SELECT i.item_name, SUM(o.quantity) as total_sold
+				    FROM orders o
+					INNER JOIN items ON o.item_id = i.item_id 
+					WHERE o.status = 'Completed'
+					GROUP BY o.item_id 
 					ORDER BY total_sold DESC
 					LIMIT :limit";
 			$stmt = $this->db->prepare($sql);
@@ -72,6 +78,4 @@
 		}
 	}
 	
-		
-	}
 		
