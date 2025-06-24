@@ -23,7 +23,7 @@
 				 $params = [];
 				 
 				 // Optional filter: status 
-				 if (!empty($filters['search'])) {
+				 if (!empty($filters['status'])) {
 					 $sql .= "AND status = :status";
 					 $params['status'] = $filters['status'];
 				 }
@@ -49,7 +49,7 @@
 		public function findById(int $id): ?array
 		{
 			try {
-				$stmt = $this->db->prepare("SELECT * FROM customer WHERE customer_id = ?");
+				$stmt = $this->db->prepare("SELECT * FROM customers WHERE customer_id = ?");
 				$stmt->execute([$id]);
 				$result = $stmt->fetch(PDO::FETCH_ASSOC);
 				return $result ?: null;
@@ -75,9 +75,9 @@
 						'emil' => $data['email'] ?? null,
 						'mobile' => $data['mobile'],
 						'phone' => $data['phone'] ?? null,
+						'address' => $data['address'] ?? null,
 						'city' => $data['city'] ?? null,
-						'state' => $data['city'] ?? null,
-						'state' => $data['state'],
+						'state' => $data['state'] ?? null,
 						'status' => $data['status'] ?? 'Active',
 					]);
 					
@@ -101,7 +101,7 @@
 				}
 				$sql = "UPDATE customers SET " . implode(", ", $fields) . " WHERE customer_id = :customer_id";
 				
-				$stm = $this->db->prepare($sql);
+				$stmt = $this->db->prepare($sql);
 				return $stmt->execute($params);
 			} catch (PDOException $e) {
 				error_log("Customer::update - " . $e->getMessage());
