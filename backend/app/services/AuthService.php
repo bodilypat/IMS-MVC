@@ -39,7 +39,7 @@
 			// Hash password securely 
 			$hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
 			
-			$sql = "INSERT INTO {$this->userTable} (username, email, password_hash, created_at) 
+			$sql = "INSERT INTO users (username, email, password_hash, created_at) 
 				    VALUES(:username, :email, :password_hash, NOW())";
 			$stmt = $this->db->prepare($sql);
 			$success = $stmt->execute([
@@ -62,7 +62,7 @@
 		public function login(string $usernameOrMail, string $password): array
 		{
 			$sql = "SELECT id, username, email, password_has 
-			        FROM {$this->userTable}
+			        FROM users
 					WHERE username = :ue OR email = :ue LIMIT 1";
 			$stmt = $this->db->prepare($sql);
 			$stmt->execute([':ue' => $userOrEmail]);
@@ -80,7 +80,7 @@
 		/* Check username or email already exists */
 		private function userExists(string $username, string $email): bool 
 		{
-			$sql = "SELECT COUNT(*) FROM {$this->userTable}
+			$sql = "SELECT COUNT(*) FROM users
 				    WHERE username = :username OR email = :email";
 			$stmt = $this->db->prepare($sql);
 			$stmt->execute([
