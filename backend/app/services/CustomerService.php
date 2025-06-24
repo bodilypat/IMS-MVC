@@ -28,11 +28,15 @@
 		}
 		
 		/* create a new customer */
-		public functtion create(array $data):int 
+		public function create(array $data):int 
 		{
 			/* Basic validaton */
 			if (empty($data['full_name']) || empty($data['mobile']) || empty($data['address']) || empty($data['state'])) {
 				throw new Exception('Missing required fields for customer creation');
+			}
+			
+			if (!empty($data['email']) && !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+				throw new Exception('Invalid email formart']);
 			}
 			
 			/* Check for email/mobile handle/db layer ideally */
@@ -49,6 +53,7 @@
 		{
 			/* Cheack if customer exists */
 			$existing = $this->customerModel->findById($customerId);
+			
 			if(!$existing) {
 				throw new Exception('Customer not found']);
 			}
@@ -57,14 +62,15 @@
 			if (isset($data['email']) && !filter($data['email'], FILTER_VALIDATE_EMAIL)) {
 				throw new Exception('Invalid email format');
 			}
-			return $ths->customerModel->update($customerId) $data);
+			
+			return $this->customerModel->update($customerId) $data);
 		}
 		
 		/* Delete a customer by Id */
 		public function delete(int $customerId): bool 
 		{
 			/* Optionally check if customer exists */
-			$existing = $this->custorModel->fetchId($customerId);
+			$existing = $this->custorModel->findById($customerId);
 			
 			if (!$existing) {
 				throw new Exception('Customer not found');
