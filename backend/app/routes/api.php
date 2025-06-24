@@ -30,8 +30,14 @@
 	$router->delete('/api/products/{id}', [ProductController::class,'destroy']);
 	
 	/* Order Routes */
-	$router->('/api/orders/report/[from}{to}', [OrderController::class,'salesReport']);
-	$router->('/api/orders/top-items', [OrderController::class,'topItems']);
+	$router->get('/api/orders', [OrderController::class,'index']);
+	$router->get('api/orders/{id}' , [OrderController::class, 'show']);
+	$router->post('/api/orders', [OrderController::class, 'store']);
+	$router->put('/api/orders/{id}', [OrderController::class, 'update']);
+	$router->put('/api/orders/{id}', [OrderController::class,'destroy']);
+	
+	$router->get('/api/orders/report/{from}/{to}', [OrderController::class,'salesReport']);
+	$router->get('/api/orders/top-items', [OrderController::class,'topItems']);
 	
 	/* Purchase Routes */
 	$router->get('/api/purchases/report/{from}/{to}', [PurchaseController::class, 'purchaseReport']);
