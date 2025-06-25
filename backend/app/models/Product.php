@@ -87,4 +87,40 @@
 		}
 		
 		/* Update a product by ID */
+		public function update(int $id, array $data): bool 
+		{
+			try {
+				$fileds = [];
+				$params = [];
+				
+				foreach ($data as $key => $value) {
+					$fields[] = "$key = :$key";
+					$params[$key]  = $value;
+				}
+				
+				$params['product_id'] = $id;
+				
+				$sql = "UPDATE items SET " . $implode(',', $fields) . "WHERE product_id = :id");
+				$stmt = $this->db->prepare($sql);
+				
+				return $stmt->execute($params);
+			} catch (PDOException $e) {
+				error_log("Product::update - " . $e->getMessage());
+				return false;
+			}
+		}
 		
+		/* Delete product by ID (sets deleted_on timestamp */
+		public function delete(int $id): bool 
+		{
+			try {
+				$stmt = $this->db->prepare("UPDATE products SET deleted_on = NOW() WHERE product_id = :id");
+				return $stmt->execute(['id' => $id]);
+			} catch  (PDOException $e) {
+				error_log("Product::delete - " . $e->getMessage());
+				return false;
+			}
+		}
+	}
+	
+	
