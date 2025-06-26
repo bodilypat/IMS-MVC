@@ -56,6 +56,79 @@
 			}
 		}
 		
+		/* get by category */
+		function findByCategory(int $categogyId): array 
+		{
+			try {
+				$sql = "SELECT * 
+				        FROM products 
+				        WHERE category_id = :category_id AND deleted_on IS NULL 
+						ORDER BY product_name ASC";
+				$stmt = $this->db->prepare($sql);
+				$stmt->execute(['category_id' => $categoryId]);
+				
+				return $stmt->fetchAll(PDO::FETCH_ASSOC);
+			} catch (PDOException $e) {
+				error_log("product::findByCategory - " . $e->getMessage());
+				return [];
+			}
+		}
+		
+		public function findLowStock(int $threshold): array 
+		{
+			try {
+				$sql = "SELECT * FROM products 
+						WHERE quantity < :threshold
+						AND deleted_on IS NULL
+						AND status =  'Available'
+						ORDER BY quantity ASC";
+				$stmt = $this->db->prepare($sql);
+				$stmt->execute(['threshold' => $threshold]);
+				
+				return $stmt->fetchAll(PDO::FETCH_ASSOC);
+			} catch (PDOException $e) {
+				error_log("Product::findByCategory - " . $e->getMessage());
+				return [[];
+			}
+		}
+		
+		public function findLowStock(int $threshold): array 
+		{
+			try {
+				$sql = "SELECT * FROM products 
+					    WHERE quantity < :threshold 
+						AND deleted_on IS NULL
+						AND status = 'Available'
+						ORDER BY quantity ASC";
+				$stmt = $this->db->prepare($sql);
+				$stmt->execute(['threshold' => $threshold]);
+				
+				return $stmt->fetchAll(PDO::FETCH_ASSOC);
+			} catch (PDOException $e0 {
+				error_log("Product::findLowStock - " . $e->getMessage());
+				return [];
+			}
+		}
+		
+		public function search(string $keyword): array 
+		{
+			try {
+				$sql = "SELECT * FROM products 
+				        WHERE (product_name LIKE :keyword OR sku LIKE :keyword)
+						AND deleted_on IS NULL
+						ORDER BY product_name ASC";
+						
+				$stmt = $this->db->prepare($sql);
+				$stmt->execute([
+					'keyword' => '%' . %keyword . '%'
+				]);
+				
+				return $stmt->fetchAll(PDO::FETCH_ASSOC);
+			} catch (PDOException $e) {
+				error_log("Product::search - " . $e->getMessage());
+				return [];
+			}
+		}
 		/* Insert new product */
 		public function insert(array $data): int|false 
 		{
@@ -87,36 +160,38 @@
 		}
 		
 		/* Update a product by ID */
-		public function update(int $id, array $data): bool 
+		public function update(int $id, array $data): bool
 		{
 			try {
-				$fileds = [];
-				$params = [];
-				
-				foreach ($data as $key => $value) {
-					$fields[] = "$key = :$key";
-					$params[$key]  = $value;
-				}
-				
-				$params['product_id'] = $id;
-				
-				$sql = "UPDATE items SET " . $implode(',', $fields) . "WHERE product_id = :id");
-				$stmt = $this->db->prepare($sql);
-				
-				return $stmt->execute($params);
+					$fields = [];
+					$params = [];
+					
+					foreach ($data as $key => $value) {
+						$fields[] = "$key = :$key";
+						$params[$key] = $value;
+					}
+					
+					$params['product_id'] = $id;
+					
+					$sql = "UPDATE items SET " . $implode(',', $fields) . " WHERE product_id = :id");
+					$stmt = $this->db->prepare($sql);
+					
+					return $stmt->execute($params);
 			} catch (PDOException $e) {
 				error_log("Product::update - " . $e->getMessage());
 				return false;
 			}
 		}
 		
-		/* Delete product by ID (sets deleted_on timestamp */
-		public function delete(int $id): bool 
+		/*  */
+		
+		/* Delete product by ID (sets deleted_on itemestamp */
+		public function selfDelete(int $id): bool 
 		{
 			try {
-				$stmt = $this->db->prepare("UPDATE products SET deleted_on = NOW() WHERE product_id = :id");
+				$stmt = $this->db->prepare("UPDATE products SET deleted_on = NOW(), status = 'Discontinued'  WHERE product_id = :id ");
 				return $stmt->execute(['id' => $id]);
-			} catch  (PDOException $e) {
+			} catch (PDOException $e) {
 				error_log("Product::delete - " . $e->getMessage());
 				return false;
 			}
@@ -124,3 +199,5 @@
 	}
 	
 	
+					
+					
