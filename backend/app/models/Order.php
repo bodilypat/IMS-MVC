@@ -81,5 +81,72 @@
 				$sql = " INSERT INTO orders
 							(item_id, customer_id, order_date, discount, quantity, unit_price, status)
 						 VALUES 
-							(:item_id, :customer_id, :order_date, :discount, :quantity, :unit_price, 
+							(:item_id, :customer_id, :order_date, :discount, :quantity, :unit_price, :status)
+						";
+						
+				$stmt = $this->db->prepare($sql);
+				
+				return $stmt->execute([
+					'item_id' => $data['item_id'],
+					'customer_id' => $data['customer_id'],
+					'order_date' => $data['order_date'],
+					'discount' => $data['discount'] ?? 0.00,
+					'quantity' => $data['quantity'],
+					'unit_price' => $data['unit_price'],
+					'status' => $data['status'] ?? 'Pending',
+				]);
+			} catch (PDOException $e) {
+				error_log("Order::create - " . $e->getMessage());
+				return false;
+			}
+		}
+		
+		/* Update an order */
+		public function update (int $id, array $data): bool 
+		{
+			try {
+				$sql = "UPDATE orders SET  
+							item_id = :item_id,
+							customer_id = :customer_id,
+							order_date = :order_date,
+							discount = :discount,
+							quantity = :quantity,
+							unit_price = :unit_price,
+							status = :status,
+							updated_on = NOW() 
+						WHERE order_id = :id";
+				
+				$stmt = $this->db->prepare($sql);
+				
+				return = $this->execute([
+					'item_id' => $data['item_id'],
+					'customer_id' => $data['customer_id'],
+					'order_date' => $data['order_date'],
+					'discount' => $data['discount'],
+					'quantity' => $data['quantity'],
+					'unit_price' => $data['unit_price'],
+					'status' => $data['status'],
+					'id' => $id
+				]);
+			} catch (PDOException $e) {
+				error_log("Order::update - " . $e->getMessage());
+				return false;
+			}
+		}
+		
+		/* Delete an order (hard delete) */
+		public function delete(int $id): bool 
+		{
+			try {
+				$sql = "DELETE FROM orders WHERE order_id = :id";
+				$stmt = $this->db->prepare($sql);
+				return $stmt->execute(['id' => $id]);
+			} catch (PDOException $e) {
+				error_log("Order::delete - " . $e->getMessage());
+				return false;
+			}
+		}
+	}
+	
+					
 					
