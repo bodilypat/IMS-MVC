@@ -126,60 +126,89 @@ Full-Stack-IMS-Directory-Structure/
 │   ├── register.html
 │   ├── pages/
 │   │   ├── dashboard.html
-│   │   ├── customers.html
-│   │   ├── orders.html
-│   │   ├── items.html
-│   │   ├── products.html
-│   │   ├── categories.html
-│   │   ├── purchases.html
-│   │   ├── vendors.html
+│   │   ├── inventory/
+│   │   │   ├── products.html
+│   │   │   ├── categories.html
+│   │   │   ├── purchases.html
+│   │   │   ├── vendors.html
+│   │   │   └── stock.html
+│   │   ├── orders/
+│   │   │   ├── orders.html
+│   │   │   ├── invoice.html
+│   │   │   └── items.html
+│   │   ├── customers/
+│   │   │   └── customers.html
+│   │   ├── users/
+│   │   │   ├── users.html
+│   │   │   ├── profile.html
+│   │   │   └── roles.html
 │   │   └── reports.html
 │   │
-│   ├── components/                     # Reusable frontend components
+│   ├── components/                     	# Reusable HTML UI snippets components
 │   │   ├── header.html
 │   │   ├── sidebar.html
 │   │   ├── footer.html
-│   │   └── modal.html
+│   │   ├── model.html
+│   │   └── notification.html
 │   │
 │   ├── assets/
 │   │   ├── css/
 │   │   │   ├── main.css
 │   │   │   ├── layout.css
 │   │   │   ├── reset.css
+│   │   │   ├── theme.css
 │   │   │   └── modules/
 │   │   │       ├── navbars.css
 │   │   │       ├── table.css
-│   │   │       └── form.css
+│   │   │       ├── form.css
+│   │   │       └── modal.css
 │   │   ├── js/
 │   │   │   ├── app.js                       # Entry point
+│   │   │   ├── router.js
 │   │   │   ├── api.js                       # AJAX request to backend
 │   │   │   ├── auth.js                      # Login/session Logic
+│   │   │   ├── state.js
 │   │   │   ├── utils/                       # Helper function
 │   │   │   │   ├── modal.js
 │   │   │   │   ├── dropdown.js
-│   │   │   │   └── sidebar.js
+│   │   │   │   ├── sidebar.js
+│   │   │   │   └── formatter.js
 │   │   │   └── modules/
-│   │   │       ├── customers.js
-│   │   │       ├── orders.js
-│   │   │       ├── items.js
-│   │   │       ├── products.js
-│   │   │       ├── categories.js
-│   │   │       ├── purchases.js
-│   │   │       ├── vendors.js
-│   │   │       └── users.js
+│   │   │       ├── dashboard.js
+│   │   │       ├── inventory/
+│   │   │       │   ├── products.js
+│   │   │       │   ├── catetories.js
+│   │   │       │   ├── purchases.js
+│   │   │       │   ├── vendors.js
+│   │   │       │   └── stock.js
+│   │   │       ├── orders/
+│   │   │       │   ├── orders.js
+│   │   │       │   ├── invoices.js
+│   │   │       │   └── items.js
+│   │   │       ├── customer/
+│   │   │       │   └── customers.js
+│   │   │       ├── users/
+│   │   │       │   ├── users.js
+│   │   │       │   ├── profile.js
+│   │   │       │   └── roles.js
+│   │   │       └── reports.js
 │   │   └── images/
 │   │       ├── logo.png
 │   │       └── icons/
-│
+│   │           ├── product.svg
+│   │           ├── customer.svg
+│   │           └── user.svg
+│   │
 ├── data/
 │   ├── customers.json
-│   └── products.json
+│   ├── products.json
+│   └── orders.json
 │
 ├── uploads/
-├── package.json
-│
-
+├── dist/
+│   └── (optional for build tools)
 │
 ├── .env
+├── package.json
 ├── composer.json
 └── README.md
