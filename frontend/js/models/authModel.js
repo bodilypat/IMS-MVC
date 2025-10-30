@@ -20,3 +20,5 @@ export const AuthModel = {
     isLoggedIn() {
         return !!sessionStorage.getItem('currentUser');
     }
+};
+
