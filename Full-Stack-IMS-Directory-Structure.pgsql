@@ -1,4 +1,4 @@
-Full-Stack-IMS-Directory-Structure/
+Full-Stack-IMS-Directory-Structure/(RESTful inventory management system)
 ├── backend/
 │   ├── app/
 │   │   ├── core/
