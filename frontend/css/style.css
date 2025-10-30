@@ -189,7 +189,7 @@ body {
     background-color: #FFF;
     border-color: #CCC; }
 
-/* ===================================== Header CSS ================================== */
+/* Header CSS  */
 header {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   position: relative;
@@ -238,7 +238,7 @@ header {
     .small-menu {
       margin-top: 11px; } }
 
-/* ===================================== Slide Style CSS ================================== */
+/*  Slide Style CSS  */
 .slider-detail {
   padding-top: 0px; }
   .slider-detail .carousel-cover {
@@ -301,7 +301,7 @@ header {
         padding: 5px;
         font-size: 13px; } }
 
-/* ===================================== Key Features CSS ================================== */
+/*  Key Features CSS  */
 .key-features .kvxol {
   padding: 0px; }
 .key-features .single-key {
@@ -335,7 +335,7 @@ header {
     .department {
       padding: 50px 10px; } }
 
-/* ===================================== Our Blog CSS ================================== */
+/*  Our Blog CSS  */
 .our-blog {
 	padding: 80px 50px;
 	background-color: #FAFAFA;
@@ -394,7 +394,7 @@ header {
       font-size: 1rem; 
 }
 
-/* ===================================== Contact US CSS ================================== */
+/*  Contact US CSS  */
 .contact-rooo {
 	padding: 80px 50px;
 	background-color: #FFF; 
@@ -418,7 +418,7 @@ header {
     margin-top: 10px; 
 }
 
-/*====================================== About Us Style ====================================*/
+/* About Us Style */
 .about-us .image-bg {
 	background-image: url(../images/why.jpg);
 	background-size: contain; 
@@ -428,7 +428,7 @@ header {
 	background-color: #FFF; 
 }
 
-/* ===================================== Gallery Style  ================================== */
+/*  Gallery Style   */
 .gallery-filter {
 	width: 100%;
 	text-align: center; 
@@ -493,7 +493,7 @@ header {
 	margin-bottom: 30px; 
  }
 
-/* ===================================== Footer CSS ================================== */
+/*  Footer CSS  */
 .footer {
 	padding: 80px 50px;
 	padding: 30px;
