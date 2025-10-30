@@ -96,8 +96,8 @@ Full-Stack-Medical-Inventory-Management-System-Directory-Structure/
 │   │   ├── login.html                  		# Login / Landing page
 │   │   ├── dashboard.html
 │   │   ├── inventory.html
-│   │   ├── suppliers.htm
-│   │   ├── stock.htm
+│   │   ├── suppliers.html
+│   │   ├── stock.html
 │   │   └── purchase.html
 │   │
 │   ├── .env                                    # environment variables (for devs, optional)
